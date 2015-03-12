@@ -3,8 +3,10 @@ package controllers;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
@@ -34,6 +36,9 @@ public class Application extends Controller {
 
     public static Result index() {
         String output = "";
+        String accessToken = null;
+
+        String dashboardId = "00OG0000004AjNN";
         ENVIRONMENT = (System.getenv().get("IS_LIVE").equals("1") ? "_LIVE" : "_TEST");
 
         String token = requestAccessToken();
@@ -41,15 +46,19 @@ public class Application extends Controller {
         JSONTokener jt = new JSONTokener(token);
         try {
             JSONObject jo = new JSONObject(jt);
-            output = (String)jo.get("access_token");
+            accessToken = (String)jo.get("access_token");
         } catch (JSONException je) {
             output = "Error parsing JSON.";
         }
 
+        if (accessToken != null) {
+            output = getDashboard(dashboardId, accessToken);
+        }
 
         return ok(index.render(output));
     }
 
+    // Methods to handle initial connection to salesforce
     private static String requestAccessToken() {
         StringBuilder response = new StringBuilder();
         final String tokenURL = System.getenv().get("TOKEN_URL" + ENVIRONMENT);
@@ -159,5 +168,46 @@ public class Application extends Controller {
             System.err.println(e.getMessage());
             return null;
         }
+    }
+
+    // Methods to handle gets from salesforce
+    private static String getDashboard(String dashboardId, String accessToken) {
+        String result;
+        StringBuilder response = new StringBuilder();
+
+        HttpClient client = HttpClientBuilder.create().build();
+
+        String sfURI = "https://interlochen--uat.cs10.my.salesforce.com";
+        String dashboardPath = "/services/data/v31.0/analytics/dashboards/";
+
+        HttpGet get = new HttpGet(sfURI + dashboardPath + dashboardId);
+        get.addHeader("Authorization", "Bearer " + accessToken);
+        get.addHeader("Content-Type","application/x-www-form-urlencoded");
+        get.addHeader("User-Agent", "Mozilla/5.0");
+        get.addHeader("Accept-Language", "en-US,en;q=0.5");
+
+        try {
+            HttpResponse resp = client.execute(get);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(resp.getEntity().getContent())
+            );
+
+            String inputLine;
+
+            while((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            in.close();
+
+            result = response.toString();
+        } catch (ClientProtocolException cpe) {
+            result = "ClientProtocolException Error";
+        } catch (IOException ioe) {
+            result = "IOException Error";
+        }
+
+
+        return result;
     }
 }
