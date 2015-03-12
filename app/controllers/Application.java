@@ -38,7 +38,7 @@ public class Application extends Controller {
         String output = "";
         String accessToken = null;
 
-        String dashboardId = "01ZJ00000000MNB";
+        String dashboardId = "01ZJ00000000MNBMA2";
         ENVIRONMENT = (System.getenv().get("IS_LIVE").equals("1") ? "_LIVE" : "_TEST");
 
         String token = requestAccessToken();
@@ -52,7 +52,8 @@ public class Application extends Controller {
         }
 
         if (accessToken != null) {
-            output = getDashboard(dashboardId, accessToken);
+            output = "Dashboards:</br />" + getDashboard("", accessToken) + "<br /><br />";
+            output += "============<br />" + getDashboard(dashboardId, accessToken);
         }
 
         return ok(index.render(output));
