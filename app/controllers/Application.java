@@ -34,7 +34,7 @@ public class Application extends Controller {
 
         String token = requestAccessToken();
 
-        return ok(index.render(token));
+        return ok(index.render("TESTING"));
     }
 
     private static String requestAccessToken() {
