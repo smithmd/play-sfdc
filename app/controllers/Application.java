@@ -38,7 +38,7 @@ public class Application extends Controller {
         String output = "";
         String accessToken = null;
 
-        String dashboardId = "00OG0000004AjNN";
+        String dashboardId = "01ZJ00000000MNBMA2";
         ENVIRONMENT = (System.getenv().get("IS_LIVE").equals("1") ? "_LIVE" : "_TEST");
 
         String token = requestAccessToken();
@@ -178,9 +178,9 @@ public class Application extends Controller {
         HttpClient client = HttpClientBuilder.create().build();
 
         String sfURI = "https://interlochen--uat.cs10.my.salesforce.com";
-        String dashboardPath = "/services/data/v31.0/analytics/dashboards";
+        String dashboardPath = "/services/data/v31.0/analytics/dashboards/";
 
-        HttpGet get = new HttpGet(sfURI + dashboardPath);
+        HttpGet get = new HttpGet(sfURI + dashboardPath + dashboardId);
         get.addHeader("Authorization", "Bearer " + accessToken);
         get.addHeader("Content-Type","application/x-www-form-urlencoded");
         get.addHeader("User-Agent", "Mozilla/5.0");
