@@ -1,7 +1,7 @@
-@(message: String)
+@(json: String)
 
-@main("Welcome to Play") {
+@main("Welcome to Play", @json) {
 
-    <div>@message</div>
+    <div>@json</div>
 
 }
