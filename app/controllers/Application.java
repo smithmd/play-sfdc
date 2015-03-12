@@ -8,6 +8,9 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import play.*;
 import play.mvc.*;
 
@@ -30,11 +33,21 @@ public class Application extends Controller {
     private static String ENVIRONMENT = "_TEST";
 
     public static Result index() {
+        String output = "";
         ENVIRONMENT = (System.getenv().get("IS_LIVE").equals("1") ? "_LIVE" : "_TEST");
 
         String token = requestAccessToken();
 
-        return ok(index.render("TESTING"));
+        JSONTokener jt = new JSONTokener(token);
+        try {
+            JSONObject jo = new JSONObject(jt);
+            output = (String)jo.get("access_token");
+        } catch (JSONException je) {
+            output = "Error parsing JSON.";
+        }
+
+
+        return ok(index.render(output));
     }
 
     private static String requestAccessToken() {
