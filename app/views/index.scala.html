@@ -1,7 +1,8 @@
-@(json: String)
+@(fullList: String, dashboard: String)
 
-@main("Welcome to Play", json) {
+@main("Welcome to Play", dashboard) {
 
-    <div>@json</div>
+    <div>@fullList</div>
+    <div>@dashboard</div>
 
 }

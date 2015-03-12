@@ -36,6 +36,7 @@ public class Application extends Controller {
 
     public static Result index() {
         String output = "";
+        String output2 = "";
         String accessToken = null;
 
         String dashboardId = "01ZG0000000SczBMAS";
@@ -52,11 +53,11 @@ public class Application extends Controller {
         }
 
         if (accessToken != null) {
-            output = "Dashboards:\n" + getDashboard("", accessToken) + "\n\n";
-            output += "============\n\n" + getDashboard(dashboardId, accessToken);
+            output = "Dashboards:<br />" + getDashboard("", accessToken) + "<br /><br />";
+            output2 = "Specific:<br />" + getDashboard(dashboardId, accessToken);
         }
 
-        return ok(index.render(output));
+        return ok(index.render(output,output2));
     }
 
     // Methods to handle initial connection to salesforce
