@@ -1,8 +1,10 @@
-@(fullList: String, dashboard: String)
+@(fullList: String, dashboard: String, dbId: String)
 
 @main("Welcome to Play", dashboard) {
-
+    <span>Dashboard List:</span>
     <div>@fullList</div>
+    <br />
+    <span>Single Dashboard: @dbId</span>
     <div>@dashboard</div>
 
 }

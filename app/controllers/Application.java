@@ -53,11 +53,11 @@ public class Application extends Controller {
         }
 
         if (accessToken != null) {
-            output = "Dashboards:<br />" + getDashboard("", accessToken) + "<br /><br />";
-            output2 = "Specific:<br />" + getDashboard(dashboardId, accessToken);
+            output = getDashboard("", accessToken);
+            output2 = getDashboard(dashboardId, accessToken);
         }
 
-        return ok(index.render(output,output2));
+        return ok(index.render(output,output2, dashboardId));
     }
 
     // Methods to handle initial connection to salesforce
