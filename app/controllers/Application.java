@@ -178,9 +178,9 @@ public class Application extends Controller {
         HttpClient client = HttpClientBuilder.create().build();
 
         String sfURI = "https://interlochen--uat.cs10.my.salesforce.com";
-        String dashboardPath = "/services/data/v31.0/analytics/dashboards/";
+        String dashboardPath = "/services/data/v31.0/analytics/dashboards";
 
-        HttpGet get = new HttpGet(sfURI + dashboardPath + dashboardId);
+        HttpGet get = new HttpGet(sfURI + dashboardPath);
         get.addHeader("Authorization", "Bearer " + accessToken);
         get.addHeader("Content-Type","application/x-www-form-urlencoded");
         get.addHeader("User-Agent", "Mozilla/5.0");
