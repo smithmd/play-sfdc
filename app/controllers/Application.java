@@ -58,7 +58,7 @@ public class Application extends Controller {
 
 
             // Add post data
-            List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+            List<NameValuePair> pairs = new ArrayList<>();
             pairs.add(new BasicNameValuePair("grant_type", grantType));
             pairs.add(new BasicNameValuePair("assertion", token));
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(pairs, StandardCharsets.UTF_8);
