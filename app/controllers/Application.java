@@ -38,7 +38,7 @@ public class Application extends Controller {
         String output = "";
         String accessToken = null;
 
-        String dashboardId = "01ZJ00000000MNBMA2";
+        String dashboardId = "01ZJ00000000MNB";
         ENVIRONMENT = (System.getenv().get("IS_LIVE").equals("1") ? "_LIVE" : "_TEST");
 
         String token = requestAccessToken();
