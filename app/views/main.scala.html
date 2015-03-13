@@ -22,11 +22,15 @@
 
                 data.addColumn('string', 'Type');
                 data.addColumn('number', 'Count');
-                data.addRows([
-                    ['one', dashboard.componentData[0].reportResult.factMap['1_5!T'].aggregates[0].value],
-                    ['two', dashboard.componentData[0].reportResult.factMap['1_5!T'].aggregates[1].value],
-                    ['three',dashboard.componentData[0].reportResult.factMap['1_5!T'].aggregates[2].value]
-                ]);
+                data.addRows(function () {
+                    var rows = new Array();
+
+                    dashboard.componentData[0].reportResult.factMap.forEach( function(element, index, array) {
+                        console.log(index);
+                    });
+
+                    return rows;
+                });
 
                 var options = {'title':dashboard.dashboardMetadata.attributes.dashboardName,
                     'width':400,
