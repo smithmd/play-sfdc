@@ -7,11 +7,40 @@
         <title>@title</title>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script type="application/javascript" src="https://www.google.com/jsapi"></script>
         <script type="application/javascript">
-            var data = @Html(data);
+            var dashboard = @Html(data);
+
+            // Load the Visualization API and the piechart package
+            google.load('visualization', '1.0', {'packages':['corechart']});
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = new google.visualization.DataTable();
+
+                data.addColumn('string', 'Type');
+                data.addColumn('number', 'Count');
+                data.addRows([
+                    ['one', 2],
+                    ['two', 3],
+                    ['three',4]
+                ]);
+
+                var options = {'title':'Testing',
+                    'width':400,
+                    'height':300
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('chart'));
+                chart.draw(data, options);
+            }
+
         </script>
     </head>
     <body>
         @content
+        <div id="chart"></div>
     </body>
 </html>
