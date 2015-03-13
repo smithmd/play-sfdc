@@ -38,12 +38,15 @@
 
                 console.log(dashboard);
                 document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '  ');
+
+                document.getElementById('testArea' ).innerHTML = dashboard.componentData[0].reportResult.factMap.1_5!T.aggregates[0].value;
             }
 
         </script>
     </head>
     <body>
         <div id="chart"></div>
+        <div id="testArea"></div>
         <pre id="datadisplay"></pre>
     </body>
 </html>
