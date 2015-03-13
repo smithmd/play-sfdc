@@ -22,9 +22,17 @@
 
                 data.addColumn('string', 'Type');
                 data.addColumn('number', 'Count');
-                dashboard.componentData[0].reportResult.factMap.forEach( function(element, index, array) {
+
+                for (var element in dashboard.componentData[0].reportResult.factMap) {
+                    if (dashboard.componentData[0].reportResult.factMap.hasOwnProperty(element)) {
+                        console.log(element);
+                        data.addRows([element, dashboard.componentData[0].reportResult.factMap[element].aggregates[0].value]);
+                    }
+                }
+
+                forEach( function(element, index, array) {
                     console.log(index + ' : ' + element.aggregates[0].value);
-                    data.addRows([index, element.aggregates[0 ].value]);
+
                 });
 
                 var options = {'title':dashboard.dashboardMetadata.attributes.dashboardName,
