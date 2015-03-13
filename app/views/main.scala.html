@@ -27,7 +27,7 @@
                     if (dashboard.componentData[0].reportResult.factMap.hasOwnProperty(element)) {
                         console.log(element + " : " + dashboard.componentData[0].reportResult.factMap[element].aggregates[0].value);
                         var array = [element, dashboard.componentData[0].reportResult.factMap[element].aggregates[0].value];
-                        data.addRows(array);
+                        data.addRows([array]);
                     }
                 }
 
