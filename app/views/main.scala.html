@@ -37,13 +37,13 @@
                 chart.draw(data, options);
 
                 console.log(dashboard);
-                document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData);
+                document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '\t');
             }
 
         </script>
     </head>
     <body>
         <div id="chart"></div>
-        <div id="datadisplay"></div>
+        <pre id="datadisplay"></pre>
     </body>
 </html>
