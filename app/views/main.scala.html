@@ -25,8 +25,13 @@
                 data.addColumn('number', 'Count');
 
                 var columnLabels = new Array();
-                for (var agg in dashboard.componentData[0 ].reportResult.reportExtendedMetadata.aggregateColumnInfo) {
-                    columnLabels.push(agg);
+                for (var agg in dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo) {
+                    columnLabels.push(agg.label);
+                }
+
+                var groupings = new Array();
+                for (var group in dashboard.componentData[0].reportResult.groupingsDown.groupings) {
+                    groupings.push(group.label);
                 }
 
                 var factMap = dashboard.componentData[0].reportResult.factMap;
@@ -34,7 +39,7 @@
                     if (factMap.hasOwnProperty(element) && !element.contains('_')) {
                         for (var i = 0; i < factMap[element].aggregates.length; i++) {
                             console.log(element + " : " + factMap[element].aggregates[0].value);
-                            data.addRows([[columnLabels[i], factMap[element].aggregates[0].value]]);
+                            data.addRows([[groupings[i], columnLabels[i], factMap[element].aggregates[i].value]]);
                         }
                     }
                 }
