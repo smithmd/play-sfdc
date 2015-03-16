@@ -21,27 +21,26 @@
                 var data = new google.visualization.DataTable();
 //                var columnInfo = dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo[report.reportMetadata.aggregates[column]];
 
-                data.addColumn('string', 'Gift/Committed Date');
-                data.addColumn('number', 'Outright');
-                data.addColumn('number', 'Total');
 
-                var columnLabels = new Array();
-                for (var agg in dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo) {
-                    columnLabels.push(agg.label);
+
+                var columnLabels = [];
+                for (var i = 0; i < dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo.length; i++) {
+                    columnLabels.push(dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo[i].label);
                 }
 
-                var groupings = new Array();
-                for (var group in dashboard.componentData[0].reportResult.groupingsDown.groupings) {
-                    groupings.push(group.label);
+                var groupings = [];
+                for (var i = 0; i < dashboard.componentData[0].reportResult.groupingsDown.groupings.length; i++) {
+                    groupings.push(dashboard.componentData[0].reportResult.groupingsDown.groupings[i].label);
                 }
+
+                data.addColumn('string', columnLabels[0]);
+                data.addColumn('number', columnLabels[1]);
+                data.addColumn('number', columnLabels[2]);
 
                 var factMap = dashboard.componentData[0].reportResult.factMap;
                 for (var element in factMap) {
                     if (factMap.hasOwnProperty(element) && !element.contains('_')) {
-                        for (var i = 0; i < factMap[element].aggregates.length; i++) {
-                            console.log(element + " : " + factMap[element].aggregates[0].value);
-                            data.addRows([[groupings[i], columnLabels[i], factMap[element].aggregates[i].value]]);
-                        }
+                            data.addRows([[groupings[i], factMap[element].aggregates[1], factMap[element].aggregates[0].value]]);
                     }
                 }
 
