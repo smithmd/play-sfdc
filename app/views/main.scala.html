@@ -19,15 +19,23 @@
 
             function drawChart() {
                 var data = new google.visualization.DataTable();
+                var columnInfo = dashboard.reportExtendedMetadata.aggregateColumnInfo[report.reportMetadata.aggregates[column]];
 
                 data.addColumn('string', 'Type');
                 data.addColumn('number', 'Count');
 
-                for (var element in dashboard.componentData[0].reportResult.factMap) {
-                    if (dashboard.componentData[0].reportResult.factMap.hasOwnProperty(element)) {
-                        console.log(element + " : " + dashboard.componentData[0].reportResult.factMap[element].aggregates[0].value);
-                        var array = [element, dashboard.componentData[0].reportResult.factMap[element].aggregates[0].value];
-                        data.addRows([array]);
+                var columnLabels = new Array();
+                for (var agg in dashboard.componentData[0].reportExtendedMetadata.aggregateColumnInfo) {
+                    columnLabels.push(agg);
+                }
+
+                var factMap = dashboard.componentData[0].reportResult.factMap;
+                for (var element in factMap) {
+                    if (factMap.hasOwnProperty(element) && !element.contains('_')) {
+                        for (var i = 0; i < factMap[element].aggregates.length; i++) {
+                            console.log(element + " : " + factMap[element].aggregates[0].value);
+                            data.addRows([[columnLabels[i], factMap[element].aggregates[0].value]]);
+                        }
                     }
                 }
 
@@ -36,7 +44,7 @@
                     'height':300
                 };
 
-                var chart = new google.visualization.PieChart(document.getElementById('chart'));
+                var chart = new google.visualization.Table(document.getElementById('chart'));
                 chart.draw(data, options);
 
                 console.log(dashboard);
