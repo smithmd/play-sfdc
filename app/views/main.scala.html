@@ -24,8 +24,8 @@
 
 
                 var columnLabels = [];
-                for (var i = 0; i < dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo.length; i++) {
-                    columnLabels.push(dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo[i].label);
+                for (var agg in dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo) {
+                    columnLabels.push(agg.label);
                 }
 
                 var groupings = [];
