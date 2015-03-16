@@ -21,8 +21,9 @@
                 var data = new google.visualization.DataTable();
 //                var columnInfo = dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo[report.reportMetadata.aggregates[column]];
 
-                data.addColumn('string', 'Type');
-                data.addColumn('number', 'Count');
+                data.addColumn('string', 'Gift/Committed Date');
+                data.addColumn('number', 'Outright');
+                data.addColumn('number', 'Total');
 
                 var columnLabels = new Array();
                 for (var agg in dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo) {
