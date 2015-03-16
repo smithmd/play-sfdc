@@ -12,7 +12,7 @@
             var dashboard = @Html(data);
 
             // Load the Visualization API and the piechart package
-            google.load('visualization', '1.0', {'packages':['corechart']});
+            google.load('visualization', '1.0', {'packages':['table']});
 
             // Set a callback to run when the Google Visualization API is loaded.
             google.setOnLoadCallback(drawChart);
@@ -40,8 +40,7 @@
                 }
 
                 var options = {'title':dashboard.dashboardMetadata.attributes.dashboardName,
-                    'width':400,
-                    'height':300
+                    showRowNumber: false
                 };
 
                 var chart = new google.visualization.Table(document.getElementById('chart'));
