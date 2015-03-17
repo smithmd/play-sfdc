@@ -33,9 +33,9 @@
                     groupings.push(dashboard.componentData[0].reportResult.groupingsDown.groupings[i].label);
                 }
 
-                data.addColumn('string', columnLabels[0]);
+                data.addColumn('string', dashboard.componentData[0].reportResult.reportExtendedMetadata.groupingColumnInfo.Opportunity.Gift_Committed_Date__c.label);
                 data.addColumn('number', columnLabels[1]);
-                data.addColumn('number', columnLabels[2]);
+                data.addColumn('number', columnLabels[0]);
 
                 var factMap = dashboard.componentData[0].reportResult.factMap;
                 var count = 0;
