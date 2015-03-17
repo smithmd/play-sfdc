@@ -21,11 +21,11 @@
                 var data = new google.visualization.DataTable();
 //                var columnInfo = dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo[report.reportMetadata.aggregates[column]];
 
-
-
                 var columnLabels = [];
                 for (var agg in dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo) {
-                    columnLabels.push(agg.label);
+                    if (dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo.hasOwnProperty(agg)) {
+                        columnLabels.push(agg.label);
+                    }
                 }
 
                 var groupings = [];
@@ -40,7 +40,7 @@
                 var factMap = dashboard.componentData[0].reportResult.factMap;
                 for (var element in factMap) {
                     if (factMap.hasOwnProperty(element) && !element.contains('_')) {
-                            data.addRows([[groupings[i], factMap[element].aggregates[1], factMap[element].aggregates[0].value]]);
+                            data.addRows([[groupings[i], factMap[element].aggregates[1 ].value, factMap[element].aggregates[0].value]]);
                     }
                 }
 
