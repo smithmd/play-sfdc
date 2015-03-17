@@ -19,6 +19,7 @@
 
             function drawCharts() {
                 draw01aJ00000001tJTIAY();
+                draw01aJ00000001uqYIAQ();
             }
 
             function draw01aJ00000001tJTIAY() {
@@ -77,6 +78,65 @@
 
                 console.log(dashboard);
                 document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '  ');
+            }
+
+            function draw01aJ00000001uqYIAQ() {
+                // grabbing report to make code easier to read
+                var report;
+
+                dashboard.componentData.forEach(function (element, index, array) {
+                    if (element.componentId == '01aJ00000001uqYIAQ') {
+                        report = dashboard.componentData[index];
+                    }
+                });
+
+                // init google chart
+                var data = new google.visualization.DataTable();
+
+                var columnLabels = [];
+                for (var agg in report.reportResult.reportExtendedMetadata.aggregateColumnInfo) {
+                    if (report.reportResult.reportExtendedMetadata.aggregateColumnInfo.hasOwnProperty(agg)) {
+                        var index = agg.replace(/FORMULA/,'');
+                        columnLabels[index-1] = report.reportResult.reportExtendedMetadata.aggregateColumnInfo[agg].label;
+                    }
+                }
+
+                var groupings = [];
+                for (var i = 0; i < report.reportResult.groupingsDown.groupings.length; i++) {
+                    groupings.push(report.reportResult.groupingsDown.groupings[i].label);
+                }
+
+                data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo["Opportunity.Gift_Committed_Date__c"].label);
+                data.addColumn('number', columnLabels[1]);
+                data.addColumn('number', columnLabels[0]);
+
+                var factMap = report.reportResult.factMap;
+
+                for (var i = 0; i < groupings.length; i++) {
+                    data.addRows([[ groupings[i],
+                                    factMap[i + "!T"].aggregates[2].value / 1000000,
+                                    factMap[i + "!T"].aggregates[0].value / 1000000]]);
+                }
+
+                data.addRows([['', factMap["T!T"].aggregates[2].value / 1000000, factMap["T!T"].aggregates[0].value / 1000000]]);
+
+                var currency_formatter = new google.visualization.NumberFormat(
+                    {prefix: '$', suffix: 'M', pattern: '#,###.#'}
+                );
+                currency_formatter.format(data,1);
+                currency_formatter.format(data,2);
+
+                var options = {
+                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
+                    showRowNumber: false
+                };
+
+                var chart = new google.visualization.Table(document.getElementById('chart'));
+                chart.draw(data, options);
+
+                console.log(dashboard);
+                document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '  ');
+
             }
         </script>
     </head>
