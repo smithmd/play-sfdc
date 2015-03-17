@@ -24,7 +24,7 @@
                 for (var agg in dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo) {
                     if (dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo.hasOwnProperty(agg)) {
                         var index = agg.replace(/FORMULA/,'');
-                        columnLabels[index] = dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo[agg].label;
+                        columnLabels[index-1] = dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo[agg].label;
                     }
                 }
 
