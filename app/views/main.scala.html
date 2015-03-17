@@ -34,6 +34,18 @@
                 return report;
             }
 
+            function getColumnLabels(obj) {
+                var columnLabels = [];
+                for (var columnInfo in obj) {
+                    if (obj.hasOwnProperty(columnInfo)) {
+                        var index = columnInfo.replace(/FORMULA/,'');
+                        columnLabels[index-1] = obj[columnInfo].label;
+                    }
+                }
+
+                return columnLabels;
+            }
+
             function draw01aJ00000001tJTIAY() {
                 // grabbing report to make code easier to read
                 var report = getReport('01aJ00000001tJTIAY');
@@ -41,13 +53,7 @@
                 // init google chart
                 var data = new google.visualization.DataTable();
 
-                var columnLabels = [];
-                for (var agg in report.reportResult.reportExtendedMetadata.aggregateColumnInfo) {
-                    if (report.reportResult.reportExtendedMetadata.aggregateColumnInfo.hasOwnProperty(agg)) {
-                        var index = agg.replace(/FORMULA/,'');
-                        columnLabels[index-1] = report.reportResult.reportExtendedMetadata.aggregateColumnInfo[agg].label;
-                    }
-                }
+                var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
 
                 var groupings = [];
                 for (var i = 0; i < report.reportResult.groupingsDown.groupings.length; i++) {
@@ -93,13 +99,8 @@
                 // init google chart
                 var data = new google.visualization.DataTable();
 
-                var columnLabels = [];
-                for (var agg in report.reportResult.reportExtendedMetadata.aggregateColumnInfo) {
-                    if (report.reportResult.reportExtendedMetadata.aggregateColumnInfo.hasOwnProperty(agg)) {
-                        var index = agg.replace(/FORMULA/,'');
-                        columnLabels[index-1] = report.reportResult.reportExtendedMetadata.aggregateColumnInfo[agg].label;
-                    }
-                }
+                // grab column labels from report data
+                var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
 
                 var groupings = [];
                 for (var i = 0; i < report.reportResult.groupingsDown.groupings.length; i++) {
