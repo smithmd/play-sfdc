@@ -11,42 +11,47 @@
         <script type="application/javascript">
             var dashboard = @Html(data);
 
-            // Load the Visualization API and the piechart package
+            // Load the Visualization API and the required packages
             google.load('visualization', '1.0', {'packages':['table', 'corechart']});
 
             // Set a callback to run when the Google Visualization API is loaded.
             google.setOnLoadCallback(drawCharts);
 
             function drawCharts() {
+                draw01aJ00000001tJTIAY();
+            }
+
+            function draw01aJ00000001tJTIAY() {
+                // grabbing report to make code easier to read
+                var report;
+
+                dashboard.componentData.forEach(function (element, index, array) {
+                    if (element.componentId == '01aJ00000001tJTIAY') {
+                        report = dashboard.componentData[index];
+                    }
+                });
+
+                // init google chart
                 var data = new google.visualization.DataTable();
 
                 var columnLabels = [];
-                for (var agg in dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo) {
-                    if (dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo.hasOwnProperty(agg)) {
+                for (var agg in report.reportResult.reportExtendedMetadata.aggregateColumnInfo) {
+                    if (report.reportResult.reportExtendedMetadata.aggregateColumnInfo.hasOwnProperty(agg)) {
                         var index = agg.replace(/FORMULA/,'');
-                        columnLabels[index-1] = dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo[agg].label;
+                        columnLabels[index-1] = report.reportResult.reportExtendedMetadata.aggregateColumnInfo[agg].label;
                     }
                 }
 
-
-
                 var groupings = [];
-                for (var i = 0; i < dashboard.componentData[0].reportResult.groupingsDown.groupings.length; i++) {
-                    groupings.push(dashboard.componentData[0].reportResult.groupingsDown.groupings[i].label);
+                for (var i = 0; i < report.reportResult.groupingsDown.groupings.length; i++) {
+                    groupings.push(report.reportResult.groupingsDown.groupings[i].label);
                 }
 
-                data.addColumn('string', dashboard.componentData[0].reportResult.reportExtendedMetadata.groupingColumnInfo["Opportunity.Gift_Committed_Date__c"].label);
+                data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo["Opportunity.Gift_Committed_Date__c"].label);
                 data.addColumn('number', columnLabels[1]);
                 data.addColumn('number', columnLabels[0]);
 
-                var factMap = dashboard.componentData[0].reportResult.factMap;
-//                var count = 0;
-//                for (var element in factMap) {
-//                    if (factMap.hasOwnProperty(element) && !element.contains('_')) {
-//                            data.addRows([[groupings[count++], factMap[element].aggregates[1].value, factMap[element].aggregates[0].value]]);
-//                    }
-//                }
-
+                var factMap = report.reportResult.factMap;
 
                 for (var i = 0; i < groupings.length; i++) {
                     data.addRows([[ groupings[i],
@@ -62,7 +67,8 @@
                 currency_formatter.format(data,1);
                 currency_formatter.format(data,2);
 
-                var options = {'title':dashboard.dashboardMetadata.attributes.dashboardName,
+                var options = {
+                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
                     showRowNumber: false
                 };
 
@@ -72,7 +78,6 @@
                 console.log(dashboard);
                 document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '  ');
             }
-
         </script>
     </head>
     <body>
