@@ -38,12 +38,18 @@
                 data.addColumn('number', columnLabels[0]);
 
                 var factMap = dashboard.componentData[0].reportResult.factMap;
-                var count = 0;
-                for (var element in factMap) {
-                    if (factMap.hasOwnProperty(element) && !element.contains('_')) {
-                            data.addRows([[groupings[count++], factMap[element].aggregates[1].value, factMap[element].aggregates[0].value]]);
-                    }
+//                var count = 0;
+//                for (var element in factMap) {
+//                    if (factMap.hasOwnProperty(element) && !element.contains('_')) {
+//                            data.addRows([[groupings[count++], factMap[element].aggregates[1].value, factMap[element].aggregates[0].value]]);
+//                    }
+//                }
+
+                for (var i = 0; i < groupings.count-1; i++) {
+                    data.addRows([[groupings[i], factMap[i + "!T"].aggregates[1].value, factMap[element].aggregates[0].value]]);
                 }
+
+                data.addRows([[groupings[groupings.count-1], factMap["T!T"].aggregates[1].value, factMap[element].aggregates[0].value]]);
 
                 var options = {'title':dashboard.dashboardMetadata.attributes.dashboardName,
                     showRowNumber: false
