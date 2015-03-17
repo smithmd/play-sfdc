@@ -22,15 +22,21 @@
                 draw01aJ00000001uqYIAQ();
             }
 
-            function draw01aJ00000001tJTIAY() {
-                // grabbing report to make code easier to read
-                var report;
+            function getReport(report_id) {
+                var report = null;
 
                 dashboard.componentData.forEach(function (element, index, array) {
-                    if (element.componentId == '01aJ00000001tJTIAY') {
+                    if (element.componentId == report_id) {
                         report = dashboard.componentData[index];
                     }
                 });
+
+                return report;
+            }
+
+            function draw01aJ00000001tJTIAY() {
+                // grabbing report to make code easier to read
+                var report = getReport('01aJ00000001tJTIAY');
 
                 // init google chart
                 var data = new google.visualization.DataTable();
@@ -82,13 +88,7 @@
 
             function draw01aJ00000001uqYIAQ() {
                 // grabbing report to make code easier to read
-                var report;
-
-                dashboard.componentData.forEach(function (element, index, array) {
-                    if (element.componentId == '01aJ00000001uqYIAQ') {
-                        report = dashboard.componentData[index];
-                    }
-                });
+                var report = getReport('01aJ00000001uqYIAQ');
 
                 // init google chart
                 var data = new google.visualization.DataTable();
