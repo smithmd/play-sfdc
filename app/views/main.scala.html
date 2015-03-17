@@ -24,7 +24,7 @@
                 var columnLabels = [];
                 for (var agg in dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo) {
                     if (dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo.hasOwnProperty(agg)) {
-                        columnLabels.push(agg.label);
+                        columnLabels.push(dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo[agg].label);
                     }
                 }
 
@@ -38,9 +38,10 @@
                 data.addColumn('number', columnLabels[2]);
 
                 var factMap = dashboard.componentData[0].reportResult.factMap;
+                var count = 0;
                 for (var element in factMap) {
                     if (factMap.hasOwnProperty(element) && !element.contains('_')) {
-                            data.addRows([[groupings[i], factMap[element].aggregates[1 ].value, factMap[element].aggregates[0].value]]);
+                            data.addRows([[groupings[count++], factMap[element].aggregates[1].value, factMap[element].aggregates[0].value]]);
                     }
                 }
 
