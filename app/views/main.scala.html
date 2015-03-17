@@ -46,6 +46,15 @@
                 return columnLabels;
             }
 
+            function getGroupings(arr) {
+                var groupings = [];
+                for (var i = 0; i < arr.length; i++) {
+                    groupings.push(arr[i].label);
+                }
+
+                return groupings;
+            }
+
             function draw01aJ00000001tJTIAY() {
                 // grabbing report to make code easier to read
                 var report = getReport('01aJ00000001tJTIAY');
@@ -55,10 +64,7 @@
 
                 var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
 
-                var groupings = [];
-                for (var i = 0; i < report.reportResult.groupingsDown.groupings.length; i++) {
-                    groupings.push(report.reportResult.groupingsDown.groupings[i].label);
-                }
+                var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
 
                 data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo["Opportunity.Gift_Committed_Date__c"].label);
                 data.addColumn('number', columnLabels[1]);
@@ -102,10 +108,7 @@
                 // grab column labels from report data
                 var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
 
-                var groupings = [];
-                for (var i = 0; i < report.reportResult.groupingsDown.groupings.length; i++) {
-                    groupings.push(report.reportResult.groupingsDown.groupings[i].label);
-                }
+                var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
 
                 data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo["Opportunity.Gift_Committed_Date__c"].label);
                 data.addColumn('number', columnLabels[1]);
