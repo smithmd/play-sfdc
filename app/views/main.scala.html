@@ -34,8 +34,8 @@
                 }
 
                 data.addColumn('string', dashboard.componentData[0].reportResult.reportExtendedMetadata.groupingColumnInfo["Opportunity.Gift_Committed_Date__c"].label);
-                data.addColumn('number', columnLabels[1]);
-                data.addColumn('number', columnLabels[0]);
+                data.addColumn('string', columnLabels[1]);
+                data.addColumn('string', columnLabels[0]);
 
                 var factMap = dashboard.componentData[0].reportResult.factMap;
 //                var count = 0;
@@ -46,7 +46,7 @@
 //                }
 
                 for (var i = 0; i < groupings.length; i++) {
-                    data.addRows([[groupings[i], {d: factMap[i + "!T"].aggregates[2].value, f: {pattern:'###,###,###.##' ,prefix:'$'}}, factMap[i + "!T"].aggregates[0].value]]);
+                    data.addRows([[groupings[i], {v: factMap[i + "!T"].aggregates[2].value, f: {pattern:'###,###,###.##' ,prefix:'$'}}, factMap[i + "!T"].aggregates[0].value]]);
                 }
 
                 data.addRows([['', factMap["T!T"].aggregates[2].value, factMap["T!T"].aggregates[0].value]]);
