@@ -45,11 +45,16 @@
 //                    }
 //                }
 
+                var currency_formatter = new google.visualization.NumberFormat( {prefix: '$'} );
+
                 for (var i = 0; i < groupings.length; i++) {
-                    data.addRows([[groupings[i], {v: factMap[i + "!T"].aggregates[2].value, f: '$###,###,###'}, factMap[i + "!T"].aggregates[0].value]]);
+                    data.addRows([[groupings[i], factMap[i + "!T"].aggregates[2].value, factMap[i + "!T"].aggregates[0].value]]);
                 }
 
-                data.addRows([['', {v: factMap["T!T"].aggregates[2].value, f: '$###,###,###'}, factMap["T!T"].aggregates[0].value]]);
+                data.addRows([['', factMap["T!T"].aggregates[2].value, factMap["T!T"].aggregates[0].value]]);
+
+                currency_formatter.format(data,1);
+                currency_formatter.format(data,2);
 
                 var options = {'title':dashboard.dashboardMetadata.attributes.dashboardName,
                     showRowNumber: false
