@@ -48,8 +48,8 @@
 
                 for (var i = 0; i < groupings.length; i++) {
                     data.addRows([[ groupings[i],
-                                    factMap[i + "!T"].aggregates[2].value,
-                                    factMap[i + "!T"].aggregates[0].value]]);
+                                    factMap[i + "!T"].aggregates[2].value / 1000000,
+                                    factMap[i + "!T"].aggregates[0].value / 1000000]]);
                 }
 
                 data.addRows([['', factMap["T!T"].aggregates[2].value / 1000000, factMap["T!T"].aggregates[0].value / 1000000]]);
