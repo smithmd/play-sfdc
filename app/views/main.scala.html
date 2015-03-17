@@ -15,11 +15,10 @@
             google.load('visualization', '1.0', {'packages':['table', 'corechart']});
 
             // Set a callback to run when the Google Visualization API is loaded.
-            google.setOnLoadCallback(drawChart);
+            google.setOnLoadCallback(drawCharts);
 
-            function drawChart() {
+            function drawCharts() {
                 var data = new google.visualization.DataTable();
-//                var columnInfo = dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo[report.reportMetadata.aggregates[column]];
 
                 var columnLabels = [];
                 for (var agg in dashboard.componentData[0].reportResult.reportExtendedMetadata.aggregateColumnInfo) {
@@ -69,8 +68,6 @@
 
                 console.log(dashboard);
                 document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '  ');
-
-                document.getElementById('testArea' ).innerHTML = dashboard.componentData[0].reportResult.factMap['1_5!T'].aggregates[0].value;
             }
 
         </script>
