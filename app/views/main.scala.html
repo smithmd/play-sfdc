@@ -1,4 +1,4 @@
-@(title: String, data: String)(content: Html)
+@(title: String, data: String, fullList: String)(content: Html)
 
 <!DOCTYPE html>
 
@@ -10,6 +10,8 @@
         <link rel="stylesheet" media="all" href="@routes.Assets.at("stylesheets/charts.css")">
         <script type="application/javascript" src="https://www.google.com/jsapi"></script>
         <script type="application/javascript">
+            var fullDBList = @Html(fullList);
+            console.log(fullDBList);
             var dashboard = @Html(data);
 
             // Load the Visualization API and the required packages
