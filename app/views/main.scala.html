@@ -49,11 +49,11 @@
             }
 
             function getReportByIndex(report_index) {
-                return dashboard.dashboardMetadata.components[report_index].header;
+                return dashboard.componentData[report_index];
             }
 
             function getReportTitleByIndex(report_index) {
-                return dashboard.dashboardMetadata.components[report_index]
+                return dashboard.dashboardMetadata.components[report_index].header;
             }
 
             function getColumnLabels(obj) {
