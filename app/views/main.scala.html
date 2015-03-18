@@ -27,6 +27,8 @@
                 draw01aJ00000001utIIAQ();
                 draw01aJ00000001uthIAA();
                 draw01aJ00000001utiIAA();
+                draw01aJ00000001utjIAA();
+                draw01aJ00000001utkIAA();
             }
 
             function getReportIndex(report_id) {
@@ -315,6 +317,90 @@
                 // set title
                 document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
             }
+
+            function draw01aJ00000001utjIAA() {
+                var report_id = '01aJ00000001utjIAA';
+
+                // grabbing report to make code easier to read
+                var report_index = getReportIndex(report_id);
+                var report = getReportByIndex(report_index);
+
+                var factMap = report.reportResult.factMap;
+
+                // init google chart
+                var data = new google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Total (Millions)', factMap["T!T"].aggregates[0].value / 1000000]
+                ]);
+
+                var currency_formatter = new google.visualization.NumberFormat(
+                    {prefix: '$', suffix: 'M', pattern: '#,###.##'}
+                );
+                currency_formatter.format(data,1);
+
+                var options = {
+                    width:400, height: 300,
+                    redFrom: 0, redTo: 8,
+                    yellowFrom:8, yellowTo:16,
+                    minorTicks: 3,
+                    majorTicks: ['0', 8, 16, 20],
+                    min:0,
+                    max:20,
+                    animation: {
+                        startup: true,
+                        duration: 500,
+                        easing: 'inAndOut'
+                    }
+                };
+
+                var chart = new google.visualization.Gauge(document.getElementById(report_id));
+                chart.draw(data, options);
+
+                // set title
+                document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
+            }
+
+            function draw01aJ00000001utkIAA() {
+                var report_id = '01aJ00000001utkIAA';
+
+                // grabbing report to make code easier to read
+                var report_index = getReportIndex(report_id);
+                var report = getReportByIndex(report_index);
+
+                var factMap = report.reportResult.factMap;
+
+                // init google chart
+                var data = new google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Total (Millions)', factMap["T!T"].aggregates[0].value / 1000000]
+                ]);
+
+                var currency_formatter = new google.visualization.NumberFormat(
+                    {prefix: '$', suffix: 'M', pattern: '#,###.##'}
+                );
+                currency_formatter.format(data,1);
+
+                var options = {
+                    width:400, height: 300,
+                    redFrom: 0, redTo: 8,
+                    yellowFrom:8, yellowTo:16,
+                    minorTicks: 3,
+                    majorTicks: ['0', 8, 16, 20],
+                    min:0,
+                    max:20,
+                    animation: {
+                        startup: true,
+                        duration: 500,
+                        easing: 'inAndOut'
+                    }
+                };
+
+                var chart = new google.visualization.Gauge(document.getElementById(report_id));
+                chart.draw(data, options);
+
+                // set title
+                document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
+            }
         </script>
     </head>
     <body>
@@ -342,8 +428,15 @@
                 <div class="chart" id="01aJ00000001utiIAA"></div>
             </fieldset>
         </div>
-        <div class="column"></div>
-        <div id="testArea"></div>
-        <pre id="datadisplay"></pre>
+        <div class="column">
+            <fieldset>
+                <legend id="title_01aJ00000001utjIAA"></legend>
+                <div class="chart" id="01aJ00000001utjIAA"></div>
+            </fieldset>
+            <fieldset>
+                <legend id="title_01aJ00000001utkIAA"></legend>
+                <div class="chart" id="01aJ00000001utkIAA"></div>
+            </fieldset>
+        </div>
     </body>
 </html>
