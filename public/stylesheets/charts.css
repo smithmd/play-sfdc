@@ -26,3 +26,8 @@ div.column {
 div.chart {
     border: 1px solid #ccc;
 }
+
+div.gauge {
+    margin: 0 auto;
+    width:300px;
+}
