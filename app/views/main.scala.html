@@ -222,58 +222,98 @@
                 document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
             }
 
+            function draw01aJ00000001uthIAA() {
+                var report_id = '01aJ00000001uthIAA';
 
+                // grabbing report to make code easier to read
+                var report_index = getReportIndex(report_id);
+                var report = getReportByIndex(report_index);
 
-        function draw01aJ00000001uthIAA() {
-            var report_id = '01aJ00000001uthIAA';
+                // get title by index
 
-            // grabbing report to make code easier to read
-            var report_index = getReportIndex(report_id);
-            var report = getReportByIndex(report_index);
+                // init google chart
+                var data = new google.visualization.DataTable();
 
-            // get title by index
+                // get column labels and groupings
+                var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
+                var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
 
-            // init google chart
-            var data = new google.visualization.DataTable();
+                data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo['CLOSE_DATE'].label);
+                data.addColumn('number', columnLabels[2]);
+                data.addColumn('number', columnLabels[0]);
+                data.addColumn('number', columnLabels[1]);
 
-            // get column labels and groupings
-            var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
-            var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
+                var factMap = report.reportResult.factMap;
 
-            data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo['CLOSE_DATE'].label);
-            data.addColumn('number', columnLabels[2]);
-            data.addColumn('number', columnLabels[0]);
-            data.addColumn('number', columnLabels[1]);
+                for (var i = 0; i < groupings.length; i++) {
+                    data.addRows([[ groupings[i],
+                    factMap[i + "!T"].aggregates[3].value,
+                    factMap[i + "!T"].aggregates[1].value / 1000000,
+                    factMap[i + "!T"].aggregates[2].value / 1000000]]);
+                }
 
-            var factMap = report.reportResult.factMap;
+                data.addRows([['', factMap["T!T"].aggregates[3].value, factMap["T!T"].aggregates[1].value / 1000000, factMap["T!T"].aggregates[2].value / 1000000]]);
 
-            for (var i = 0; i < groupings.length; i++) {
-                data.addRows([[ groupings[i],
-                factMap[i + "!T"].aggregates[3].value,
-                factMap[i + "!T"].aggregates[1].value / 1000000,
-                factMap[i + "!T"].aggregates[2].value / 1000000]]);
+                var currency_formatter = new google.visualization.NumberFormat(
+                    {prefix: '$', suffix: 'M', pattern: '#,###.#'}
+                );
+                currency_formatter.format(data,2);
+                currency_formatter.format(data,3);
+
+                var options = {
+                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
+                    showRowNumber: false,
+                    width:400
+                };
+
+                var chart = new google.visualization.Table(document.getElementById(report_id));
+                chart.draw(data, options);
+
+                // set title
+                document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
             }
 
-            data.addRows([['', factMap["T!T"].aggregates[3].value, factMap["T!T"].aggregates[1].value / 1000000, factMap["T!T"].aggregates[2].value / 1000000]]);
+            function draw01aJ00000001utiIAA() {
+                var report_id = '01aJ00000001utiIAA';
 
-            var currency_formatter = new google.visualization.NumberFormat(
-                {prefix: '$', suffix: 'M', pattern: '#,###.#'}
-            );
-            currency_formatter.format(data,2);
-            currency_formatter.format(data,3);
+                // grabbing report to make code easier to read
+                var report_index = getReportIndex(report_id);
+                var report = getReportByIndex(report_index);
 
-            var options = {
-                'title':dashboard.dashboardMetadata.attributes.dashboardName,
-                showRowNumber: false,
-                width:400
-            };
+                var factMap = report.reportResult.factMap;
 
-            var chart = new google.visualization.Table(document.getElementById(report_id));
-            chart.draw(data, options);
+                // init google chart
+                var data = new google.visualization.arrayToDataTable([
+                    ['Label', 'Value'],
+                    ['Total (Millions)', factMap["T!T"].aggregates[0].value / 1000000]
+                ]);
 
-            // set title
-            document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
-        }
+                var currency_formatter = new google.visualization.NumberFormat(
+                    {prefix: '$', suffix: 'M', pattern: '#,###.##'}
+                );
+                currency_formatter.format(data,1);
+
+                var options = {
+                    width:400, height: 300,
+                    redFrom: 0, redTo: 8,
+                    yellowFrom:8, yellowTo:16,
+                    minorTicks: 3,
+                    majorTicks: ['0', 8, 16, 20],
+                    min:0,
+                    max:75,
+                    animation: {
+                        startup: true,
+                        duration: 500,
+                        easing: 'inAndOut'
+                    }
+                };
+
+                var chart = new google.visualization.Gauge(document.getElementById(report_id));
+                chart.draw(data, options);
+
+                // set title
+                document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
+            }
         </script>
     </head>
     <body>
@@ -295,6 +335,10 @@
             <fieldset>
                 <legend id="title_01aJ00000001uthIAA"></legend>
                 <div class="chart" id="01aJ00000001uthIAA"></div>
+            </fieldset>
+            <fieldset>
+                <legend id="title_01aJ00000001utiIAA"></legend>
+                <div class="chart" id="01aJ00000001utiIAA"></div>
             </fieldset>
         </div>
         <div class="column"></div>
