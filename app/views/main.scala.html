@@ -18,21 +18,42 @@
             google.setOnLoadCallback(drawCharts);
 
             function drawCharts() {
+                console.log(dashboard);
                 draw01aJ00000001tJTIAY();
                 draw01aJ00000001uqYIAQ();
                 draw01aJ00000001utIIAQ();
             }
 
+            function getReportIndex(report_id) {
+                var report_index = -1;
+
+                dashboard.componentData.forEach(function (element, index) {
+                    if (element.componentId == report_id) {
+                        report_index = index;
+                    }
+                });
+
+                return report_index;
+            }
+
             function getReport(report_id) {
                 var report = null;
 
-                dashboard.componentData.forEach(function (element, index, array) {
+                dashboard.componentData.forEach(function (element, index) {
                     if (element.componentId == report_id) {
                         report = dashboard.componentData[index];
                     }
                 });
 
                 return report;
+            }
+
+            function getReportByIndex(report_index) {
+                return dashboard.components[report_index ].header;
+            }
+
+            function getReportTitleByIndex(report_index) {
+                return dashboard.dashboardMetadata.components[report_index]
             }
 
             function getColumnLabels(obj) {
@@ -57,8 +78,11 @@
             }
 
             function draw01aJ00000001tJTIAY() {
+                var report_id = '01aJ00000001tJTIAY';
+
                 // grabbing report to make code easier to read
-                var report = getReport('01aJ00000001tJTIAY');
+                var report_index = getReportIndex(report_id);
+                var report = getReportByIndex(report_index);
 
                 // init google chart
                 var data = new google.visualization.DataTable();
@@ -92,16 +116,19 @@
                     showRowNumber: false
                 };
 
-                var chart = new google.visualization.Table(document.getElementById('01aJ00000001tJTIAY'));
+                var chart = new google.visualization.Table(document.getElementById(report_id));
                 chart.draw(data, options);
 
-                console.log(dashboard);
-                document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '  ');
+                // set title
+                document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
             }
 
             function draw01aJ00000001uqYIAQ() {
+                var report_id = '01aJ00000001uqYIAQ';
+
                 // grabbing report to make code easier to read
-                var report = getReport('01aJ00000001uqYIAQ');
+                var report_index = getReportIndex(report_id);
+                var report = getReportByIndex(report_index);
 
 
                 var factMap = report.reportResult.factMap;
@@ -134,19 +161,21 @@
                     }
                 };
 
-                var chart = new google.visualization.Gauge(document.getElementById('01aJ00000001uqYIAQ'));
+                var chart = new google.visualization.Gauge(document.getElementById(report_id));
                 chart.draw(data, options);
 
-                console.log(dashboard);
-                document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '  ');
-
+                // set title
+                document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
             }
 
-
-
             function draw01aJ00000001utIIAQ() {
+                var report_id = '01aJ00000001utIIAQ';
+
                 // grabbing report to make code easier to read
-                var report = getReport('01aJ00000001utIIAQ');
+                var report_index = getReportIndex(report_id);
+                var report = getReportByIndex(report_index);
+
+                // get title by index
 
                 // init google chart
                 var data = new google.visualization.DataTable();
@@ -180,17 +209,20 @@
                     showRowNumber: false
                 };
 
-                var chart = new google.visualization.Table(document.getElementById('01aJ00000001utIIAQ'));
+                var chart = new google.visualization.Table(document.getElementById(report_id));
                 chart.draw(data, options);
 
-                console.log(dashboard);
-                document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '  ');
+                // set title
+                document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
             }
         </script>
     </head>
     <body>
+        <span id="title_01aJ00000001tJTIAY"></span>
         <div id="01aJ00000001tJTIAY"></div>
+        <span id="title_01aJ00000001utIIAQ"></span>
         <div id="01aJ00000001utIIAQ"></div>
+        <span id="title_01aJ00000001uqYIAQ"></span>
         <div id="01aJ00000001uqYIAQ"></div>
         <div id="testArea"></div>
         <pre id="datadisplay"></pre>
