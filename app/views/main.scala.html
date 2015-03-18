@@ -238,25 +238,27 @@
             var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
             var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
 
-            data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo['FK_cv__Designation__c.Fund_Category_for_THE_Campaign__c'].label);
+            data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo['CLOSE_DATE'].label);
             data.addColumn('number', columnLabels[2]);
             data.addColumn('number', columnLabels[0]);
+            data.addColumn('number', columnLabels[1]);
 
             var factMap = report.reportResult.factMap;
 
             for (var i = 0; i < groupings.length; i++) {
-            data.addRows([[ groupings[i],
-            factMap[i + "!T"].aggregates[2].value / 1000000,
-            factMap[i + "!T"].aggregates[0].value / 1000000]]);
+                data.addRows([[ groupings[i],
+                factMap[i + "!T"].aggregates[2].value,
+                factMap[i + "!T"].aggregates[0].value / 1000000,
+                factMap[i + "!T"].aggregates[1].value / 1000000]]);
             }
 
-            data.addRows([['', factMap["T!T"].aggregates[2].value / 1000000, factMap["T!T"].aggregates[0].value / 1000000]]);
+            data.addRows([['', factMap["T!T"].aggregates[2].value, factMap["T!T"].aggregates[0].value / 1000000, factMap["T!T"].aggregates[1].value / 1000000]]);
 
             var currency_formatter = new google.visualization.NumberFormat(
             {prefix: '$', suffix: 'M', pattern: '#,###.#'}
             );
-            currency_formatter.format(data,1);
             currency_formatter.format(data,2);
+            currency_formatter.format(data,3);
 
             var options = {
             'title':dashboard.dashboardMetadata.attributes.dashboardName,
