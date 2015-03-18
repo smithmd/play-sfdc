@@ -1,0 +1,13 @@
+fieldset {
+    width:400px;
+    border:0;
+}
+
+legend {
+    display:block;
+}
+
+
+div {
+    width: 100%;
+}
