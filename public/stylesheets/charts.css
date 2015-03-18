@@ -16,7 +16,6 @@ legend {
 
 fieldset div {
     margin: 0 auto;
-    width:300px;
 }
 
 div.column {
@@ -28,4 +27,5 @@ div.chart {
 }
 
 div.gauge {
+    width:300px;
 }
