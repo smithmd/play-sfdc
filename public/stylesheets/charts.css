@@ -23,3 +23,7 @@ div.column {
     margin-left:10px;
     float:left;
 }
+
+div.chart {
+    border: 1px solid #ccc;
+}
