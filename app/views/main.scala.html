@@ -12,7 +12,7 @@
             var dashboard = @Html(data);
 
             // Load the Visualization API and the required packages
-            google.load('visualization', '1.0', {'packages':['table', 'corechart']});
+            google.load('visualization', '1.0', {'packages':['table', 'corechart', 'gauge']});
 
             // Set a callback to run when the Google Visualization API is loaded.
             google.setOnLoadCallback(drawCharts);
@@ -102,37 +102,26 @@
                 // grabbing report to make code easier to read
                 var report = getReport('01aJ00000001uqYIAQ');
 
-                // init google chart
-                var data = new google.visualization.DataTable();
-
-                // grab column labels from report data
-                var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
-
-                var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
-
-                data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo["Opportunity.Gift_Committed_Date__c"].label);
-                data.addColumn('number', columnLabels[1]);
-                data.addColumn('number', columnLabels[0]);
 
                 var factMap = report.reportResult.factMap;
 
-                for (var i = 0; i < groupings.length; i++) {
-                    data.addRows([[ groupings[i],
-                                    factMap[i + "!T"].aggregates[2].value / 1000000,
-                                    factMap[i + "!T"].aggregates[0].value / 1000000]]);
-                }
-
-                data.addRows([['', factMap["T!T"].aggregates[2].value / 1000000, factMap["T!T"].aggregates[0].value / 1000000]]);
+                // init google chart
+                var data = new google.visualization.arrayToDataTable(
+                    [
+                        ['Total (Millions)', factMap["T!T"].aggregates[0].value]
+                    ]
+                );
 
                 var currency_formatter = new google.visualization.NumberFormat(
-                    {prefix: '$', suffix: 'M', pattern: '#,###.#'}
+                    {prefix: '$', suffix: 'M', pattern: '#,###.##'}
                 );
                 currency_formatter.format(data,1);
-                currency_formatter.format(data,2);
 
                 var options = {
-                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
-                    showRowNumber: false
+                    width:400, height: 300,
+                    redFrom: 0, redTo: 25,
+                    yellowFrom:25, yellowTo:50,
+                    minorTicks: 25
                 };
 
                 var chart = new google.visualization.Table(document.getElementById('01aJ00000001uqYIAQ'));
