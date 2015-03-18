@@ -140,11 +140,57 @@
                 document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '  ');
 
             }
+
+
+
+            function draw01aJ00000001utIIAQ() {
+                // grabbing report to make code easier to read
+                var report = getReport('01aJ00000001utIIAQ');
+
+                // init google chart
+                var data = new google.visualization.DataTable();
+
+                // get column labels and groupings
+                var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
+                var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
+
+                data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo["Opportunity.Gift_Committed_Date__c"].label);
+                data.addColumn('number', columnLabels[1]);
+                data.addColumn('number', columnLabels[0]);
+
+                var factMap = report.reportResult.factMap;
+
+                for (var i = 0; i < groupings.length; i++) {
+                    data.addRows([[ groupings[i],
+                    factMap[i + "!T"].aggregates[2].value / 1000000,
+                    factMap[i + "!T"].aggregates[0].value / 1000000]]);
+                }
+
+                data.addRows([['', factMap["T!T"].aggregates[2].value / 1000000, factMap["T!T"].aggregates[0].value / 1000000]]);
+
+                var currency_formatter = new google.visualization.NumberFormat(
+                    {prefix: '$', suffix: 'M', pattern: '#,###.#'}
+                );
+                currency_formatter.format(data,1);
+                currency_formatter.format(data,2);
+
+                var options = {
+                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
+                    showRowNumber: false
+                };
+
+                var chart = new google.visualization.Table(document.getElementById('01aJ00000001tJTIAY'));
+                chart.draw(data, options);
+
+                console.log(dashboard);
+                document.getElementById('datadisplay' ).innerHTML = JSON.stringify(dashboard.componentData, null, '  ');
+            }
         </script>
     </head>
     <body>
         <div id="01aJ00000001tJTIAY"></div>
         <div id="01aJ00000001uqYIAQ"></div>
+        <div id="01aJ00000001utIIAQ"></div>
         <div id="testArea"></div>
         <pre id="datadisplay"></pre>
     </body>
