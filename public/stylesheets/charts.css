@@ -20,5 +20,6 @@ fieldset div {
 }
 
 div.column {
-    width:400px;
+    margin-left:10px;
+    float:left;
 }
