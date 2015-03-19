@@ -156,11 +156,11 @@
                     var factMap = report.reportResult.factMap ;
 
                     return {
-                        "title" : getReportTitleByIndex ( report_index ),
-                        "subtitle" : "Total (Millions)",
-                    "measures" :[ factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ],
-                    "ranges" :[ 25, 50, 75 ],
-                        "markers" :[ ]
+                        "title"     : getReportTitleByIndex ( report_index ),
+                        "subtitle"  : "Total (Millions)",
+                        "measures"  : [ factMap["T!T"].aggregates[0].value / 1000000 ],
+                        "ranges"    : [ 25, 50, 75 ],
+                        "markers"   : [ 75 ]
                     };
                 }
 
