@@ -1,4 +1,4 @@
-@(title: String, data: String, fullList: String)(content: Html)
+@(fullList: String, data: String, title: String)
 
 <!DOCTYPE html>
 
@@ -8,8 +8,11 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <link rel="stylesheet" media="all" href="@routes.Assets.at("stylesheets/charts.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/nv.d3.css")">
+        <script type="application/javascript" src="@routes.Assets.at("javascripts/d3.min.js")"></script>
+        <script type="application/javascript" src="@routes.Assets.at("javascripts/nv.d3.js")"></script>
         <script type="application/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="application/javascript">
+        <script type="text/javascript">
             @*var fullDBList = @Html(fullList);*@
             @*console.log(fullDBList);*@
             var dashboard = @Html(data);
@@ -21,6 +24,7 @@
             google.setOnLoadCallback(drawCharts);
 
             function drawCharts() {
+                // dashboard title: dashboard.dashboardMetadata.attributes.dashboardName
                 console.log(dashboard);
                 draw01aJ00000001tJTIAY();
                 draw01aJ00000001uqYIAQ();
@@ -119,7 +123,7 @@
                 currency_formatter.format(data,2);
 
                 var options = {
-                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
+                    'title':getReportTitleByIndex(report_index),
                     showRowNumber: false,
                     width:400
                 };
@@ -132,45 +136,36 @@
             }
 
             function draw01aJ00000001uqYIAQ() {
+
                 var report_id = '01aJ00000001uqYIAQ';
 
                 // grabbing report to make code easier to read
                 var report_index = getReportIndex(report_id);
                 var report = getReportByIndex(report_index);
 
+                nv.addGraph(function() {
+                    var chart = nv.models.bulletChart();
 
-                var factMap = report.reportResult.factMap;
+                    d3.select('#01aJ00000001uqYIAQ svg')
+                        .datum(getChartData())
+                        .transition( ).duration(1000)
+                        .call(chart);
 
-                // init google chart
-                var data = new google.visualization.arrayToDataTable(
-                    [
-                        ['Label', 'Value'],
-                        ['Total (Millions)', factMap["T!T"].aggregates[0].value / 1000000]
-                    ]
-                );
+                    return chart;
+                });
 
-                var currency_formatter = new google.visualization.NumberFormat(
-                    {prefix: '$', suffix: 'M', pattern: '#,###.##'}
-                );
-                currency_formatter.format(data,1);
+                function getChartData() {
 
-                var options = {
-                    width:400, height: 300,
-                    redFrom: 0, redTo: 25,
-                    yellowFrom:25, yellowTo:50,
-                    minorTicks: 3,
-                    majorTicks: ['0', 25, 50, 75],
-                    min:0,
-                    max:75,
-                    animation: {
-                        startup: true,
-                        duration: 500,
-                        easing: 'inAndOut'
-                    }
-                };
+                    var factMap = report.reportResult.factMap;
 
-                var chart = new google.visualization.Gauge(document.getElementById(report_id));
-                chart.draw(data, options);
+                    return {
+                        "title" : getReportTitleByIndex(report_index),
+                        "subtitle" : "Total (Millions)",
+                        "ranges" : [25,50,75],
+                        "measures" : [factMap["T!T"].aggregates[0].value / 1000000],
+                        "markers" : []
+                    };
+                }
 
                 // set title
                 document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
@@ -213,7 +208,7 @@
                 currency_formatter.format(data,2);
 
                 var options = {
-                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
+                    'title':getReportTitleByIndex(report_index)
                     showRowNumber: false,
                     width:400
                 };
@@ -264,7 +259,7 @@
                 currency_formatter.format(data,3);
 
                 var options = {
-                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
+                    'title':getReportTitleByIndex(report_index),
                     showRowNumber: false,
                     width:400
                 };

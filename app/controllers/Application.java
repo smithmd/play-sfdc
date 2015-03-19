@@ -39,7 +39,8 @@ public class Application extends Controller {
         String output2 = "";
         String accessToken = null;
 
-        // 01ZJ00000000MNBMA2
+        // 01ZJ00000000MNBMA2 - working
+        // 01ZJ00000000MbXMAU - not working
         String dashboardId = System.getenv().get("DASHBOARD_ID");
         ENVIRONMENT = (System.getenv().get("IS_LIVE").equals("1") ? "_LIVE" : "_TEST");
 
@@ -59,6 +60,34 @@ public class Application extends Controller {
         }
 
         return ok(index.render(output,output2, dashboardId));
+    }
+
+    public static Result nvindex() {
+        String dashboardList = "";
+        String dashboard = "";
+        String accessToken = null;
+
+        // 01ZJ00000000MNBMA2 - working
+        // 01ZJ00000000MbXMAU - not working
+        String dashboardId = System.getenv().get("DASHBOARD_ID");
+        ENVIRONMENT = (System.getenv().get("IS_LIVE").equals("1") ? "_LIVE" : "_TEST");
+
+        String token = requestAccessToken();
+
+        JSONTokener jt = new JSONTokener(token);
+        try {
+            JSONObject jo = new JSONObject(jt);
+            accessToken = (String)jo.get("access_token");
+        } catch (JSONException je) {
+            dashboardList = "Error parsing JSON.";
+        }
+
+        if (accessToken != null) {
+            dashboardList = getDashboard("", accessToken);
+            dashboard = getDashboard(dashboardId, accessToken);
+        }
+
+        return ok(index.render(dashboardList,dashboard, dashboardId));
     }
 
     // Methods to handle initial connection to salesforce
