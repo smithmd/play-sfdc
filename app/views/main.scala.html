@@ -8,11 +8,8 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <link rel="stylesheet" media="all" href="@routes.Assets.at("stylesheets/charts.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/nv.d3.css")">
-        <script type="application/javascript" src="@routes.Assets.at("javascripts/d3.min.js")"></script>
-        <script type="application/javascript" src="@routes.Assets.at("javascripts/nv.d3.js")"></script>
         <script type="application/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript">
+        <script type="application/javascript">
             @*var fullDBList = @Html(fullList);*@
             @*console.log(fullDBList);*@
             var dashboard = @Html(data);
@@ -24,7 +21,6 @@
             google.setOnLoadCallback(drawCharts);
 
             function drawCharts() {
-                // dashboard title: dashboard.dashboardMetadata.attributes.dashboardName
                 console.log(dashboard);
                 draw01aJ00000001tJTIAY();
                 draw01aJ00000001uqYIAQ();
@@ -123,7 +119,7 @@
                 currency_formatter.format(data,2);
 
                 var options = {
-                    'title':getReportTitleByIndex(report_index),
+                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
                     showRowNumber: false,
                     width:400
                 };
@@ -173,7 +169,8 @@
                     }
                 };
 
-                var chart = nv.addGra
+                var chart = new google.visualization.Gauge(document.getElementById(report_id));
+                chart.draw(data, options);
 
                 // set title
                 document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
@@ -216,7 +213,7 @@
                 currency_formatter.format(data,2);
 
                 var options = {
-                    'title':getReportTitleByIndex(report_index)
+                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
                     showRowNumber: false,
                     width:400
                 };
@@ -267,7 +264,7 @@
                 currency_formatter.format(data,3);
 
                 var options = {
-                    'title':getReportTitleByIndex(report_index),
+                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
                     showRowNumber: false,
                     width:400
                 };

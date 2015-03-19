@@ -10,384 +10,381 @@
         <link rel="stylesheet" media="all" href="@routes.Assets.at("stylesheets/charts.css")">
         <script type="application/javascript" src="https://www.google.com/jsapi"></script>
         <script type="application/javascript">
-            @*var fullDBList = @Html(fullList);*@
-            @*console.log(fullDBList);*@
-        var dashboard = @Html(data);
-
-        // Load the Visualization API and the required packages
-        google.load ( 'visualization', '1.0', { 'packages' :[ 'table', 'corechart', 'gauge' ] } ) ;
-
-        // Set a callback to run when the Google Visualization API is loaded.
-        google.setOnLoadCallback ( drawCharts ) ;
-
-        function drawCharts ( ) {
-        // dashboard title: dashboard.dashboardMetadata.attributes.dashboardName
-        console.log ( dashboard ) ;
-        draw01aJ00000001tJTIAY ( ) ;
-        draw01aJ00000001uqYIAQ ( ) ;
-        draw01aJ00000001utIIAQ ( ) ;
-        draw01aJ00000001uthIAA ( ) ;
-        draw01aJ00000001utiIAA ( ) ;
-        draw01aJ00000001utjIAA ( ) ;
-        draw01aJ00000001utkIAA ( ) ;
-        }
-
-        function getReportIndex ( report_id ) {
-        var report_index = - 1 ;
 
-        dashboard.componentData.forEach ( function ( element, index ) {
-        if ( element.componentId == report_id ) {
-        report_index = index ;
-        }
-        } ) ;
+            // Load the Visualization API and the required packages
+            google.load ( 'visualization', '1.0', { 'packages' :[ 'table', 'corechart', 'gauge' ] } ) ;
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.setOnLoadCallback ( drawCharts ) ;
+
+            function drawCharts ( ) {
+            // dashboard title: dashboard.dashboardMetadata.attributes.dashboardName
+            console.log ( dashboard ) ;
+            draw01aJ00000001tJTIAY ( ) ;
+            draw01aJ00000001uqYIAQ ( ) ;
+            draw01aJ00000001utIIAQ ( ) ;
+            draw01aJ00000001uthIAA ( ) ;
+            draw01aJ00000001utiIAA ( ) ;
+            draw01aJ00000001utjIAA ( ) ;
+            draw01aJ00000001utkIAA ( ) ;
+            }
+
+            function getReportIndex ( report_id ) {
+            var report_index = - 1 ;
 
-        return report_index ;
-        }
+            dashboard.componentData.forEach ( function ( element, index ) {
+            if ( element.componentId == report_id ) {
+            report_index = index ;
+            }
+            } ) ;
 
-        function getReport ( report_id ) {
-        var report = null ;
+            return report_index ;
+            }
 
-        dashboard.componentData.forEach ( function ( element, index ) {
-        if ( element.componentId == report_id ) {
-        report = dashboard.componentData[ index ] ;
-        }
-        } ) ;
+            function getReport ( report_id ) {
+            var report = null ;
 
-        return report ;
-        }
+            dashboard.componentData.forEach ( function ( element, index ) {
+            if ( element.componentId == report_id ) {
+            report = dashboard.componentData[ index ] ;
+            }
+            } ) ;
 
-        function getReportByIndex ( report_index ) {
-        return dashboard.componentData[ report_index ] ;
-        }
+            return report ;
+            }
 
-        function getReportTitleByIndex ( report_index ) {
-        return dashboard.dashboardMetadata.components[ report_index ].header ;
-        }
-
-        function getColumnLabels ( obj ) {
-        var columnLabels =[ ] ;
-        for ( var columnInfo in obj ) {
-        if ( obj.hasOwnProperty ( columnInfo ) ) {
-        var index = columnInfo.replace ( /FORMULA/, '' ) ;
-        columnLabels[ index - 1 ] = obj[ columnInfo ].label ;
-        }
-        }
+            function getReportByIndex ( report_index ) {
+            return dashboard.componentData[ report_index ] ;
+            }
 
-        return columnLabels ;
-        }
+            function getReportTitleByIndex ( report_index ) {
+            return dashboard.dashboardMetadata.components[ report_index ].header ;
+            }
 
-        function getGroupings ( arr ) {
-        var groupings =[ ] ;
-        for ( var i = 0 ; i < arr.length ; i ++ ) {
-        groupings.push ( arr[ i ].label ) ;
-        }
+            function getColumnLabels ( obj ) {
+            var columnLabels =[ ] ;
+            for ( var columnInfo in obj ) {
+            if ( obj.hasOwnProperty ( columnInfo ) ) {
+            var index = columnInfo.replace ( /FORMULA/, '' ) ;
+            columnLabels[ index - 1 ] = obj[ columnInfo ].label ;
+            }
+            }
 
-        return groupings ;
-        }
+            return columnLabels ;
+            }
 
-        function draw01aJ00000001tJTIAY ( ) {
-        var report_id = '01aJ00000001tJTIAY' ;
+            function getGroupings ( arr ) {
+            var groupings =[ ] ;
+            for ( var i = 0 ; i < arr.length ; i ++ ) {
+            groupings.push ( arr[ i ].label ) ;
+            }
 
-        // grabbing report to make code easier to read
-        var report_index = getReportIndex ( report_id ) ;
-        var report = getReportByIndex ( report_index ) ;
+            return groupings ;
+            }
 
-        // init google chart
-        var data = new google.visualization.DataTable ( ) ;
+            function draw01aJ00000001tJTIAY ( ) {
+            var report_id = '01aJ00000001tJTIAY' ;
 
-        var columnLabels = getColumnLabels ( report.reportResult.reportExtendedMetadata.aggregateColumnInfo ) ;
+            // grabbing report to make code easier to read
+            var report_index = getReportIndex ( report_id ) ;
+            var report = getReportByIndex ( report_index ) ;
 
-        var groupings = getGroupings ( report.reportResult.groupingsDown.groupings ) ;
+            // init google chart
+            var data = new google.visualization.DataTable ( ) ;
 
-        data.addColumn ( 'string', report.reportResult.reportExtendedMetadata.groupingColumnInfo[ "Opportunity.Gift_Committed_Date__c" ].label ) ;
-        data.addColumn ( 'number', columnLabels[ 2 ] ) ;
-        data.addColumn ( 'number', columnLabels[ 0 ] ) ;
+            var columnLabels = getColumnLabels ( report.reportResult.reportExtendedMetadata.aggregateColumnInfo ) ;
 
-        var factMap = report.reportResult.factMap ;
+            var groupings = getGroupings ( report.reportResult.groupingsDown.groupings ) ;
 
-        for ( var i = 0 ; i < groupings.length ; i ++ ) {
-        data.addRows ([[ groupings[ i ],
-        factMap[ i + "!T" ].aggregates[ 2 ].value / 1000000,
-        factMap[ i + "!T" ].aggregates[ 0 ].value / 1000000 ] ] ) ;
-        }
+            data.addColumn ( 'string', report.reportResult.reportExtendedMetadata.groupingColumnInfo[ "Opportunity.Gift_Committed_Date__c" ].label ) ;
+            data.addColumn ( 'number', columnLabels[ 2 ] ) ;
+            data.addColumn ( 'number', columnLabels[ 0 ] ) ;
 
-        data.addRows ([[ 'Total', factMap[ "T!T" ].aggregates[ 2 ].value / 1000000, factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ] ] ) ;
+            var factMap = report.reportResult.factMap ;
 
-        var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.#' }
-        ) ;
-        currency_formatter.format ( data, 1 ) ;
-        currency_formatter.format ( data, 2 ) ;
+            for ( var i = 0 ; i < groupings.length ; i ++ ) {
+            data.addRows ([[ groupings[ i ],
+            factMap[ i + "!T" ].aggregates[ 2 ].value / 1000000,
+            factMap[ i + "!T" ].aggregates[ 0 ].value / 1000000 ] ] ) ;
+            }
 
-        var options = {
-        'title' : getReportTitleByIndex ( report_index ),
-        showRowNumber : false,
-        width : 400
-        } ;
+            data.addRows ([[ 'Total', factMap[ "T!T" ].aggregates[ 2 ].value / 1000000, factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ] ] ) ;
 
-        var chart = new google.visualization.Table ( document.getElementById ( report_id ) ) ;
-        chart.draw ( data, options ) ;
+            var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.#' }
+            ) ;
+            currency_formatter.format ( data, 1 ) ;
+            currency_formatter.format ( data, 2 ) ;
 
-        // set title
-        document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
-        }
+            var options = {
+            'title' : getReportTitleByIndex ( report_index ),
+            showRowNumber : false,
+            width : 400
+            } ;
 
+            var chart = new google.visualization.Table ( document.getElementById ( report_id ) ) ;
+            chart.draw ( data, options ) ;
 
-        function draw01aJ00000001uqYIAQ ( ) {
+            // set title
+            document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
+            }
 
-        var report_id = '01aJ00000001uqYIAQ' ;
 
-        // grabbing report to make code easier to read
-        var report_index = getReportIndex ( report_id ) ;
-        var report = getReportByIndex ( report_index ) ;
+            function draw01aJ00000001uqYIAQ ( ) {
 
-        nv.addGraph ( function ( ) {
-        var chart = nv.models.bulletChart ( ) ;
+            var report_id = '01aJ00000001uqYIAQ' ;
 
-        d3.select ( '#01aJ00000001uqYIAQ svg' )
-        .datum ( getChartData ( ) )
-        .transition ( ).duration ( 1000 )
-        .call ( chart ) ;
+            // grabbing report to make code easier to read
+            var report_index = getReportIndex ( report_id ) ;
+            var report = getReportByIndex ( report_index ) ;
 
-        return chart ;
-        } ) ;
+            nv.addGraph ( function ( ) {
+            var chart = nv.models.bulletChart ( ) ;
 
-        function getChartData ( ) {
+            d3.select ( '#01aJ00000001uqYIAQ svg' )
+            .datum ( getChartData ( ) )
+            .transition ( ).duration ( 1000 )
+            .call ( chart ) ;
 
-        var factMap = report.reportResult.factMap ;
+            return chart ;
+            } ) ;
 
-        return {
-        "title" : getReportTitleByIndex ( report_index ),
-        "subtitle" : "Total (Millions)",
-        "ranges" :[ 25, 50, 75 ],
-        "measures" :[ factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ],
-        "markers" :[ ]
-        } ;
-        }
+            function getChartData ( ) {
 
-        // set title
-        document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
-        }
+            var factMap = report.reportResult.factMap ;
 
-        function draw01aJ00000001utIIAQ ( ) {
-        var report_id = '01aJ00000001utIIAQ' ;
+            return {
+            "title" : getReportTitleByIndex ( report_index ),
+            "subtitle" : "Total (Millions)",
+            "ranges" :[ 25, 50, 75 ],
+            "measures" :[ factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ],
+            "markers" :[ ]
+            } ;
+            }
 
-        // grabbing report to make code easier to read
-        var report_index = getReportIndex ( report_id ) ;
-        var report = getReportByIndex ( report_index ) ;
+            // set title
+            document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
+            }
 
-        // get title by index
+            function draw01aJ00000001utIIAQ ( ) {
+            var report_id = '01aJ00000001utIIAQ' ;
 
-        // init google chart
-        var data = new google.visualization.DataTable ( ) ;
+            // grabbing report to make code easier to read
+            var report_index = getReportIndex ( report_id ) ;
+            var report = getReportByIndex ( report_index ) ;
 
-        // get column labels and groupings
-        var columnLabels = getColumnLabels ( report.reportResult.reportExtendedMetadata.aggregateColumnInfo ) ;
-        var groupings = getGroupings ( report.reportResult.groupingsDown.groupings ) ;
+            // get title by index
 
-        data.addColumn ( 'string', report.reportResult.reportExtendedMetadata.groupingColumnInfo[ 'FK_cv__Designation__c.Fund_Category_for_THE_Campaign__c' ].label ) ;
-        data.addColumn ( 'number', columnLabels[ 2 ] ) ;
-        data.addColumn ( 'number', columnLabels[ 0 ] ) ;
+            // init google chart
+            var data = new google.visualization.DataTable ( ) ;
 
-        var factMap = report.reportResult.factMap ;
+            // get column labels and groupings
+            var columnLabels = getColumnLabels ( report.reportResult.reportExtendedMetadata.aggregateColumnInfo ) ;
+            var groupings = getGroupings ( report.reportResult.groupingsDown.groupings ) ;
 
-        for ( var i = 0 ; i < groupings.length ; i ++ ) {
-        data.addRows ([[ groupings[ i ],
-        factMap[ i + "!T" ].aggregates[ 2 ].value / 1000000,
-        factMap[ i + "!T" ].aggregates[ 0 ].value / 1000000 ] ] ) ;
-        }
+            data.addColumn ( 'string', report.reportResult.reportExtendedMetadata.groupingColumnInfo[ 'FK_cv__Designation__c.Fund_Category_for_THE_Campaign__c' ].label ) ;
+            data.addColumn ( 'number', columnLabels[ 2 ] ) ;
+            data.addColumn ( 'number', columnLabels[ 0 ] ) ;
 
-        data.addRows ([[ 'Total', factMap[ "T!T" ].aggregates[ 2 ].value / 1000000, factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ] ] ) ;
+            var factMap = report.reportResult.factMap ;
 
-        var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.#' }
-        ) ;
-        currency_formatter.format ( data, 1 ) ;
-        currency_formatter.format ( data, 2 ) ;
+            for ( var i = 0 ; i < groupings.length ; i ++ ) {
+            data.addRows ([[ groupings[ i ],
+            factMap[ i + "!T" ].aggregates[ 2 ].value / 1000000,
+            factMap[ i + "!T" ].aggregates[ 0 ].value / 1000000 ] ] ) ;
+            }
 
-        var options = {
-        'title' : getReportTitleByIndex ( report_index )
-        showRowNumber : false,
-        width : 400
-        } ;
+            data.addRows ([[ 'Total', factMap[ "T!T" ].aggregates[ 2 ].value / 1000000, factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ] ] ) ;
 
-        var chart = new google.visualization.Table ( document.getElementById ( report_id ) ) ;
-        chart.draw ( data, options ) ;
+            var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.#' }
+            ) ;
+            currency_formatter.format ( data, 1 ) ;
+            currency_formatter.format ( data, 2 ) ;
+
+            var options = {
+            'title' : getReportTitleByIndex ( report_index )
+            showRowNumber : false,
+            width : 400
+            } ;
 
-        // set title
-        document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
-        }
+            var chart = new google.visualization.Table ( document.getElementById ( report_id ) ) ;
+            chart.draw ( data, options ) ;
 
-        function draw01aJ00000001uthIAA ( ) {
-        var report_id = '01aJ00000001uthIAA' ;
+            // set title
+            document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
+            }
 
-        // grabbing report to make code easier to read
-        var report_index = getReportIndex ( report_id ) ;
-        var report = getReportByIndex ( report_index ) ;
+            function draw01aJ00000001uthIAA ( ) {
+            var report_id = '01aJ00000001uthIAA' ;
 
-        // get title by index
+            // grabbing report to make code easier to read
+            var report_index = getReportIndex ( report_id ) ;
+            var report = getReportByIndex ( report_index ) ;
 
-        // init google chart
-        var data = new google.visualization.DataTable ( ) ;
+            // get title by index
 
-        // get column labels and groupings
-        var columnLabels = getColumnLabels ( report.reportResult.reportExtendedMetadata.aggregateColumnInfo ) ;
-        var groupings = getGroupings ( report.reportResult.groupingsDown.groupings ) ;
+            // init google chart
+            var data = new google.visualization.DataTable ( ) ;
 
-        data.addColumn ( 'string', report.reportResult.reportExtendedMetadata.groupingColumnInfo[ 'CLOSE_DATE' ].label ) ;
-        data.addColumn ( 'number', columnLabels[ 2 ] ) ;
-        data.addColumn ( 'number', columnLabels[ 0 ] ) ;
-        data.addColumn ( 'number', columnLabels[ 1 ] ) ;
-
-        var factMap = report.reportResult.factMap ;
-
-        for ( var i = 0 ; i < groupings.length ; i ++ ) {
-        data.addRows ([[ groupings[ i ],
-        factMap[ i + "!T" ].aggregates[ 3 ].value,
-        factMap[ i + "!T" ].aggregates[ 1 ].value / 1000000,
-        factMap[ i + "!T" ].aggregates[ 2 ].value / 1000000 ] ] ) ;
-        }
-
-        data.addRows ([[ 'Total', factMap[ "T!T" ].aggregates[ 3 ].value, factMap[ "T!T" ].aggregates[ 1 ].value / 1000000, factMap[ "T!T" ].aggregates[ 2 ].value / 1000000 ] ] ) ;
-
-        var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.#' }
-        ) ;
-        currency_formatter.format ( data, 2 ) ;
-        currency_formatter.format ( data, 3 ) ;
-
-        var options = {
-        'title' : getReportTitleByIndex ( report_index ),
-        showRowNumber : false,
-        width : 400
-        } ;
-
-        var chart = new google.visualization.Table ( document.getElementById ( report_id ) ) ;
-        chart.draw ( data, options ) ;
-
-        // set title
-        document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
-        }
-
-        function draw01aJ00000001utiIAA ( ) {
-        var report_id = '01aJ00000001utiIAA' ;
-
-        // grabbing report to make code easier to read
-        var report_index = getReportIndex ( report_id ) ;
-        var report = getReportByIndex ( report_index ) ;
-
-        var factMap = report.reportResult.factMap ;
-
-        // init google chart
-        var data = new google.visualization.arrayToDataTable ([
-        [ 'Label', 'Value' ],
-        [ 'Total (Millions)', factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ]
-        ] ) ;
-
-        var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.##' }
-        ) ;
-        currency_formatter.format ( data, 1 ) ;
-
-        var options = {
-        width : 400, height : 300,
-        redFrom : 0, redTo : 8,
-        yellowFrom : 8, yellowTo : 16,
-        minorTicks : 3,
-        majorTicks :[ '0', 8, 16, 24 ],
-        min : 0,
-        max : 24,
-        animation : {
-        startup : true,
-        duration : 500,
-        easing : 'inAndOut'
-        }
-        } ;
-
-        var chart = new google.visualization.Gauge ( document.getElementById ( report_id ) ) ;
-        chart.draw ( data, options ) ;
-
-        // set title
-        document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
-        }
-
-        function draw01aJ00000001utjIAA ( ) {
-        var report_id = '01aJ00000001utjIAA' ;
-
-        // grabbing report to make code easier to read
-        var report_index = getReportIndex ( report_id ) ;
-        var report = getReportByIndex ( report_index ) ;
-
-        var factMap = report.reportResult.factMap ;
-
-        // init google chart
-        var data = new google.visualization.arrayToDataTable ([
-        [ 'Label', 'Value' ],
-        [ 'Total (Millions)', factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ]
-        ] ) ;
-
-        var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.##' }
-        ) ;
-        currency_formatter.format ( data, 1 ) ;
-
-        var options = {
-        width : 400, height : 300,
-        redFrom : 0, redTo : 1,
-        yellowFrom : 1, yellowTo : 2,
-        minorTicks : 3,
-        majorTicks :[ '0', 1, 2, 3 ],
-        min : 0,
-        max : 3,
-        animation : {
-        startup : true,
-        duration : 500,
-        easing : 'inAndOut'
-        }
-        } ;
-
-        var chart = new google.visualization.Gauge ( document.getElementById ( report_id ) ) ;
-        chart.draw ( data, options ) ;
-
-        // set title
-        document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
-        }
-
-        function draw01aJ00000001utkIAA ( ) {
-        var report_id = '01aJ00000001utkIAA' ;
-
-        // grabbing report to make code easier to read
-        var report_index = getReportIndex ( report_id ) ;
-        var report = getReportByIndex ( report_index ) ;
-
-        var factMap = report.reportResult.factMap ;
-
-        // init google chart
-        var data = new google.visualization.arrayToDataTable ([
-        [ 'Label', 'Value' ],
-        [ 'Total (Millions)', factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ]
-        ] ) ;
-
-        var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.##' }
-        ) ;
-        currency_formatter.format ( data, 1 ) ;
-
-        var options = {
-        width : 400, height : 300,
-        redFrom : 0, redTo : 1,
-        yellowFrom : 1, yellowTo : 2,
-        minorTicks : 3,
-        majorTicks :[ '0', 1, 2, 3 ],
-        min : 0,
-        max : 3,
-        animation : {
-        startup : true,
-        duration : 500,
-        easing : 'inAndOut'
-        }
-        } ;
-
-        var chart = new google.visualization.Gauge ( document.getElementById ( report_id ) ) ;
-        chart.draw ( data, options ) ;
-
-        // set title
-        document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
-        }
+            // get column labels and groupings
+            var columnLabels = getColumnLabels ( report.reportResult.reportExtendedMetadata.aggregateColumnInfo ) ;
+            var groupings = getGroupings ( report.reportResult.groupingsDown.groupings ) ;
+
+            data.addColumn ( 'string', report.reportResult.reportExtendedMetadata.groupingColumnInfo[ 'CLOSE_DATE' ].label ) ;
+            data.addColumn ( 'number', columnLabels[ 2 ] ) ;
+            data.addColumn ( 'number', columnLabels[ 0 ] ) ;
+            data.addColumn ( 'number', columnLabels[ 1 ] ) ;
+
+            var factMap = report.reportResult.factMap ;
+
+            for ( var i = 0 ; i < groupings.length ; i ++ ) {
+            data.addRows ([[ groupings[ i ],
+            factMap[ i + "!T" ].aggregates[ 3 ].value,
+            factMap[ i + "!T" ].aggregates[ 1 ].value / 1000000,
+            factMap[ i + "!T" ].aggregates[ 2 ].value / 1000000 ] ] ) ;
+            }
+
+            data.addRows ([[ 'Total', factMap[ "T!T" ].aggregates[ 3 ].value, factMap[ "T!T" ].aggregates[ 1 ].value / 1000000, factMap[ "T!T" ].aggregates[ 2 ].value / 1000000 ] ] ) ;
+
+            var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.#' }
+            ) ;
+            currency_formatter.format ( data, 2 ) ;
+            currency_formatter.format ( data, 3 ) ;
+
+            var options = {
+            'title' : getReportTitleByIndex ( report_index ),
+            showRowNumber : false,
+            width : 400
+            } ;
+
+            var chart = new google.visualization.Table ( document.getElementById ( report_id ) ) ;
+            chart.draw ( data, options ) ;
+
+            // set title
+            document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
+            }
+
+            function draw01aJ00000001utiIAA ( ) {
+            var report_id = '01aJ00000001utiIAA' ;
+
+            // grabbing report to make code easier to read
+            var report_index = getReportIndex ( report_id ) ;
+            var report = getReportByIndex ( report_index ) ;
+
+            var factMap = report.reportResult.factMap ;
+
+            // init google chart
+            var data = new google.visualization.arrayToDataTable ([
+            [ 'Label', 'Value' ],
+            [ 'Total (Millions)', factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ]
+            ] ) ;
+
+            var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.##' }
+            ) ;
+            currency_formatter.format ( data, 1 ) ;
+
+            var options = {
+            width : 400, height : 300,
+            redFrom : 0, redTo : 8,
+            yellowFrom : 8, yellowTo : 16,
+            minorTicks : 3,
+            majorTicks :[ '0', 8, 16, 24 ],
+            min : 0,
+            max : 24,
+            animation : {
+            startup : true,
+            duration : 500,
+            easing : 'inAndOut'
+            }
+            } ;
+
+            var chart = new google.visualization.Gauge ( document.getElementById ( report_id ) ) ;
+            chart.draw ( data, options ) ;
+
+            // set title
+            document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
+            }
+
+            function draw01aJ00000001utkIAA ( ) {
+            var report_id = '01aJ00000001utkIAA' ;
+
+            // grabbing report to make code easier to read
+            var report_index = getReportIndex ( report_id ) ;
+            var report = getReportByIndex ( report_index ) ;
+
+            var factMap = report.reportResult.factMap ;
+
+            // init google chart
+            var data = new google.visualization.arrayToDataTable ([
+            [ 'Label', 'Value' ],
+            [ 'Total (Millions)', factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ]
+            ] ) ;
+
+            var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.##' }
+            ) ;
+            currency_formatter.format ( data, 1 ) ;
+
+            var options = {
+            width : 400, height : 300,
+            redFrom : 0, redTo : 1,
+            yellowFrom : 1, yellowTo : 2,
+            minorTicks : 3,
+            majorTicks :[ '0', 1, 2, 3 ],
+            min : 0,
+            max : 3,
+            animation : {
+            startup : true,
+            duration : 500,
+            easing : 'inAndOut'
+            }
+            } ;
+
+            var chart = new google.visualization.Gauge ( document.getElementById ( report_id ) ) ;
+            chart.draw ( data, options ) ;
+
+            // set title
+            document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
+            }
+
+            function draw01aJ00000001utjIAA ( ) {
+            var report_id = '01aJ00000001utjIAA' ;
+
+            // grabbing report to make code easier to read
+            var report_index = getReportIndex ( report_id ) ;
+            var report = getReportByIndex ( report_index ) ;
+
+            var factMap = report.reportResult.factMap ;
+
+            // init google chart
+            var data = new google.visualization.arrayToDataTable ([
+            [ 'Label', 'Value' ],
+            [ 'Total (Millions)', factMap[ "T!T" ].aggregates[ 0 ].value / 1000000 ]
+            ] ) ;
+
+            var currency_formatter = new google.visualization.NumberFormat ( { prefix : '$', suffix : 'M', pattern : '#,###.##' }
+            ) ;
+            currency_formatter.format ( data, 1 ) ;
+
+            var options = {
+            width : 400, height : 300,
+            redFrom : 0, redTo : 1,
+            yellowFrom : 1, yellowTo : 2,
+            minorTicks : 3,
+            majorTicks :[ '0', 1, 2, 3 ],
+            min : 0,
+            max : 3,
+            animation : {
+            startup : true,
+            duration : 500,
+            easing : 'inAndOut'
+            }
+            } ;
+
+            var chart = new google.visualization.Gauge ( document.getElementById ( report_id ) ) ;
+            chart.draw ( data, options ) ;
+
+            // set title
+            document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
+            }
         </script>
     </head>
     <body>
