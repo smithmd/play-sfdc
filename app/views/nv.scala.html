@@ -144,10 +144,10 @@
                 nv.addGraph(function () {
                     var chart = nv.models.bulletChart ( ) ;
 
-                    d3.select ( '#01aJ00000001uqYIAQ svg' )
-                        .datum (getChartData())
-                        .transition().duration(1000)
-                        .call(chart) ;
+                    d3.select ( '#' + report_id + ' svg' )
+                    d3.datum (getChartData());
+                    d3.transition().duration(1000);
+                    d3.call(chart) ;
 
                     return chart;
                 });
