@@ -87,7 +87,7 @@ public class Application extends Controller {
             dashboard = getDashboard(dashboardId, accessToken);
         }
 
-        return ok(index.render(dashboardList,dashboard, dashboardId));
+        return ok(nv.render(dashboardId, dashboard, dashboardList));
     }
 
     // Methods to handle initial connection to salesforce
