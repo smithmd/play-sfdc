@@ -256,7 +256,7 @@
                 var report = getReportByIndex(report_index);
                 var factMap = report.reportResult.factMap;
 
-                var range_label_array = ['Goal', '', ''];
+                var range_label_array = ['Goal', null, null];
 
                 var report_metadata = getReportMetadataByIndex(report_index);
                 var range_array = [
@@ -266,13 +266,14 @@
                 ];
 
                 nv.addGraph(function () {
-                    var chart = nv.models.bulletChart ( ) ;
+                    var chart = nv.models.bulletChart();
 
                     d3.select ( '#chart_' + report_id + ' svg' )
                         .datum(getBulletChartData(factMap,'', range_array, range_label_array))
                         .attr("height", 60)
                         .transition().duration(1000)
-                        .call(chart) ;
+                        .call(chart)
+                        .xAxis.scale( ).domain([0,range_array[2]]);
 
                     return chart;
                 });
