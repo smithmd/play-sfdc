@@ -26,12 +26,13 @@
             function drawCharts() {
                 console.log(dashboard);
                 draw01aJ00000001tJTIAY();
-                draw01aJ00000001uqYIAQ();
                 draw01aJ00000001utIIAQ();
                 draw01aJ00000001uthIAA();
-                draw01aJ00000001utiIAA();
-                draw01aJ00000001utjIAA();
-                draw01aJ00000001utkIAA();
+
+                drawBullet('01aJ00000001uqYIAQ');
+                drawBullet('01aJ00000001utiIAA');
+                drawBullet('01aJ00000001utjIAA');
+                drawBullet('01aJ00000001utkIAA');
             }
 
             function getReportIndex(report_id) {
@@ -87,13 +88,14 @@
                 return groupings;
             }
 
-            function getBulletChartData(factMap, report_title) {
+            function getBulletChartData(factMap, report_title, range_label_array) {
                 return {
                     "title":report_title,
                     "subtitle":"Total (Millions)",
                     "ranges":[ 25, 50, 75 ],
                     "measures":[ (factMap["T!T"].aggregates[0].value / 1000000).toFixed(2) ],
-                    "markers":[]
+                    "markers":[],
+                    "rangeLabels":range_label_array
                 };
             }
 
@@ -153,11 +155,13 @@
                 var report = getReportByIndex(report_index);
                 var factMap = report.reportResult.factMap;
 
+                var range_label_array = ['','',''];
+
                 nv.addGraph(function () {
                     var chart = nv.models.bulletChart ( ) ;
 
                     d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getBulletChartData(factMap,''))
+                        .datum(getBulletChartData(factMap,'', range_label_array))
                         .transition().duration(1000)
                         .call(chart) ;
 
@@ -276,11 +280,13 @@
                 var report = getReportByIndex(report_index);
                 var factMap = report.reportResult.factMap;
 
+                var range_label_array = ['','',''];
+
                 nv.addGraph(function () {
                     var chart = nv.models.bulletChart ( ) ;
 
                     d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getBulletChartData(factMap,''))
+                        .datum(getBulletChartData(factMap,'', range_label_array))
                         .transition().duration(1000)
                         .call(chart) ;
 
@@ -299,11 +305,13 @@
                 var report = getReportByIndex(report_index);
                 var factMap = report.reportResult.factMap;
 
+                var range_label_array = ['','',''];
+
                 nv.addGraph(function () {
                     var chart = nv.models.bulletChart ( ) ;
 
                     d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getBulletChartData(factMap,''))
+                        .datum(getBulletChartData(factMap,'', range_label_array))
                         .transition().duration(1000)
                         .call(chart) ;
 
@@ -322,11 +330,36 @@
                 var report = getReportByIndex(report_index);
                 var factMap = report.reportResult.factMap;
 
+                var range_label_array = ['','',''];
+
                 nv.addGraph(function () {
                     var chart = nv.models.bulletChart ( ) ;
 
                     d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getBulletChartData(factMap,''))
+                        .datum(getBulletChartData(factMap,'', range_label_array))
+                        .transition().duration(1000)
+                        .call(chart) ;
+
+                    return chart;
+                });
+
+                // set title
+                document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
+            }
+
+            function drawBullet(report_id) {
+                // grabbing report to make code easier to read
+                var report_index = getReportIndex(report_id);
+                var report = getReportByIndex(report_index);
+                var factMap = report.reportResult.factMap;
+
+                var range_label_array = ['','',''];
+
+                nv.addGraph(function () {
+                    var chart = nv.models.bulletChart ( ) ;
+
+                    d3.select ( '#chart_' + report_id + ' svg' )
+                        .datum(getBulletChartData(factMap,'', range_label_array))
                         .transition().duration(1000)
                         .call(chart) ;
 
