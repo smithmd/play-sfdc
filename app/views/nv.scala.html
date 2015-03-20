@@ -63,8 +63,12 @@
                 return dashboard.componentData[report_index];
             }
 
+            function getReportMetadataByIndex(report_index) {
+                return dashboard.dashboardMetadata.components[report_index];
+            }
+
             function getReportTitleByIndex(report_index) {
-                return dashboard.dashboardMetadata.components[report_index].header;
+                return getReportMetadataByIndex(report_index).header;
             }
 
             function getColumnLabels(obj) {
@@ -88,11 +92,11 @@
                 return groupings;
             }
 
-            function getBulletChartData(factMap, report_title, range_label_array) {
+            function getBulletChartData(factMap, report_title, range_array, range_label_array) {
                 return {
                     "title":report_title,
                     "subtitle":"Total (Millions)",
-                    "ranges":[ 25, 50, 75 ],
+                    "ranges":range_array,
                     "measures":[ (factMap["T!T"].aggregates[0].value / 1000000).toFixed(2) ],
                     "markers":[],
                     "rangeLabels":range_label_array
@@ -254,11 +258,18 @@
 
                 var range_label_array = ['','',''];
 
+                var report_metadata = getReportMetadataByIndex(report_index);
+                var range_array = [
+                    report_metadata.properties.visualizationProperties.breakPoints[0].breaks[0].upperBound / 1000000,
+                    report_metadata.properties.visualizationProperties.breakPoints[0].breaks[1].upperBound / 1000000,
+                    report_metadata.properties.visualizationProperties.breakPoints[0].breaks[2].upperBound / 1000000,
+                ];
+
                 nv.addGraph(function () {
                     var chart = nv.models.bulletChart ( ) ;
 
                     d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getBulletChartData(factMap,'', range_label_array))
+                        .datum(getBulletChartData(factMap,'', range_array, range_label_array))
                         .transition().duration(1000)
                         .call(chart) ;
 
