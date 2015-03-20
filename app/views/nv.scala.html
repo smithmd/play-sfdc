@@ -134,6 +134,7 @@
                 document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
             }
 
+            // nvd3
             function draw01aJ00000001uqYIAQ ( ) {
                 var report_id = '01aJ00000001uqYIAQ';
 
@@ -144,7 +145,7 @@
                 nv.addGraph(function () {
                     var chart = nv.models.bulletChart ( ) ;
 
-                    d3.select ( '#' + report_id + ' svg' );
+                    d3.select ( '#bullet svg' );
                     d3.datum (getChartData());
                     d3.transition().duration(1000);
                     d3.call(chart) ;
@@ -152,8 +153,8 @@
                     return chart;
                 });
 
-            var factMap = report.reportResult.factMap ;
-            function getChartData ( ) {
+                var factMap = report.reportResult.factMap ;
+                function getChartData() {
                     var report_title = getReportTitleByIndex ( report_index );
                     return {
                         "title":report_title,
@@ -411,7 +412,7 @@
             </fieldset>
             <fieldset>
                 <legend id="title_01aJ00000001uqYIAQ"></legend>
-                <div class="chart gauge" id="01aJ00000001uqYIAQ">
+                <div class="chart" id="bullet">
                     <svg></svg>
                 </div>
             </fieldset>
