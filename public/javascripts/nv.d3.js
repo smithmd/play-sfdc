@@ -1956,7 +1956,7 @@ nv.models.bullet = function() {
 
             wrap.selectAll('.nv-range')
                 .on('mouseover', function(d,i) {
-                    var label = rangeLabelz[i] || (!i ? "Maximum" : i == 1 ? "Mean" : "Minimum");
+                    var label = rangeLabelz[i] || (!i ? "" : i == 1 ? "" : "");
 
                     dispatch.elementMouseover({
                         value: d,
@@ -1965,7 +1965,7 @@ nv.models.bullet = function() {
                     })
                 })
                 .on('mouseout', function(d,i) {
-                    var label = rangeLabelz[i] || (!i ? "Maximum" : i == 1 ? "Mean" : "Minimum");
+                    var label = rangeLabelz[i] || (!i ? "" : i == 1 ? "" : "");
 
                     dispatch.elementMouseout({
                         value: d,
