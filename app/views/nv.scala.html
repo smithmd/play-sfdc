@@ -270,6 +270,7 @@
 
                     d3.select ( '#chart_' + report_id + ' svg' )
                         .datum(getBulletChartData(factMap,'', range_array, range_label_array))
+                        .attr("height", 60)
                         .transition().duration(1000)
                         .call(chart) ;
 
