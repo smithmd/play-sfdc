@@ -153,12 +153,12 @@
                 });
 
                 function getChartData ( ) {
-                    var factMap = report.reportResult.factMap ;
+                    // var factMap = report.reportResult.factMap;
 
                     return {
-                        "title"     : getReportTitleByIndex ( report_index ),
+                        "title"     : "Title",
                         "subtitle"  : "Total (Millions)",
-                        "measures"  : [ factMap["T!T"].aggregates[0].value / 1000000 ],
+                        "measures"  : 100,
                         "ranges"    : [ 25, 50, 75 ],
                         "markers"   : []
                     };
