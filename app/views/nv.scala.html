@@ -18,7 +18,7 @@
             var dashboard = @Html(data);
 
             // Load the Visualization API and the required packages
-            google.load('visualization', '1.0', {'packages':['table', 'corechart', 'gauge']});
+            google.load('visualization', '1.0', {'packages':['table']});
 
             // Set a callback to run when the Google Visualization API is loaded.
             google.setOnLoadCallback(drawCharts);
