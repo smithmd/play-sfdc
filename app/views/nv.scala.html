@@ -9,8 +9,8 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <link rel="stylesheet" media="all" href="@routes.Assets.at("stylesheets/charts.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/nv.d3.css")">
-        <script type="application/javascript" src="@routes.Assets.at("javascripts/d3.min.js")"></script>
-        <script type="application/javascript" src="@routes.Assets.at("javascripts/nv.d3.min.js")"></script>
+        <script type="application/javascript" src="@routes.Assets.at("javascripts/d3.js")"></script>
+        <script type="application/javascript" src="@routes.Assets.at("javascripts/nv.d3.js")"></script>
         <script type="application/javascript" src="https://www.google.com/jsapi"></script>
         <script type="application/javascript">
             @*var fullDBList = @Html(fullList);*@
@@ -152,15 +152,15 @@
                     return chart;
                 });
 
-                function getChartData ( ) {
-                    var factMap = report.reportResult.factMap ;
-
+            var factMap = report.reportResult.factMap ;
+            function getChartData ( ) {
+                    var report_title = getReportTitleByIndex ( report_index );
                     return {
-                        "title"     : "Title",
-                        "subtitle"  : "Total (Millions)",
-                        "measures"  : [ factMap["T!T"].aggregates[0].value / 1000000 ],
-                        "ranges"    : [ 25, 50, 75 ],
-                        "markers"   : []
+                        "title":report_title,
+                        "subtitle":"Total (Millions)",
+                        "measures":[ factMap["T!T"].aggregates[0].value / 1000000 ],
+                        "ranges":[ 25, 50, 75 ],
+                        "markers":[]
                     };
                 }
 
