@@ -145,9 +145,9 @@
                 nv.addGraph(function () {
                     var chart = nv.models.bulletChart ( ) ;
 
-                    d3.select ( 'chart_' + report_id + ' svg' );
-                        .datum(getChartData());
-                        .transition().duration(1000);
+                    d3.select ( 'chart_' + report_id + ' svg' )
+                        .datum(getChartData())
+                        .transition().duration(1000)
                         .call(chart) ;
 
                     return chart;
