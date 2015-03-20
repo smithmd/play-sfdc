@@ -87,6 +87,16 @@
                 return groupings;
             }
 
+            function getBulletChartData(factMap, report_title) {
+                return {
+                    "title":report_title,
+                    "subtitle":"Total (Millions)",
+                    "ranges":[ 25, 50, 75 ],
+                    "measures":[ (factMap["T!T"].aggregates[0].value / 1000000).toFixed(2) ],
+                    "markers":[]
+                };
+            }
+
             function draw01aJ00000001tJTIAY() {
                 var report_id = '01aJ00000001tJTIAY';
 
@@ -141,29 +151,18 @@
                 // grabbing report to make code easier to read
                 var report_index = getReportIndex(report_id);
                 var report = getReportByIndex(report_index);
+                var factMap = report.reportResult.factMap;
 
                 nv.addGraph(function () {
                     var chart = nv.models.bulletChart ( ) ;
 
                     d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getChartData())
+                        .datum(getBulletChartData(factMap,''))
                         .transition().duration(1000)
                         .call(chart) ;
 
                     return chart;
                 });
-
-                var factMap = report.reportResult.factMap ;
-                function getChartData() {
-                    var report_title = getReportTitleByIndex ( report_index );
-                    return {
-                        "title":'',
-                        "subtitle":"Total (Millions)",
-                        "ranges":[ 25, 50, 75 ],
-                        "measures":[ factMap["T!T"].aggregates[0].value / 1000000 ],
-                        "markers":[]
-                    };
-                }
 
                 // set title
                 document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
@@ -275,29 +274,18 @@
                 // grabbing report to make code easier to read
                 var report_index = getReportIndex(report_id);
                 var report = getReportByIndex(report_index);
+                var factMap = report.reportResult.factMap;
 
                 nv.addGraph(function () {
-                    var chart = nv.models.bulletChart() ;
+                    var chart = nv.models.bulletChart ( ) ;
 
                     d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getChartData())
+                        .datum(getBulletChartData(factMap,''))
                         .transition().duration(1000)
                         .call(chart) ;
 
                     return chart;
                 });
-
-                var factMap = report.reportResult.factMap ;
-                function getChartData() {
-                    var report_title = getReportTitleByIndex ( report_index );
-                    return {
-                        "title":'',
-                        "subtitle":"Total (Millions)",
-                        "ranges":[ 8, 16, 20 ],
-                        "measures":[ factMap["T!T"].aggregates[0].value / 1000000 ],
-                        "markers":[]
-                    };
-                }
 
                 // set title
                 document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
@@ -309,29 +297,18 @@
                 // grabbing report to make code easier to read
                 var report_index = getReportIndex(report_id);
                 var report = getReportByIndex(report_index);
+                var factMap = report.reportResult.factMap;
 
                 nv.addGraph(function () {
-                    var chart = nv.models.bulletChart() ;
+                    var chart = nv.models.bulletChart ( ) ;
 
                     d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getChartData())
+                        .datum(getBulletChartData(factMap,''))
                         .transition().duration(1000)
                         .call(chart) ;
 
                     return chart;
                 });
-
-                var factMap = report.reportResult.factMap ;
-                function getChartData() {
-                    var report_title = getReportTitleByIndex ( report_index );
-                    return {
-                        "title":'',
-                        "subtitle":"Total (Millions)",
-                        "ranges":[ 1, 2, 3 ],
-                        "measures":[ factMap["T!T"].aggregates[0].value / 1000000 ],
-                        "markers":[]
-                    };
-                }
 
                 // set title
                 document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
@@ -343,29 +320,18 @@
                 // grabbing report to make code easier to read
                 var report_index = getReportIndex(report_id);
                 var report = getReportByIndex(report_index);
+                var factMap = report.reportResult.factMap;
 
                 nv.addGraph(function () {
-                    var chart = nv.models.bulletChart() ;
+                    var chart = nv.models.bulletChart ( ) ;
 
-                    d3.select('#chart_' + report_id + ' svg' )
-                        .datum(getChartData())
+                    d3.select ( '#chart_' + report_id + ' svg' )
+                        .datum(getBulletChartData(factMap,''))
                         .transition().duration(1000)
-                        .call(chart);
+                        .call(chart) ;
 
                     return chart;
                 });
-
-                var factMap = report.reportResult.factMap ;
-                function getChartData() {
-                    var report_title = getReportTitleByIndex ( report_index );
-                    return {
-                        "title":'',
-                        "subtitle":"Total (Millions)",
-                        "ranges":[ 1, 2, 3 ],
-                        "measures":[ factMap["T!T"].aggregates[0].value / 1000000 ],
-                        "markers":[]
-                    };
-                }
 
                 // set title
                 document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
