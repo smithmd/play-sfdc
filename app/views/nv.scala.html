@@ -271,7 +271,7 @@
                 ];
 
                 nv.addGraph(function () {
-                    var chart = nv.models.bullet();
+                    var chart = nv.models.bulletChart();
 
                     d3.select ( '#chart_' + report_id + ' svg' )
                         .datum(getBulletChartData(factMap,'', range_array, range_label_array))
