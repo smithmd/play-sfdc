@@ -146,32 +146,6 @@
                 document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
             }
 
-            // nvd3
-            function draw01aJ00000001uqYIAQ ( ) {
-                var report_id = '01aJ00000001uqYIAQ';
-
-                // grabbing report to make code easier to read
-                var report_index = getReportIndex(report_id);
-                var report = getReportByIndex(report_index);
-                var factMap = report.reportResult.factMap;
-
-                var range_label_array = ['','',''];
-
-                nv.addGraph(function () {
-                    var chart = nv.models.bulletChart ( ) ;
-
-                    d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getBulletChartData(factMap,'', range_label_array))
-                        .transition().duration(1000)
-                        .call(chart) ;
-
-                    return chart;
-                });
-
-                // set title
-                document.getElementById ( 'title_' + report_id ).innerHTML = getReportTitleByIndex ( report_index ) ;
-            }
-
             function draw01aJ00000001utIIAQ() {
                 var report_id = '01aJ00000001utIIAQ';
 
@@ -270,81 +244,6 @@
 
                 // set title
                 document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
-            }
-
-            function draw01aJ00000001utiIAA() {
-                var report_id = '01aJ00000001utiIAA';
-
-                // grabbing report to make code easier to read
-                var report_index = getReportIndex(report_id);
-                var report = getReportByIndex(report_index);
-                var factMap = report.reportResult.factMap;
-
-                var range_label_array = ['','',''];
-
-                nv.addGraph(function () {
-                    var chart = nv.models.bulletChart ( ) ;
-
-                    d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getBulletChartData(factMap,'', range_label_array))
-                        .transition().duration(1000)
-                        .call(chart) ;
-
-                    return chart;
-                });
-
-                // set title
-                document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
-            }
-
-            function draw01aJ00000001utjIAA() {
-                var report_id = '01aJ00000001utjIAA';
-
-                // grabbing report to make code easier to read
-                var report_index = getReportIndex(report_id);
-                var report = getReportByIndex(report_index);
-                var factMap = report.reportResult.factMap;
-
-                var range_label_array = ['','',''];
-
-                nv.addGraph(function () {
-                    var chart = nv.models.bulletChart ( ) ;
-
-                    d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getBulletChartData(factMap,'', range_label_array))
-                        .transition().duration(1000)
-                        .call(chart) ;
-
-                    return chart;
-                });
-
-                // set title
-                document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
-            }
-
-            function draw01aJ00000001utkIAA() {
-                var report_id = '01aJ00000001utkIAA';
-
-                // grabbing report to make code easier to read
-                var report_index = getReportIndex(report_id);
-                var report = getReportByIndex(report_index);
-                var factMap = report.reportResult.factMap;
-
-                var range_label_array = ['','',''];
-
-                nv.addGraph(function () {
-                    var chart = nv.models.bulletChart ( ) ;
-
-                    d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getBulletChartData(factMap,'', range_label_array))
-                        .transition().duration(1000)
-                        .call(chart) ;
-
-                    return chart;
-                });
-
-                // set title
-                document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
             }
 
             function drawBullet(report_id) {
