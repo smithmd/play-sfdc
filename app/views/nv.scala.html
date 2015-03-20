@@ -127,7 +127,7 @@
                     width:400
                 };
 
-                var chart = new google.visualization.Table(document.getElementById(report_id));
+                var chart = new google.visualization.Table(document.getElementById('chart_' + report_id));
                 chart.draw(data, options);
 
                 // set title
@@ -145,10 +145,10 @@
                 nv.addGraph(function () {
                     var chart = nv.models.bulletChart ( ) ;
 
-                    d3.select ( '#bullet svg' );
-                    d3.datum (getChartData());
-                    d3.transition().duration(1000);
-                    d3.call(chart) ;
+                    d3.select ( 'chart_' + report_id + ' svg' );
+                        .datum(getChartData());
+                        .transition().duration(1000);
+                        .call(chart) ;
 
                     return chart;
                 });
@@ -211,7 +211,7 @@
                     width:400
                 };
 
-                var chart = new google.visualization.Table(document.getElementById(report_id));
+                var chart = new google.visualization.Table(document.getElementById('chart_' + report_id));
                 chart.draw(data, options);
 
                 // set title
@@ -262,7 +262,7 @@
                     width:400
                 };
 
-                var chart = new google.visualization.Table(document.getElementById(report_id));
+                var chart = new google.visualization.Table(document.getElementById('chart_' + report_id));
                 chart.draw(data, options);
 
                 // set title
@@ -304,7 +304,7 @@
                     }
                 };
 
-                var chart = new google.visualization.Gauge(document.getElementById(report_id));
+                var chart = new google.visualization.Gauge(document.getElementById('chart_' + report_id));
                 chart.draw(data, options);
 
                 // set title
@@ -346,7 +346,7 @@
                     }
                 };
 
-                var chart = new google.visualization.Gauge(document.getElementById(report_id));
+                var chart = new google.visualization.Gauge(document.getElementById('chart_' + report_id));
                 chart.draw(data, options);
 
                 // set title
@@ -388,7 +388,7 @@
                     }
                 };
 
-                var chart = new google.visualization.Gauge(document.getElementById(report_id));
+                var chart = new google.visualization.Gauge(document.getElementById('chart_' + report_id));
                 chart.draw(data, options);
 
                 // set title
@@ -400,19 +400,19 @@
         <div class="column">
             <fieldset>
                 <legend id="title_01aJ00000001tJTIAY"></legend>
-                <div class="chart" id="01aJ00000001tJTIAY">
+                <div class="chart" id="chart_01aJ00000001tJTIAY">
                     <svg></svg>
                 </div>
             </fieldset>
             <fieldset>
                 <legend id="title_01aJ00000001utIIAQ"></legend>
-                <div class="chart" id="01aJ00000001utIIAQ">
+                <div class="chart" id="chart_01aJ00000001utIIAQ">
                     <svg></svg>
                 </div>
             </fieldset>
             <fieldset>
                 <legend id="title_01aJ00000001uqYIAQ"></legend>
-                <div class="chart" id="bullet">
+                <div class="chart" id="chart_01aJ00000001uqYIAQ">
                     <svg></svg>
                 </div>
             </fieldset>
@@ -420,13 +420,13 @@
         <div class="column">
             <fieldset>
                 <legend id="title_01aJ00000001uthIAA"></legend>
-                <div class="chart" id="01aJ00000001uthIAA">
+                <div class="chart" id="chart_01aJ00000001uthIAA">
                     <svg></svg>
                 </div>
             </fieldset>
             <fieldset>
                 <legend id="title_01aJ00000001utiIAA"></legend>
-                <div class="chart gauge" id="01aJ00000001utiIAA">
+                <div class="chart gauge" id="chart_01aJ00000001utiIAA">
                     <svg></svg>
                 </div>
             </fieldset>
@@ -434,13 +434,13 @@
         <div class="column">
             <fieldset>
                 <legend id="title_01aJ00000001utjIAA"></legend>
-                <div class="chart gauge" id="01aJ00000001utjIAA">
+                <div class="chart gauge" id="chart_01aJ00000001utjIAA">
                     <svg></svg>
                 </div>
             </fieldset>
             <fieldset>
                 <legend id="title_01aJ00000001utkIAA"></legend>
-                <div class="chart gauge" id="01aJ00000001utkIAA">
+                <div class="chart gauge" id="chart_01aJ00000001utkIAA">
                     <svg></svg>
                 </div>
             </fieldset>
