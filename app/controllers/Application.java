@@ -158,12 +158,14 @@ public class Application extends Controller {
             token.append(Base64.encodeBase64URLSafeString(header.getBytes("UTF-8")));
             token.append('.');
 
+            // create a claim array
             final String[] claimArray = new String[4];
             claimArray[0] = System.getenv().get("SECRET_KEY" + ENVIRONMENT);
             claimArray[1] = System.getenv().get("USER_NAME" + ENVIRONMENT);
             claimArray[2] = System.getenv().get("LOGIN_PATH" + ENVIRONMENT);
             claimArray[3] = Long.toString( (System.currentTimeMillis()/1000) + 300);
 
+            // use the claimTemplate to format the payload properly
             final MessageFormat claims = new MessageFormat(claimTemplate);
             final String payload = claims.format(claimArray);
 
@@ -173,6 +175,7 @@ public class Application extends Controller {
             final String privateKeyString = System.getenv().get("PRIVATE_KEY" + ENVIRONMENT);
 //            System.out.println(privateKeyString);
 
+            // decode the private key which is stored in base64
             Base64 b64PK = new Base64();
             byte [] decoded = b64PK.decode(privateKeyString);
 
