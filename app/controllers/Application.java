@@ -194,8 +194,8 @@ public class Application extends Controller {
 
             token.append(signedPayload);
 
-            System.out.println("Token:");
-            System.out.println(token);
+//            System.out.println("Token:");
+//            System.out.println(token);
 
             return token.toString();
 
