@@ -41,4 +41,15 @@ This would pull the system variable called `DASHBOARD_ID` from Heroku. These can
 
 There are two static methods employed to create and request a token to grant access to salesforce.
 
-The first that is called by a route is `requestAccessToken()`. This method is reponsible for making an HTTP connection to salesforce and passing an access token that is built with `createToken()`.
+The first that is called by a route is `requestAccessToken()`. This method is responsible for making an HTTP connection to salesforce and passing an access token that is built with `createToken()`. 
+
+`createToken()` builds a string encoded in Base64 and signs that with the key stored on the server. This gets returned to `requestAccessToken()`.
+
+`requestAccessToken()` posts the request token to a salesforce url to get an access token. 
+
+###### Pulling Dashboards
+
+`getDashboard(String dashboardId, String accessToken)` takes the ID of a dashboard and an access token and requests a dashboard from salesforce. It returns the result as a JSON string.
+
+#### Views
+

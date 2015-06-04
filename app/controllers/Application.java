@@ -163,7 +163,7 @@ public class Application extends Controller {
             claimArray[0] = System.getenv().get("SECRET_KEY" + ENVIRONMENT);
             claimArray[1] = System.getenv().get("USER_NAME" + ENVIRONMENT);
             claimArray[2] = System.getenv().get("LOGIN_PATH" + ENVIRONMENT);
-            claimArray[3] = Long.toString( (System.currentTimeMillis()/1000) + 300);
+            claimArray[3] = "0"; //Long.toString( (System.currentTimeMillis()/1000) + 300);
 
             // use the claimTemplate to format the payload properly
             final MessageFormat claims = new MessageFormat(claimTemplate);
@@ -197,6 +197,7 @@ public class Application extends Controller {
 //            System.out.println("Token:");
 //            System.out.println(token);
 
+            System.out.println("Token: \n" + token);
             return token.toString();
 
         } catch (Exception e) {
