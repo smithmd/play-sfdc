@@ -165,9 +165,12 @@ public class Application extends Controller {
             claimArray[2] = System.getenv().get("LOGIN_PATH" + ENVIRONMENT);
             claimArray[3] = "0"; //Long.toString( (System.currentTimeMillis()/1000) + 300);
 
+
             // use the claimTemplate to format the payload properly
             final MessageFormat claims = new MessageFormat(claimTemplate);
             final String payload = claims.format(claimArray);
+
+            System.out.println("Payload:\n" + payload);
 
             // Add the encoded claims object
             token.append(Base64.encodeBase64URLSafeString(payload.getBytes(StandardCharsets.UTF_8)));
