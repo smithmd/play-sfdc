@@ -47,6 +47,8 @@ The first that is called by a route is `requestAccessToken()`. This method is re
 
 `requestAccessToken()` posts the request token to a salesforce url to get an access token. 
 
+[More documentation on salesforce bearer tokens](https://github.com/smithmd/play-sfdc/blob/master/docs/Server-Server%20Salesforce%20Authentication.md)
+
 ###### Pulling Dashboards
 
 `getDashboard(String dashboardId, String accessToken)` takes the ID of a dashboard and an access token and requests a dashboard from salesforce. It returns the result as a JSON string.
