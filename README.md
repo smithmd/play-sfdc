@@ -58,3 +58,13 @@ The first that is called by a route is `requestAccessToken()`. This method is re
 Views are created using a Scala template. [Documentation on Play templates](https://www.playframework.com/documentation/2.0.4/ScalaTemplates)
 
 Basically, the controller passes data over to the view by calling the render function and passing parameters to the view template. The template uses those parameters as the model for the page and returns the result of the render function to the controller.
+
+## Javascript (NVD3 and Google Charts)
+
+To actually draw the charts, main.scala.html uses [Google Charts](https://developers.google.com/chart/) and nv.scala.html uses [NVD3](http://nvd3.org/) in addition to Google charts.
+
+Each chart needs to be handled slightly differently, so each gets its own function. I'm sure there's a way to make it more generic than this but I never had time to think about it.
+
+Each function sifts through the json for the specific report in the dashboard that it needs to display. There are several helper functions to take away some of the tedium.
+
+Then the functions grab column labels and groupings. Each grouping represents a column of data in the report.
