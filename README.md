@@ -53,6 +53,8 @@ The first that is called by a route is `requestAccessToken()`. This method is re
 
 `getDashboard(String dashboardId, String accessToken)` takes the ID of a dashboard and an access token and requests a dashboard from salesforce. It returns the result as a JSON string.
 
+`dashboardId` needs to be the full salesforce Id of the dashboard.
+
 #### Views
 
 Views are created using a Scala template. [Documentation on Play templates](https://www.playframework.com/documentation/2.0.4/ScalaTemplates)
@@ -71,4 +73,16 @@ Then the functions grab column labels and groupings. Each grouping represents a 
 
 For Google Charts, you create a data object for the visualization. In most cases this is a DataTable.
 
-The NVD3 library is used to replace Google's Gauge chart with a Bullet chart. These are fairly simple so can be made generic.
+The NVD3 library is used to replace Google's Gauge chart with a Bullet chart. These are fairly simple so can be made generic. One function is called to print the data to a bullet chart.
+
+#### Google Chart functions
+
+This is the more complex form of chart on the pages.
+
+Each google chart draw function is named draw<Id> where <Id> is the full Id of the report in the dashboard. I realize now that's a bad way to do it because the Ids will be different in different environments. As a result, this code doesn't work anymore. This should be updated to be data driven somehow.
+
+
+
+#### NVD3 functions
+
+`drawBullet()` is the only function to use NVD3. It pulls it's points into an array and sets those as bounds on a [Bullet Chart](http://nvd3.org/examples/bullet.html). The graph is then printed in an empty `<svg>` element.
