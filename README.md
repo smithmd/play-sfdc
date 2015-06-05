@@ -83,6 +83,8 @@ Each google chart draw function is named draw<Id> where <Id> is the full Id of t
 
 Data is loaded into a DataTable object. Columns are added first with `addColumn(string Type, string Label)`. Data is added to the table with `addRows()`.
 
+Some options for the chart are stored in a JSON object and passed into the draw method.
+
 #### NVD3 functions
 
 `drawBullet()` is the only function to use NVD3. It pulls it's points into an array and sets those as bounds on a [Bullet Chart](http://nvd3.org/examples/bullet.html). The graph is then printed in an empty `<svg>` element.
