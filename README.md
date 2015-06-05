@@ -53,3 +53,6 @@ The first that is called by a route is `requestAccessToken()`. This method is re
 
 #### Views
 
+Views are created using a Scala template. [Documentation on Play templates](https://www.playframework.com/documentation/2.0.4/ScalaTemplates)
+
+Basically, the controller passes data over to the view by calling the render function and passing parameters to the view template. The template uses those parameters as the model for the page and returns the result of the render function to the controller.
