@@ -106,14 +106,17 @@
 
                 var factMap = report.reportResult.factMap;
 
+                // add data rows
                 for (var i = 0; i < groupings.length; i++) {
                     data.addRows([[ groupings[i],
                                     factMap[i + "!T"].aggregates[2].value / 1000000,
                                     factMap[i + "!T"].aggregates[0].value / 1000000]]);
                 }
 
+                // add aggregate data row
                 data.addRows([['Total', factMap["T!T"].aggregates[2].value / 1000000, factMap["T!T"].aggregates[0].value / 1000000]]);
 
+                // format numbers to dollars
                 var currency_formatter = new google.visualization.NumberFormat(
                     {prefix: '$', suffix: 'M', pattern: '#,###.#'}
                 );
@@ -126,6 +129,7 @@
                     width:400
                 };
 
+                // draw chart in element
                 var chart = new google.visualization.Table(document.getElementById(report_id));
                 chart.draw(data, options);
 
