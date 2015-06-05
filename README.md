@@ -68,3 +68,7 @@ Each chart needs to be handled slightly differently, so each gets its own functi
 Each function sifts through the json for the specific report in the dashboard that it needs to display. There are several helper functions to take away some of the tedium.
 
 Then the functions grab column labels and groupings. Each grouping represents a column of data in the report.
+
+For Google Charts, you create a data object for the visualization. In most cases this is a DataTable.
+
+The NVD3 library is used to replace Google's Gauge chart with a Bullet chart. These are fairly simple so can be made generic.
