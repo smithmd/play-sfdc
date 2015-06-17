@@ -114,7 +114,7 @@
                 }
 
                 // add aggregate data row
-                data.addRows([['Total', factMap["T!T"].aggregates[2].value / 1000000, factMap["T!T"].aggregates[0].value / 1000000]]);
+                data.addRows([['Total', factMap["T!T"].aggregates[0].value / 1000000]]);
 
                 // format numbers to dollars
                 var currency_formatter = new google.visualization.NumberFormat(
@@ -143,7 +143,6 @@
                 // grabbing report to make code easier to read
                 var report_index = getReportIndex(report_id);
                 var report = getReportByIndex(report_index);
-
 
                 var factMap = report.reportResult.factMap;
 
