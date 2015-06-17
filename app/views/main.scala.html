@@ -157,7 +157,7 @@
             }
 
             function draw01aJ00000001uqYIAQ() {
-                var report_id = '01aJ00000001uqYIAQ';
+                var report_id = '00OG0000006iKfvMAE';
 
                 // grabbing report to make code easier to read
                 var report_index = getReportIndex(report_id);
@@ -193,11 +193,8 @@
                     }
                 };
 
-                var chart = new google.visualization.Gauge(document.getElementById(report_id));
-                chart.draw(data, options);
+                appendChartToColumn(data, options, getReportTitleByIndex(report_index),1,'table');
 
-                // set title
-                document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
             }
 
             function draw01aJ00000001utIIAQ() {
