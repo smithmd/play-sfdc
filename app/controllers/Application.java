@@ -56,7 +56,7 @@ public class Application extends Controller {
 
         if (accessToken != null) {
             output = getDashboard("", accessToken);
-            output2 = getDashboard("/" + dashboardId, accessToken);
+            output2 = getDashboard(("/" + dashboardId, accessToken);
         }
 
         return ok(index.render(output,output2, dashboardId));
@@ -84,7 +84,7 @@ public class Application extends Controller {
 
         if (accessToken != null) {
             dashboardList = getDashboard("", accessToken);
-            dashboard = getDashboard(dashboardId, accessToken);
+            dashboard = getDashboard("/" + dashboardId, accessToken);
         }
 
         return ok(nv.render(dashboardId, dashboard, dashboardList));
@@ -240,6 +240,7 @@ public class Application extends Controller {
             in.close();
 
             result = response.toString();
+            System.out.println(result);
         } catch (ClientProtocolException cpe) {
             result = "ClientProtocolException Error";
         } catch (IOException ioe) {
