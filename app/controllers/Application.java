@@ -49,7 +49,7 @@ public class Application extends Controller {
         JSONTokener jt = new JSONTokener(token);
         try {
             JSONObject jo = new JSONObject(jt);
-            accessToken = (String)jo.get("access_token");
+            accessToken = (String) jo.get("access_token");
         } catch (JSONException je) {
             output = "Error parsing JSON.";
         }
@@ -59,7 +59,7 @@ public class Application extends Controller {
             output2 = getDashboard(("/" + dashboardId, accessToken);
         }
 
-        return ok(index.render(output,output2, dashboardId));
+        return ok(index.render(output, output2, dashboardId));
     }
 
     public static Result nvindex() {
@@ -77,7 +77,7 @@ public class Application extends Controller {
         JSONTokener jt = new JSONTokener(token);
         try {
             JSONObject jo = new JSONObject(jt);
-            accessToken = (String)jo.get("access_token");
+            accessToken = (String) jo.get("access_token");
         } catch (JSONException je) {
             dashboardList = "Error parsing JSON.";
         }
@@ -106,7 +106,7 @@ public class Application extends Controller {
             HttpPost post = new HttpPost(tokenURL);//+params);
 
             // Add Headers
-            post.addHeader("Content-Type","application/x-www-form-urlencoded");
+            post.addHeader("Content-Type", "application/x-www-form-urlencoded");
             post.addHeader("User-Agent", "Mozilla/5.0");
             post.addHeader("Accept-Language", "en-US,en;q=0.5");
 
@@ -129,7 +129,7 @@ public class Application extends Controller {
 
             String inputLine;
 
-            while((inputLine = in.readLine()) != null) {
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
 
@@ -163,7 +163,7 @@ public class Application extends Controller {
             claimArray[0] = System.getenv().get("SECRET_KEY" + ENVIRONMENT);
             claimArray[1] = System.getenv().get("USER_NAME" + ENVIRONMENT);
             claimArray[2] = System.getenv().get("LOGIN_PATH" + ENVIRONMENT);
-            claimArray[3] = Long.toString( (System.currentTimeMillis()/1000) + 300);
+            claimArray[3] = Long.toString((System.currentTimeMillis() / 1000) + 300);
 
 
             // use the claimTemplate to format the payload properly
@@ -180,7 +180,7 @@ public class Application extends Controller {
 
             // decode the private key which is stored in base64
             Base64 b64PK = new Base64();
-            byte [] decoded = b64PK.decode(privateKeyString);
+            byte[] decoded = b64PK.decode(privateKeyString);
 
             PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
 
@@ -221,7 +221,7 @@ public class Application extends Controller {
 
         HttpGet get = new HttpGet(sfURI + dashboardPath + dashboardId);
         get.addHeader("Authorization", "Bearer " + accessToken);
-        get.addHeader("Content-Type","application/x-www-form-urlencoded");
+        get.addHeader("Content-Type", "application/x-www-form-urlencoded");
         get.addHeader("User-Agent", "Mozilla/5.0");
         get.addHeader("Accept-Language", "en-US,en;q=0.5");
 
@@ -233,7 +233,7 @@ public class Application extends Controller {
 
             String inputLine;
 
-            while((inputLine = in.readLine()) != null) {
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
 
