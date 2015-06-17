@@ -157,10 +157,11 @@
             }
 
             function drawFundraisingByFundCategory() {
-                var report_id = '00OG0000006iKfvMAE';
+                var report_id = '01aG0000001j7IfIAI';
 
                 // grabbing report to make code easier to read
                 var report_index = getReportIndex(report_id);
+                console.log(report_index);
                 var report = getReportByIndex(report_index);
 
                 var factMap = report.reportResult.factMap;
