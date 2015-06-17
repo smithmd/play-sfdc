@@ -13,7 +13,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
-import play.*;
 import play.mvc.*;
 
 import views.html.*;
@@ -56,7 +55,7 @@ public class Application extends Controller {
 
         if (accessToken != null) {
             output = getDashboard("", accessToken);
-            output2 = getDashboard(("/" + dashboardId, accessToken);
+            output2 = getDashboard("/" + dashboardId, accessToken);
         }
 
         return ok(index.render(output,output2, dashboardId));
@@ -221,7 +220,7 @@ public class Application extends Controller {
 
         HttpGet get = new HttpGet(sfURI + dashboardPath + dashboardId);
         get.addHeader("Authorization", "Bearer " + accessToken);
-        get.addHeader("Content-Type","application/x-www-form-urlencoded");
+        get.addHeader("Content-Type", "application/x-www-form-urlencoded");
         get.addHeader("User-Agent", "Mozilla/5.0");
         get.addHeader("Accept-Language", "en-US,en;q=0.5");
 
@@ -233,13 +232,14 @@ public class Application extends Controller {
 
             String inputLine;
 
-            while((inputLine = in.readLine()) != null) {
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
 
             in.close();
 
             result = response.toString();
+            System.out.println(result);
         } catch (ClientProtocolException cpe) {
             result = "ClientProtocolException Error";
         } catch (IOException ioe) {
