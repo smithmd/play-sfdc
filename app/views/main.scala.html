@@ -11,8 +11,10 @@
         <script type="application/javascript" src="https://www.google.com/jsapi"></script>
         <script type="application/javascript">
             var fullDBList = @Html(fullList);
+            console.log('full dashboard list');
             console.log(fullDBList);
             var dashboard = @Html(data);
+            console.log('single dashboard:');
             console.log(dashboard);
 
             // Load the Visualization API and the required packages
@@ -22,7 +24,6 @@
             google.setOnLoadCallback(drawCharts);
 
             function drawCharts() {
-                console.log(dashboard);
                 draw01aJ00000001tJTIAY();
                 draw01aJ00000001uqYIAQ();
                 draw01aJ00000001utIIAQ();
