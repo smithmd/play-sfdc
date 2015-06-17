@@ -55,7 +55,7 @@ public class Application extends Controller {
 
         if (accessToken != null) {
             output = getDashboard("", accessToken);
-            output2 = getDashboard("/" + dashboardId, accessToken);
+            output2 = getDashboard(dashboardId, accessToken);
         }
 
         return ok(index.render(output,output2, dashboardId));
@@ -83,7 +83,7 @@ public class Application extends Controller {
 
         if (accessToken != null) {
             dashboardList = getDashboard("", accessToken);
-            dashboard = getDashboard("/" + dashboardId, accessToken);
+            dashboard = getDashboard(dashboardId, accessToken);
         }
 
         return ok(nv.render(dashboardId, dashboard, dashboardList));
@@ -216,7 +216,7 @@ public class Application extends Controller {
         HttpClient client = HttpClientBuilder.create().build();
 
         String sfURI = "https://interlochen--UAT.cs10.my.salesforce.com";
-        String dashboardPath = "/services/data/v31.0/analytics/dashboards";
+        String dashboardPath = "/services/data/v31.0/analytics/dashboards/";
 
         String fullURI = sfURI + dashboardPath + dashboardId;
         System.out.println("Full URI: " + fullURI);
