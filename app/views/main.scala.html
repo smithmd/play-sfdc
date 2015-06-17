@@ -24,13 +24,37 @@
             google.setOnLoadCallback(drawCharts);
 
             function drawCharts() {
-                draw01aJ00000001tJTIAY();
+                drawCampaignNewGiftsTable();
 //                draw01aJ00000001uqYIAQ();
 //                draw01aJ00000001utIIAQ();
 //                draw01aJ00000001uthIAA();
 //                draw01aJ00000001utiIAA();
 //                draw01aJ00000001utjIAA();
 //                draw01aJ00000001utkIAA();
+            }
+
+            function appendChartToColumn(data, options, title, col, chart_type) {
+                // create and append fieldset
+                var fs = document.createElement('fieldset');
+                // create and append legend
+                var legend = document.createElement('legend');
+                legend.innerHTML = title;
+                fs.appendChild(legend);
+
+                // create and append div that holds chart
+                var chart_div = document.createElement('div');
+                chart_div.classList.add('chart');
+                if (chart_type !== null) {
+                    chart_div.classList.add(chart_type);
+                }
+
+                fs.appendChild(chart_div);
+
+                var chart = new google.visualization.Table(chart_div);
+                chart.draw(data, options);
+
+                // add fieldset to appropriate column
+                document.getElementById('col'+col).appendChild(fs);
             }
 
             // helper functions to get the reports from the huge disgusting json
@@ -88,7 +112,7 @@
             }
 
             // functions to actually draw charts
-            function draw01aJ00000001tJTIAY() {
+            function drawCampaignNewGiftsTable() {
                 var report_id = '01aG0000001j7IbIAI';
 
                 // grabbing report to make code easier to read
@@ -129,12 +153,7 @@
                     width:400
                 };
 
-                // draw chart in element
-                var chart = new google.visualization.Table(document.getElementById(report_id));
-                chart.draw(data, options);
-
-                // set title
-                document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
+                appendChartToColumn(data, options, getReportTitleByIndex(report_index),1,'table');
             }
 
             function draw01aJ00000001uqYIAQ() {
@@ -409,39 +428,11 @@
         </script>
     </head>
     <body>
-        <div class="column">
-            <fieldset>
-                <legend id="title_01aG0000001j7IbIAI"></legend>
-                <div class="chart" id="01aG0000001j7IbIAI"></div>
-            </fieldset>
-            <fieldset>
-                <legend id="title_01aJ00000001utIIAQ"></legend>
-                <div class="chart" id="01aJ00000001utIIAQ"></div>
-            </fieldset>
-            <fieldset>
-                <legend id="title_01aJ00000001uqYIAQ"></legend>
-                <div class="chart gauge" id="01aJ00000001uqYIAQ"></div>
-            </fieldset>
+        <div class="column" id="col1">
         </div>
-        <div class="column">
-            <fieldset>
-                <legend id="title_01aJ00000001uthIAA"></legend>
-                <div class="chart" id="01aJ00000001uthIAA"></div>
-            </fieldset>
-            <fieldset>
-                <legend id="title_01aJ00000001utiIAA"></legend>
-                <div class="chart gauge" id="01aJ00000001utiIAA"></div>
-            </fieldset>
+        <div class="column" id="col2">
         </div>
-        <div class="column">
-            <fieldset>
-                <legend id="title_01aJ00000001utjIAA"></legend>
-                <div class="chart gauge" id="01aJ00000001utjIAA"></div>
-            </fieldset>
-            <fieldset>
-                <legend id="title_01aJ00000001utkIAA"></legend>
-                <div class="chart gauge" id="01aJ00000001utkIAA"></div>
-            </fieldset>
+        <div class="column" id="col3">
         </div>
     </body>
 </html>
