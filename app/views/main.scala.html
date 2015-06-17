@@ -103,7 +103,6 @@
                 var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
 
                 data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo["Opportunity.Gift_Committed_Date__c"].label);
-                data.addColumn('number', columnLabels[2]);
                 data.addColumn('number', columnLabels[0]);
 
                 var factMap = report.reportResult.factMap;
@@ -111,7 +110,6 @@
                 // add data rows
                 for (var i = 0; i < groupings.length; i++) {
                     data.addRows([[ groupings[i],
-                                    factMap[i + "!T"].aggregates[2].value / 1000000,
                                     factMap[i + "!T"].aggregates[0].value / 1000000]]);
                 }
 
@@ -123,7 +121,7 @@
                     {prefix: '$', suffix: 'M', pattern: '#,###.#'}
                 );
                 currency_formatter.format(data,1);
-                currency_formatter.format(data,2);
+//                currency_formatter.format(data,2);
 
                 var options = {
                     'title':dashboard.dashboardMetadata.attributes.dashboardName,
