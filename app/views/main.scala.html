@@ -141,6 +141,7 @@
                 var factMap = report.reportResult.factMap;
 
                 var colsOverOneMil = [];
+                colsOverOneMil.apply(null, Array(colCount)).map(Number.prototype.valueOf,0);
 
                 // add data rows
                 for ( i = 0; i < groupings.length; i++) {
@@ -149,7 +150,7 @@
                         var index = getAggregateByIndex(j,report);
                         var value = factMap[i + "!T"].aggregates[index].value;
                         if (value > 1000) {
-                            colsOverOneMil.push(index);
+                            colsOverOneMil[index] = 1;
                             value = value / 1000000;
                         }
                         row.push(value);
@@ -163,7 +164,7 @@
                     var index = getAggregateByIndex(i,report);
                     var value = factMap["T!T"].aggregates[index].value;
                     if (value > 1000) {
-                        colsOverOneMil.push(index);
+                        colsOverOneMil[index] = 1;
                         value = value / 1000000;
                     }
                     row.push(value);
@@ -178,7 +179,7 @@
 //                    {prefix: '$', suffix: 'K', pattern: '#,###.#'}
 //                );
                 for (i = 0; i < colsOverOneMil.length; i++) {
-                    millions_formatter.format(data,colsOverOneMil[i]+1);
+                    millions_formatter.format(data,colsOverOneMil[i]);
                 }
 
                 var options = {
