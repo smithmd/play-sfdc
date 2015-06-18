@@ -160,7 +160,7 @@
                 // add aggregate data row
                 var row = ['Total'];
                 for ( i = 0; i < colCount; i++) {
-                    var index = getAggregateByIndex(j,report);
+                    var index = getAggregateByIndex(i,report);
                     var value = factMap["T!T"].aggregates[index].value;
                     if (value > 1000) {
                         colsOverOneMil.push(index);
