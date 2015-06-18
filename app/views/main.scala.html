@@ -150,19 +150,36 @@
                     data.addRows([row]);
                 }
 
+                var colsOverOneMil = [];
+                var colsOverOneThou = [];
+
                 // add aggregate data row
                 var row = ['Total'];
                 for ( i = 0; i < colCount; i++) {
-                    row.push(factMap["T!T"].aggregates[i].value / 1000000);
+                    var index = getAggregateByIndex(j,report);
+                    var value = factMap["T!T"].aggregates[index].value;
+                    if (value > 1000000) {
+                        colsOverOneMil.push(index);
+                    } else if (value > 1000) {
+                        colsOverOneThou.push(index);
+                    }
+                    row.push(factMap["T!T"].aggregates[index].value / 1000000);
                 }
                 data.addRows([row]);
 
                 // format numbers to dollars
-                var currency_formatter = new google.visualization.NumberFormat(
+                var millions_formatter = new google.visualization.NumberFormat(
                     {prefix: '$', suffix: 'M', pattern: '#,###.#'}
                 );
-                currency_formatter.format(data,1);
-//                currency_formatter.format(data,2);
+                var thousands_formatter = new google.visualization.NumberFormat(
+                    {prefix: '$', suffix: 'K', pattern: '#,###.#'}
+                );
+                for (i = 0; i < colsOverOneMil.length; i++) {
+                    millions_formatter.format(data,colsOverOneMil[i]+1);
+                }
+                for (i = 0; i < colsOverOneThou.length; i++) {
+                    thousands_formatter.format(data, colsOverOneThou[i]+1);
+                }
 
                 var options = {
                     'title':dashboard.dashboardMetadata.attributes.dashboardName,
