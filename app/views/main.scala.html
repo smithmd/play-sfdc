@@ -125,20 +125,31 @@
                 var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
 
                 var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
+                var colCount = columnLabels.length;
 
                 data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo[groupingInfo].label);
-                data.addColumn('number', columnLabels[0]);
+                var i;
+                for ( i = 0; i < colCount; i++) {
+                    data.addColumn('number', columnLabels[i]);
+                }
 
                 var factMap = report.reportResult.factMap;
 
                 // add data rows
-                for (var i = 0; i < groupings.length; i++) {
-                    data.addRows([[ groupings[i],
-                                    factMap[i + "!T"].aggregates[0].value / 1000000]]);
+                for ( i = 0; i < groupings.length; i++) {
+                    var row = [groupings[i]];
+                    for (var j = 0; j < colCount; j++) {
+                       row.push(factMap[i + "!T"].aggregates[j].value / 1000000);
+                    }
+                    data.addRows([row]);
                 }
 
                 // add aggregate data row
-                data.addRows([['Total', factMap["T!T"].aggregates[0].value / 1000000]]);
+                var row = ['Total'];
+                for ( i = 0; i < colCount; i++) {
+                    row.push(factMap["T!T"].aggregates[i].value / 1000000);
+                }
+                data.addRows([row]);
 
                 // format numbers to dollars
                 var currency_formatter = new google.visualization.NumberFormat(
