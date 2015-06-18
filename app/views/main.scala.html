@@ -140,30 +140,33 @@
 
                 var factMap = report.reportResult.factMap;
 
+                var colsOverOneMil = [];
+
                 // add data rows
                 for ( i = 0; i < groupings.length; i++) {
                     var row = [groupings[i]];
                     for (var j = 0; j < colCount; j++) {
                         var index = getAggregateByIndex(j,report);
-                        row.push(factMap[i + "!T"].aggregates[index].value / 1000000);
+                        var value = factMap[i + "!T"].aggregates[index].value;
+                        if (value > 1000) {
+                            colsOverOneMil.push(index);
+                            value = value / 1000000;
+                        }
+                        row.push(value);
                     }
                     data.addRows([row]);
                 }
-
-                var colsOverOneMil = [];
-                var colsOverOneThou = [];
 
                 // add aggregate data row
                 var row = ['Total'];
                 for ( i = 0; i < colCount; i++) {
                     var index = getAggregateByIndex(j,report);
                     var value = factMap["T!T"].aggregates[index].value;
-                    if (value > 1000000) {
+                    if (value > 1000) {
                         colsOverOneMil.push(index);
-                    } else if (value > 1000) {
-                        colsOverOneThou.push(index);
+                        value = value / 1000000;
                     }
-                    row.push(factMap["T!T"].aggregates[index].value / 1000000);
+                    row.push(value);
                 }
                 data.addRows([row]);
 
@@ -171,14 +174,11 @@
                 var millions_formatter = new google.visualization.NumberFormat(
                     {prefix: '$', suffix: 'M', pattern: '#,###.#'}
                 );
-                var thousands_formatter = new google.visualization.NumberFormat(
-                    {prefix: '$', suffix: 'K', pattern: '#,###.#'}
-                );
+//                var thousands_formatter = new google.visualization.NumberFormat(
+//                    {prefix: '$', suffix: 'K', pattern: '#,###.#'}
+//                );
                 for (i = 0; i < colsOverOneMil.length; i++) {
                     millions_formatter.format(data,colsOverOneMil[i]+1);
-                }
-                for (i = 0; i < colsOverOneThou.length; i++) {
-                    thousands_formatter.format(data, colsOverOneThou[i]+1);
                 }
 
                 var options = {
