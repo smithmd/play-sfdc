@@ -25,7 +25,8 @@
 
             function drawCharts() {
                 drawCampaignNewGiftsTable();
-                drawFundraisingByFundCategory();
+//                drawFundraisingByFundCategory();
+                drawTable('01aG0000001j7IbIAI', 'Opportunity.Gift_Committed_Date__c', 1);
 //                draw01aJ00000001utIIAQ();
 //                draw01aJ00000001uthIAA();
 //                draw01aJ00000001utiIAA();
@@ -109,6 +110,48 @@
                 }
 
                 return groupings;
+            }
+
+            function drawTable(report_id, groupingInfo, column) {
+
+                // grabbing report to make code easier to read
+                var report_index = getReportIndex(report_id);
+                var report = getReportByIndex(report_index);
+
+                // init google chart
+                var data = new google.visualization.DataTable();
+
+                var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
+
+                var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
+
+                data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo[groupingInfo].label);
+                data.addColumn('number', columnLabels[0]);
+
+                var factMap = report.reportResult.factMap;
+
+                // add data rows
+                for (var i = 0; i < groupings.length; i++) {
+                    data.addRows([[ groupings[i],
+                                    factMap[i + "!T"].aggregates[0].value / 1000000]]);
+                }
+
+                // add aggregate data row
+                data.addRows([['Total', factMap["T!T"].aggregates[0].value / 1000000]]);
+
+                // format numbers to dollars
+                var currency_formatter = new google.visualization.NumberFormat(
+                    {prefix: '$', suffix: 'M', pattern: '#,###.#'}
+                );
+                currency_formatter.format(data,1);
+//                currency_formatter.format(data,2);
+
+                var options = {
+                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
+                    showRowNumber: false
+                };
+
+                appendChartToColumn(data, options, getReportTitleByIndex(report_index),column,'table');
             }
 
             // functions to actually draw charts
