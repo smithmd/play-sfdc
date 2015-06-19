@@ -130,7 +130,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
         showRowNumber: false
     };
 
-    appendChartToColumn(data, options, getReportTitleByIndex(report_index), column, 'table');
+    appendChartToColumn(data, options, getReportTitleByIndex(dashboard,report_index), column, 'table');
 }
 
 function appendChartToColumn(data, options, title, col, chart_type) {
