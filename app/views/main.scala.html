@@ -177,7 +177,7 @@
 //                var thousands_formatter = new google.visualization.NumberFormat(
 //                    {prefix: '$', suffix: 'K', pattern: '#,###.#'}
 //                );
-                for (i = 0; i < colsOverOneMil.length; i++)
+                for (i = 0; i < colsOverOneMil.length; i++) {
                     if (colsOverOneMil[i] == 1) {
                         millions_formatter.format(data,i+1);
                     }
