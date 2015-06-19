@@ -140,8 +140,7 @@
 
                 var factMap = report.reportResult.factMap;
 
-                var colsOverOneMil = [];
-                colsOverOneMil.apply(null, Array(colCount)).map(Number.prototype.valueOf,0);
+                var colsOverOneMil = Array.apply(null, Array(colCount)).map(Number.prototype.valueOf,0);
 
                 // add data rows
                 for ( i = 0; i < groupings.length; i++) {
@@ -179,7 +178,7 @@
 //                    {prefix: '$', suffix: 'K', pattern: '#,###.#'}
 //                );
                 for (i = 0; i < colsOverOneMil.length; i++) {
-                    millions_formatter.format(data,colsOverOneMil[i]);
+                    millions_formatter.format(data,colsOverOneMil[i]+1);
                 }
 
                 var options = {
