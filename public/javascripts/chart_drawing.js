@@ -164,6 +164,9 @@ function drawGauge(report_id, dashboard, column) {
     currency_formatter.format(data, 1);
 
     var bounds = getGaugeBounds(dashboard, report_index);
+    bounds.forEach(function(value, index, array) {
+        array[index] = (value / 1000000).toFixed(1);
+    });
 
     var options = {
         width: 400, height: 300,
