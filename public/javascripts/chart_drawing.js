@@ -141,7 +141,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
         showRowNumber: false
     };
 
-    appendChartToColumn(data, options, getReportTitleByIndex(dashboard, report_index), column, 'table');
+    appendChartToColumn(data, options, getReportTitleByIndex(dashboard, report_index), column, 'table', google.visualization.Table);
 }
 
 function drawGauge(report_id, dashboard, column) {
@@ -180,13 +180,13 @@ function drawGauge(report_id, dashboard, column) {
         }
     };
 
-    appendChartToColumn(data, options, getReportTitleByIndex(dashboard, report_index), column, 'gauge');
+    appendChartToColumn(data, options, getReportTitleByIndex(dashboard, report_index), column, 'gauge', google.visualization.Gauge);
 }
 
 /*
  Function to append a chart to the appropriate column on the page.
  */
-function appendChartToColumn(data, options, title, col, chart_type) {
+function appendChartToColumn(data, options, title, col, chart_type, constructor) {
     // create and append fieldset
     var fs = document.createElement('fieldset');
     // create and append legend
@@ -203,7 +203,7 @@ function appendChartToColumn(data, options, title, col, chart_type) {
 
     fs.appendChild(chart_div);
 
-    var chart = new google.visualization.Table(chart_div);
+    var chart = new constructor(chart_div);
     chart.draw(data, options);
 
     // add fieldset to appropriate column
