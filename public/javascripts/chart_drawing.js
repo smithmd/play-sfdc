@@ -164,6 +164,13 @@ function drawGauge(report_id, dashboard, column) {
     currency_formatter.format(data, 1);
 
     var bounds = getGaugeBounds(dashboard, report_index);
+    var tickSize = (bounds[3] - bounds[0]) / 1000000;
+
+    var majorTicks = [bounds[0] / 1000000];
+    majorTicks.push(tickSize);
+    majorTicks.push(tickSize*2);
+    majorTicks.push(tickSize*3);
+
     bounds.forEach(function(value, index, array) {
         array[index] = (value / 1000000).toFixed(1);
     });
@@ -173,7 +180,7 @@ function drawGauge(report_id, dashboard, column) {
         redFrom: bounds[0], redTo: bounds[1],
         yellowFrom: bounds[1], yellowTo: bounds[2],
         minorTicks: 3,
-        majorTicks: bounds,
+        majorTicks: majorTicks,
         min: bounds[0],
         max: bounds[3],
         animation: {
