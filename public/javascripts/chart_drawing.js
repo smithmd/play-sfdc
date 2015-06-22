@@ -47,6 +47,17 @@ function getColumnLabels(obj) {
     return columnLabels;
 }
 
+function getGaugeBounds(dashboard,report_index) {
+    var breakpoints = dashboard.dashboardMetadata.components[report_index].properties.visualizationProperties.breakPoints[0].breaks;
+    var bounds = [];
+    bounds.push(breakpoints[0].lowerBound);
+    bounds.push(breakpoints[1].lowerBound);
+    bounds.push(breakpoints[2].lowerBound);
+    bounds.push(breakpoints[2].upperBound);
+
+    return bounds;
+}
+
 function getAggregateByIndex(index, report) {
     return report.reportResult.reportMetadata.aggregates.indexOf('FORMULA' + (index + 1));
 }
@@ -60,11 +71,14 @@ function getGroupings(arr) {
     return groupings;
 }
 
+/*
+ Functions to actually render the charts
+ */
 function drawTable(report_id, groupingInfo, column, dashboard) {
 
     // grabbing report to make code easier to read
-    var report_index = getReportIndex(dashboard,report_id);
-    var report = getReportByIndex(dashboard,report_index);
+    var report_index = getReportIndex(dashboard, report_id);
+    var report = getReportByIndex(dashboard, report_index);
 
     // init google chart
     var data = new google.visualization.DataTable();
@@ -116,9 +130,6 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
     var millions_formatter = new google.visualization.NumberFormat(
         {prefix: '$', suffix: 'M', pattern: '#,###.#'}
     );
-//                var thousands_formatter = new google.visualization.NumberFormat(
-//                    {prefix: '$', suffix: 'K', pattern: '#,###.#'}
-//                );
     for (i = 0; i < colsOverOneMil.length; i++) {
         if (colsOverOneMil[i] == 1) {
             millions_formatter.format(data, i + 1);
@@ -130,9 +141,51 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
         showRowNumber: false
     };
 
-    appendChartToColumn(data, options, getReportTitleByIndex(dashboard,report_index), column, 'table');
+    appendChartToColumn(data, options, getReportTitleByIndex(dashboard, report_index), column, 'table');
 }
 
+function drawGauge(report_id, dashboard, column) {
+
+    // grabbing report to make code easier to read
+    var report_index = getReportIndex(dashboard,report_id);
+    var report = getReportByIndex(dashboard,report_index);
+
+    var factMap = report.reportResult.factMap;
+
+    // init google chart
+    var data = new google.visualization.arrayToDataTable([
+        ['Label', 'Value'],
+        ['Total (Millions)', factMap["T!T"].aggregates[0].value / 1000000]
+    ]);
+
+    var currency_formatter = new google.visualization.NumberFormat(
+        {prefix: '$', suffix: 'M', pattern: '#,###.##'}
+    );
+    currency_formatter.format(data, 1);
+
+    var bounds = getGaugeBounds(dashboard, report_index);
+
+    var options = {
+        width: 400, height: 300,
+        redFrom: bounds[0], redTo: bounds[1],
+        yellowFrom: bounds[1], yellowTo: bounds[2],
+        minorTicks: 3,
+        majorTicks: bounds,
+        min: bounds[0],
+        max: bounds[3],
+        animation: {
+            startup: true,
+            duration: 500,
+            easing: 'inAndOut'
+        }
+    };
+
+    appendChartToColumn(data, options, getReportTitleByIndex(dashboard, report_index), column, 'gauge');
+}
+
+/*
+ Function to append a chart to the appropriate column on the page.
+ */
 function appendChartToColumn(data, options, title, col, chart_type) {
     // create and append fieldset
     var fs = document.createElement('fieldset');
