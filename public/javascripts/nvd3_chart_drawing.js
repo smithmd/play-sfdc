@@ -36,12 +36,15 @@ function drawBullet(dashboard, report_id, column) {
     fs.appendChild(legend);
     var div = document.createElement('div');
     div.classList.add('chart');
+    var svg = document.createElement('svg');
+    div.appendChild(svg);
     fs.appendChild(div);
+
 
     nv.addGraph(function() {
                       var chart = nv.models.bulletChart();
 
-                      d3.select(div)
+                      d3.select(svg)
                           .datum(exampleData())
                           .transition().duration(1000)
                           .call(chart);
