@@ -40,7 +40,7 @@ function drawBullet(dashboard, report_id, column) {
     var value = [factMap["T!T"].aggregates[0].value / 1000000];
     console.log('value = ' + value);
     console.log('ranges: ' + range_array);
-    var graphData = getBulletChartData();
+    var graphData = getBulletChartData2();
     //var graphData = exampleData();
 
     console.log('graphData: ');
@@ -66,7 +66,7 @@ function exampleData() {
         "markers": [250.0]			 //Place a marker on the chart (the white triangle marker)
     };
 }
-function getBulletChartData() {
+function getBulletChartData2() {
     return {
         "title": 'Goal',
         "subtitle": "Total (Millions)",
