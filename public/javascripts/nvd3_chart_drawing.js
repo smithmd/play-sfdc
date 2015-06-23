@@ -9,10 +9,7 @@ function getBulletChartData(factMap, report_title, range_array, range_label_arra
         "subtitle": "Total (Millions)",
         "ranges": range_array,
         "measures": [(factMap["T!T"].aggregates[0].value / 1000000).toFixed(2)],
-        "markers": [],
-        "rangeLabels": range_label_array,
-        "forceX": [range_array[0], range_array[2]],
-        "tickFormat": d3.format(".02f")
+        "markers": []
     };
 }
 
