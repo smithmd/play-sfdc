@@ -37,8 +37,6 @@ function drawBullet(dashboard, report_id, column) {
     var div = document.createElement('div');
     div.classList.add('chart');
     var svg = document.createElement('svg');
-    div.appendChild(svg);
-    fs.appendChild(div);
 
     nv.addGraph(function () {
         var chart = nv.models.bulletChart();
@@ -50,6 +48,8 @@ function drawBullet(dashboard, report_id, column) {
 
         return chart;
     });
+    div.appendChild(svg);
+    fs.appendChild(div);
     document.getElementById('col' + column).appendChild(fs);
 }
 
