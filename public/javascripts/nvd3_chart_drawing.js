@@ -47,8 +47,6 @@ function drawBullet(dashboard, report_id, column) {
         d3.select(div)
             .append('svg')
             .datum(getBulletChartData(factMap, '', range_array, range_label_array))
-            .attr("height", 60)
-            .attr("width", 400)
             .transition().duration(1000)
             .call(chart);
 
