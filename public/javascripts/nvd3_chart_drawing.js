@@ -5,11 +5,11 @@
 
 function getBulletChartData(value, report_title, range_array, range_label_array) {
     return {
-        "title": "Title",
-        "subtitle": "Millions, US$",
-        "ranges": [150, 225, 300],
-        "measures": [220],
-        "markers": []
+        "title": "Revenue",		//Label the bullet chart
+        "subtitle": "US$, in thousands",		//sub-label for bullet chart
+        "ranges": [150, 225, 300],	 //Minimum, mean and maximum values.
+        "measures": [220],		 //Value representing current measurement (the thick blue line in the example)
+        "markers": []			 //Place a marker on the chart (the white triangle marker)
     };
 }
 function exampleData() {
@@ -57,8 +57,8 @@ function drawBullet(dashboard, report_id, column) {
         var chart = nv.models.bulletChart();
 
         d3.select(svg)
-            //.datum(exampleData())
-            .datum(getBulletChartData(factMap["T!T"].aggregates[0].value,'Goal', range_array,[]))
+            .datum(exampleData())
+            //.datum(getBulletChartData(factMap["T!T"].aggregates[0].value,'Goal', range_array,[]))
             .transition().duration(1000)
             .call(chart);
 
