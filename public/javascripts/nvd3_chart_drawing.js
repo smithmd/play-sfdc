@@ -7,8 +7,8 @@ function getBulletChartData(factMap, report_title, range_array, range_label_arra
     return {
         "title": report_title,
         "subtitle": "Total (Millions)",
-        "ranges": range_array,
-        "measures": [(factMap["T!T"].aggregates[0].value / 1000000).toFixed(2)],
+        "ranges": [150,250,300], // range_array,
+        "measures": [260], //[(factMap["T!T"].aggregates[0].value / 1000000).toFixed(2)],
         "markers": []
     };
 }
