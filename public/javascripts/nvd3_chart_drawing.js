@@ -7,8 +7,8 @@ function getBulletChartData(factMap, report_title, range_array, range_label_arra
     return {
         "title": report_title,
         "subtitle": "Total (Millions)",
-        "ranges":[150,200,300], // range_array,
-        "measures":[220], //[(factMap["T!T"].aggregates[0].value / 1000000).toFixed(2)],
+        "ranges": [150, 200, 300], // range_array,
+        "measures": [220], //[(factMap["T!T"].aggregates[0].value / 1000000).toFixed(2)],
         "markers": []
     };
 }
@@ -32,7 +32,7 @@ function drawBullet(dashboard, report_id, column) {
     var fs = document.createElement('fieldset');
     // create and append legend
     var legend = document.createElement('legend');
-    legend.innerHTML = getReportTitleByIndex(dashboard,report_index);
+    legend.innerHTML = getReportTitleByIndex(dashboard, report_index);
     fs.appendChild(legend);
     var div = document.createElement('div');
     div.classList.add('chart');
@@ -40,30 +40,25 @@ function drawBullet(dashboard, report_id, column) {
     div.appendChild(svg);
     fs.appendChild(div);
 
+    nv.addGraph(function () {
+        var chart = nv.models.bulletChart();
 
-    nv.addGraph(function() {
-                      var chart = nv.models.bulletChart();
+        d3.select(svg)
+            .datum(exampleData())
+            .transition().duration(1000)
+            .call(chart);
 
-                      d3.select(svg)
-                          .datum(exampleData())
-                          .transition().duration(1000)
-                          .call(chart);
-
-                      return chart;
-                    });
-
-
-                    function exampleData() {
-                      return {
-                        "title":"Revenue",		//Label the bullet chart
-                        "subtitle":"US$, in thousands",		//sub-label for bullet chart
-                        "ranges":[150,225,300],	 //Minimum, mean and maximum values.
-                        "measures":[220],		 //Value representing current measurement (the thick blue line in the example)
-                        "markers":[250]			 //Place a marker on the chart (the white triangle marker)
-                      };
-                    }
-            }
-
-    document.getElementById('col'+column).appendChild(fs);
+        return chart;
+    });
+    document.getElementById('col' + column).appendChild(fs);
 }
 
+function exampleData() {
+    return {
+        "title": "Revenue",		//Label the bullet chart
+        "subtitle": "US$, in thousands",		//sub-label for bullet chart
+        "ranges": [150, 225, 300],	 //Minimum, mean and maximum values.
+        "measures": [220],		 //Value representing current measurement (the thick blue line in the example)
+        "markers": [250]			 //Place a marker on the chart (the white triangle marker)
+    };
+}
