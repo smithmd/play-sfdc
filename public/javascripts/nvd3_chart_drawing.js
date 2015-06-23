@@ -40,7 +40,7 @@ function drawBullet(dashboard, report_id, column) {
         var chart = nv.models.bulletChart();
 
         d3.select(svg)
-            .datum(getBulletChartData(150000000,'Goal', [100,225,300],[]))
+            .datum(getBulletChartData([220.0],'Goal', [150.0, 225.0, 300.0]))
             .transition().duration(1000)
             .call(chart);
 
@@ -56,12 +56,12 @@ function exampleData() {
         "markers": [250.0]			 //Place a marker on the chart (the white triangle marker)
     };
 }
-function getBulletChartData(value, report_title, range_array, range_label_array) {
+function getBulletChartData(value, report_title, range_array) {
     return {
         "title": report_title,
         "subtitle": "Total (Millions)",
         "ranges": range_array,
-        "measures": [(value / 1000000)],
+        "measures": value,
         "markers": []
     };
 }
