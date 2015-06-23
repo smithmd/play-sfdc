@@ -27,7 +27,7 @@ div.gauge {
     width:300px;
 }
 
-svg {
+.bullet svg {
     height:80px;
 }
 #chart {
