@@ -2,50 +2,7 @@
  * Created by smithmd on 6/19/15.
  */
 
-// helper functions to get the reports from the huge disgusting json
-function getReportIndex(dashboard, report_id) {
-    var report_index = -1;
 
-    dashboard.componentData.forEach(function (element, index) {
-        if (element.componentId == report_id) {
-            report_index = index;
-        }
-    });
-
-    return report_index;
-}
-
-function getReport(dashboard, report_id) {
-    var report = null;
-
-    dashboard.componentData.forEach(function (element, index) {
-        if (element.componentId == report_id) {
-            report = dashboard.componentData[index];
-        }
-    });
-
-    return report;
-}
-
-function getReportByIndex(dashboard, report_index) {
-    return dashboard.componentData[report_index];
-}
-
-function getReportTitleByIndex(dashboard, report_index) {
-    return dashboard.dashboardMetadata.components[report_index].header;
-}
-
-function getColumnLabels(obj) {
-    var columnLabels = [];
-    for (var columnInfo in obj) {
-        if (obj.hasOwnProperty(columnInfo)) {
-            var index = columnInfo.replace(/FORMULA/, '');
-            columnLabels[index - 1] = obj[columnInfo].label;
-        }
-    }
-
-    return columnLabels;
-}
 
 function getGaugeBounds(dashboard,report_index) {
     var breakpoints = dashboard.dashboardMetadata.components[report_index].properties.visualizationProperties.breakPoints[0].breaks;
@@ -141,7 +98,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
         showRowNumber: false
     };
 
-    appendChartToColumn(data, options, getReportTitleByIndex(dashboard, report_index), column, 'table', google.visualization.Table);
+    appendGoogleChartToColumn(data, options, getReportTitleByIndex(dashboard, report_index), column, 'table', google.visualization.Table);
 }
 
 function drawGauge(report_id, dashboard, column) {
@@ -194,13 +151,13 @@ function drawGauge(report_id, dashboard, column) {
         }
     };
 
-    appendChartToColumn(data, options, getReportTitleByIndex(dashboard, report_index), column, 'gauge', google.visualization.Gauge);
+    appendGoogleChartToColumn(data, options, getReportTitleByIndex(dashboard, report_index), column, 'gauge', google.visualization.Gauge);
 }
 
 /*
  Function to append a chart to the appropriate column on the page.
  */
-function appendChartToColumn(data, options, title, col, chart_type, constructor) {
+function appendGoogleChartToColumn(data, options, title, col, chart_type, constructor) {
     // create and append fieldset
     var fs = document.createElement('fieldset');
     // create and append legend

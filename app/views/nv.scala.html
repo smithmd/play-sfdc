@@ -11,6 +11,9 @@
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/nv.d3.css")">
         <script type="application/javascript" src="@routes.Assets.at("javascripts/d3.js")"></script>
         <script type="application/javascript" src="@routes.Assets.at("javascripts/nv.d3.js")"></script>
+        <script type="application/javascript" src="@routes.Assets.at("javascripts/chart_helpers.js")"></script>
+        <script type="application/javascript" src="@routes.Assets.at("javascripts/google_chart_drawing.js")"></script>
+        <script type="application/javascript" src="@routes.Assets.at("javascripts/nvd3_chart_drawing.js")"></script>
         <script type="application/javascript" src="https://www.google.com/jsapi"></script>
         <script type="application/javascript">
             var fullDBList = @Html(fullList);
@@ -29,315 +32,27 @@
 
             function drawCharts() {
                 // tables
-                draw01aJ00000001tJTIAY();
-                draw01aJ00000001utIIAQ();
-                draw01aJ00000001uthIAA();
+                drawTable('01aG0000001j7IbIAI', 'Opportunity.Gift_Committed_Date__c', 1, dashboard);
+                drawTable('01aG0000001j7IfIAI', 'FK_cv__Designation__c.Fund_Category_for_THE_Campaign__c', 1, dashboard);
+                drawTable('01aG0000001j7IeIAI', 'CLOSE_DATE', 2, dashboard);
 
                 // bullet charts
-                drawBullet('01aJ00000001uqYIAQ');
-                drawBullet('01aJ00000001utiIAA');
-                drawBullet('01aJ00000001utjIAA');
-                drawBullet('01aJ00000001utkIAA');
+                drawBullet('01aG0000001j7IcIAI');
+                drawBullet('01aG0000001j7IdIAI');
+                drawBullet('01aG0000001j7IsIAI');
+                drawBullet('01aG0000001j7dPIAQ');
             }
 
-            function getReportIndex(report_id) {
-                var report_index = -1;
 
-                dashboard.componentData.forEach(function (element, index) {
-                    if (element.componentId == report_id) {
-                        report_index = index;
-                    }
-                });
-
-                return report_index;
-            }
-
-            function getReport(report_id) {
-                var report = null;
-
-                dashboard.componentData.forEach(function (element, index) {
-                    if (element.componentId == report_id) {
-                        report = dashboard.componentData[index];
-                    }
-                });
-
-                return report;
-            }
-
-            function getReportByIndex(report_index) {
-                return dashboard.componentData[report_index];
-            }
-
-            function getReportMetadataByIndex(report_index) {
-                return dashboard.dashboardMetadata.components[report_index];
-            }
-
-            function getReportTitleByIndex(report_index) {
-                return getReportMetadataByIndex(report_index).header;
-            }
-
-            function getColumnLabels(obj) {
-                var columnLabels = [];
-                for (var columnInfo in obj) {
-                    if (obj.hasOwnProperty(columnInfo)) {
-                        var index = columnInfo.replace(/FORMULA/,'');
-                        columnLabels[index-1] = obj[columnInfo].label;
-                    }
-                }
-
-                return columnLabels;
-            }
-
-            function getGroupings(arr) {
-                var groupings = [];
-                for (var i = 0; i < arr.length; i++) {
-                    groupings.push(arr[i].label);
-                }
-
-                return groupings;
-            }
-
-            function getBulletChartData(factMap, report_title, range_array, range_label_array) {
-                return {
-                    "title":report_title,
-                    "subtitle":"Total (Millions)",
-                    "ranges":range_array,
-                    "measures":[ (factMap["T!T"].aggregates[0].value / 1000000).toFixed(2) ],
-                    "markers":[],
-                    "rangeLabels":range_label_array,
-                    "forceX" : [range_array[0], range_array[2]],
-                    "tickFormat" : d3.format(".02f")
-                };
-            }
-
-            function draw01aJ00000001tJTIAY() {
-                var report_id = '01aJ00000001tJTIAY';
-
-                // grabbing report to make code easier to read
-                var report_index = getReportIndex(report_id);
-                var report = getReportByIndex(report_index);
-
-                // init google chart
-                var data = new google.visualization.DataTable();
-
-                var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
-
-                var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
-
-                data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo["Opportunity.Gift_Committed_Date__c"].label);
-                data.addColumn('number', columnLabels[2]);
-                data.addColumn('number', columnLabels[0]);
-
-                var factMap = report.reportResult.factMap;
-
-                for (var i = 0; i < groupings.length; i++) {
-                    data.addRows([[ groupings[i],
-                                    factMap[i + "!T"].aggregates[2].value / 1000000,
-                                    factMap[i + "!T"].aggregates[0].value / 1000000]]);
-                }
-
-                data.addRows([['Total', factMap["T!T"].aggregates[2].value / 1000000, factMap["T!T"].aggregates[0].value / 1000000]]);
-
-                var currency_formatter = new google.visualization.NumberFormat(
-                    {prefix: '$', suffix: 'M', pattern: '#,###.#'}
-                );
-                currency_formatter.format(data,1);
-                currency_formatter.format(data,2);
-
-                var options = {
-                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
-                    showRowNumber: false,
-                    width:400
-                };
-
-                var chart = new google.visualization.Table(document.getElementById('chart_' + report_id));
-                chart.draw(data, options);
-
-                // set title
-                document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
-            }
-
-            function draw01aJ00000001utIIAQ() {
-                var report_id = '01aJ00000001utIIAQ';
-
-                // grabbing report to make code easier to read
-                var report_index = getReportIndex(report_id);
-                var report = getReportByIndex(report_index);
-
-                // get title by index
-
-                // init google chart
-                var data = new google.visualization.DataTable();
-
-                // get column labels and groupings
-                var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
-                var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
-
-                data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo['FK_cv__Designation__c.Fund_Category_for_THE_Campaign__c'].label);
-                data.addColumn('number', columnLabels[2]);
-                data.addColumn('number', columnLabels[0]);
-
-                var factMap = report.reportResult.factMap;
-
-                for (var i = 0; i < groupings.length; i++) {
-                    data.addRows([[ groupings[i],
-                    factMap[i + "!T"].aggregates[2].value / 1000000,
-                    factMap[i + "!T"].aggregates[0].value / 1000000]]);
-                }
-
-                data.addRows([['Total', factMap["T!T"].aggregates[2].value / 1000000, factMap["T!T"].aggregates[0].value / 1000000]]);
-
-                var currency_formatter = new google.visualization.NumberFormat(
-                    {prefix: '$', suffix: 'M', pattern: '#,###.#'}
-                );
-                currency_formatter.format(data,1);
-                currency_formatter.format(data,2);
-
-                var options = {
-                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
-                    showRowNumber: false,
-                    width:400
-                };
-
-                var chart = new google.visualization.Table(document.getElementById('chart_' + report_id));
-                chart.draw(data, options);
-
-                // set title
-                document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
-            }
-
-            function draw01aJ00000001uthIAA() {
-                var report_id = '01aJ00000001uthIAA';
-
-                // grabbing report to make code easier to read
-                var report_index = getReportIndex(report_id);
-                var report = getReportByIndex(report_index);
-
-                // get title by index
-
-                // init google chart
-                var data = new google.visualization.DataTable();
-
-                // get column labels and groupings
-                var columnLabels = getColumnLabels(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
-                var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
-
-                data.addColumn('string', report.reportResult.reportExtendedMetadata.groupingColumnInfo['CLOSE_DATE'].label);
-                data.addColumn('number', columnLabels[2]);
-                data.addColumn('number', columnLabels[0]);
-                data.addColumn('number', columnLabels[1]);
-
-                var factMap = report.reportResult.factMap;
-
-                for (var i = 0; i < groupings.length; i++) {
-                    data.addRows([[ groupings[i],
-                    factMap[i + "!T"].aggregates[3].value,
-                    factMap[i + "!T"].aggregates[1].value / 1000000,
-                    factMap[i + "!T"].aggregates[2].value / 1000000]]);
-                }
-
-                data.addRows([['Total', factMap["T!T"].aggregates[3].value, factMap["T!T"].aggregates[1].value / 1000000, factMap["T!T"].aggregates[2].value / 1000000]]);
-
-                var currency_formatter = new google.visualization.NumberFormat(
-                    {prefix: '$', suffix: 'M', pattern: '#,###.#'}
-                );
-                currency_formatter.format(data,2);
-                currency_formatter.format(data,3);
-
-                var options = {
-                    'title':dashboard.dashboardMetadata.attributes.dashboardName,
-                    showRowNumber: false,
-                    width:400
-                };
-
-                var chart = new google.visualization.Table(document.getElementById('chart_' + report_id));
-                chart.draw(data, options);
-
-                // set title
-                document.getElementById('title_'+report_id ).innerHTML = getReportTitleByIndex(report_index);
-            }
-
-            function drawBullet(report_id) {
-                // grabbing report to make code easier to read
-                var report_index = getReportIndex(report_id);
-                var report = getReportByIndex(report_index);
-                var factMap = report.reportResult.factMap;
-
-                var range_label_array = ['Goal', null, null];
-
-                var report_metadata = getReportMetadataByIndex(report_index);
-                var range_array = [
-                    report_metadata.properties.visualizationProperties.breakPoints[0].breaks[0].upperBound / 1000000,
-                    report_metadata.properties.visualizationProperties.breakPoints[0].breaks[1].upperBound / 1000000,
-                    report_metadata.properties.visualizationProperties.breakPoints[0].breaks[2].upperBound / 1000000
-                ];
-
-                nv.addGraph(function () {
-                    var chart = nv.models.bulletChart();
-
-                    d3.select ( '#chart_' + report_id + ' svg' )
-                        .datum(getBulletChartData(factMap,'', range_array, range_label_array))
-                        .attr("height", 60)
-                        .attr("width", 400)
-                        .transition().duration(1000)
-                        .call(chart);
-
-                    return chart;
-                });
-
-                // set title
-                document.getElementById('title_'+report_id).innerHTML = getReportTitleByIndex(report_index);
-            }
         </script>
     </head>
     <body>
-        <div class="column">
-            <fieldset>
-                <legend id="title_01aJ00000001tJTIAY"></legend>
-                <div class="chart" id="chart_01aJ00000001tJTIAY">
-                    <svg></svg>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend id="title_01aJ00000001utIIAQ"></legend>
-                <div class="chart" id="chart_01aJ00000001utIIAQ">
-                    <svg></svg>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend id="title_01aJ00000001uqYIAQ"></legend>
-                <div class="chart" id="chart_01aJ00000001uqYIAQ">
-                    <svg></svg>
-                </div>
-            </fieldset>
+        <div class="column" id="col1">
         </div>
-        <div class="column">
-            <fieldset>
-                <legend id="title_01aJ00000001uthIAA"></legend>
-                <div class="chart" id="chart_01aJ00000001uthIAA">
-                    <svg></svg>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend id="title_01aJ00000001utiIAA"></legend>
-                <div class="chart" id="chart_01aJ00000001utiIAA">
-                    <svg></svg>
-                </div>
-            </fieldset>
+        <div class="column" id="col2">
         </div>
-        <div class="column">
-            <fieldset>
-                <legend id="title_01aJ00000001utjIAA"></legend>
-                <div class="chart" id="chart_01aJ00000001utjIAA">
-                    <svg></svg>
-                </div>
-            </fieldset>
-            <fieldset>
-                <legend id="title_01aJ00000001utkIAA"></legend>
-                <div class="chart" id="chart_01aJ00000001utkIAA">
-                    <svg></svg>
-                </div>
-            </fieldset>
+        <div class="column" id="col3">
+        </div>
         </div>
     </body>
 </html>
