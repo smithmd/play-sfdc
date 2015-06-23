@@ -5,10 +5,10 @@
 
 function getBulletChartData(value, report_title, range_array, range_label_array) {
     return {
-        "title": report_title,
+        "title": "Title",
         "subtitle": "Millions, US$",
         "ranges": [150, 225, 300],
-        "measures": [10],
+        "measures": [220],
         "markers": []
     };
 }
