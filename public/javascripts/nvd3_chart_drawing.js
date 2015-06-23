@@ -43,6 +43,9 @@ function drawBullet(dashboard, report_id, column) {
     var graphData = getBulletChartData();
     //var graphData = exampleData();
 
+    console.log('graphData: ');
+    console.log(graphData);
+
     nv.addGraph(function () {
         var chart = nv.models.bulletChart();
 
