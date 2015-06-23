@@ -3,6 +3,15 @@
  */
 
 
+function getBulletChartData(value, report_title, range_array, range_label_array) {
+    return {
+        "title": report_title,
+        "subtitle": "Total (Millions)",
+        "ranges": range_array,
+        "measures": [value / 1000000],
+        "markers": []
+    };
+}
 
 function drawBullet(dashboard, report_id, column) {
     // grabbing report to make code easier to read
@@ -40,30 +49,18 @@ function drawBullet(dashboard, report_id, column) {
 
         d3.select(svg)
             .datum(exampleData())
-            //.datum(getBulletChartData(factMap["T!T"].aggregates[0].value,'Goal', range_array,[]))
             .transition().duration(1000)
             .call(chart);
 
         return chart;
     });
-
-    function getBulletChartData(value, report_title, range_array, range_label_array) {
-        return {
-            "title": report_title,		//Label the bullet chart
-            "subtitle": "US$, in thousands",		//sub-label for bullet chart
-            "ranges": range_array,	 //Minimum, mean and maximum values.
-            "measures": value / 1000000,		 //Value representing current measurement (the thick blue line in the example)
-            "markers": []			 //Place a marker on the chart (the white triangle marker)
-        };
-    }
-
-    function exampleData() {
-        return {
-            "title": "Revenue",		//Label the bullet chart
-            "subtitle": "US$, in thousands",		//sub-label for bullet chart
-            "ranges": [150, 225, 300],	 //Minimum, mean and maximum values.
-            "measures": [220],		 //Value representing current measurement (the thick blue line in the example)
-            "markers": []			 //Place a marker on the chart (the white triangle marker)
-        };
-    }
+}
+function exampleData() {
+    return {
+        "title": "Revenue",		//Label the bullet chart
+        "subtitle": "US$, in thousands",		//sub-label for bullet chart
+        "ranges": [150, 225, 300],	 //Minimum, mean and maximum values.
+        "measures": [220],		 //Value representing current measurement (the thick blue line in the example)
+        "markers": [250]			 //Place a marker on the chart (the white triangle marker)
+    };
 }
