@@ -26,3 +26,7 @@ div.column {
 div.gauge {
     width:300px;
 }
+
+svg {
+    height:80px;
+}
