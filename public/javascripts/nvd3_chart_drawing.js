@@ -7,8 +7,8 @@ function getBulletChartData(factMap, report_title, range_array, range_label_arra
     return {
         "title": report_title,
         "subtitle": "Total (Millions)",
-        "ranges": [150, 200, 300], // range_array,
-        "measures": [220], //[(factMap["T!T"].aggregates[0].value / 1000000).toFixed(2)],
+        "ranges": range_array,
+        "measures": [(factMap["T!T"].aggregates[0].value / 1000000).toFixed(2)],
         "markers": []
     };
 }
@@ -42,7 +42,7 @@ function drawBullet(dashboard, report_id, column) {
         var chart = nv.models.bulletChart();
 
         d3.select(svg)
-            .datum(exampleData())
+            .datum(getBulletChartData(factMap,'Goal',range_array,range_label_array))
             .transition().duration(1000)
             .call(chart);
 
