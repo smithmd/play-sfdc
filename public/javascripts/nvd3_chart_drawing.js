@@ -40,7 +40,7 @@ function drawBullet(dashboard, report_id, column) {
         var chart = nv.models.bulletChart();
 
         d3.select(svg)
-            .datum(exampleData())
+            .datum(getBulletChartData(factMap["T!T"].aggregates[0].value,'Goal', range_array,[]))
             .transition().duration(1000)
             .call(chart);
 
@@ -61,7 +61,7 @@ function getBulletChartData(value, report_title, range_array, range_label_array)
         "title": report_title,
         "subtitle": "Total (Millions)",
         "ranges": range_array,
-        "measures": [value / 1000000],
+        "measures": [(value / 1000000)],
         "markers": []
     };
 }
