@@ -40,7 +40,7 @@ function drawBullet(dashboard, report_id, column) {
         var chart = nv.models.bulletChart();
 
         d3.select(svg)
-            .datum(exampleData())
+            .datum(getBulletChartData(150000000,'Goal', [100,225,300],[]))
             .transition().duration(1000)
             .call(chart);
 
