@@ -37,7 +37,9 @@ function drawBullet(dashboard, report_id, column) {
     var div = document.createElement('div');
     div.classList.add('chart');
     div.classList.add('bullet');
-    var svg = document.createElement('svg');
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
+
     div.appendChild(svg);
     fs.appendChild(div);
     document.getElementById('col' + column).appendChild(fs);
@@ -46,7 +48,7 @@ function drawBullet(dashboard, report_id, column) {
         var chart = nv.models.bulletChart();
 
         d3.select(svg)
-            .datum(getBulletChartData(factMap,'Goal',range_array,range_label_array))
+            .datum(getBulletChartData(factMap, 'Goal', range_array, range_label_array))
             .transition().duration(1000)
             .call(chart);
 
