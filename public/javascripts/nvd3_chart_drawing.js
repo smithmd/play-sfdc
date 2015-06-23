@@ -6,9 +6,9 @@
 function getBulletChartData(value, report_title, range_array, range_label_array) {
     return {
         "title": report_title,
-        "subtitle": "Total, Millions",
+        "subtitle": "Millions, US$",
         "ranges": range_array,
-        "measures": [value / 1000000],
+        "measures": [10],
         "markers": []
     };
 }
