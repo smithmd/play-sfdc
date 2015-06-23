@@ -37,7 +37,7 @@ function drawBullet(dashboard, report_id, column) {
     document.getElementById('col' + column).appendChild(fs);
 
 
-    var value = factMap["T!T"].aggregates[0].value / 1000000;
+    var value = [factMap["T!T"].aggregates[0].value / 1000000];
     var graphData = getBulletChartData(value,'Goal',range_array);
 
     nv.addGraph(function () {
