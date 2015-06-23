@@ -40,7 +40,7 @@ function drawBullet(dashboard, report_id, column) {
         var chart = nv.models.bulletChart();
 
         d3.select(svg)
-            .datum(getBulletChartData(factMap["T!T"].aggregates[0].value,'Goal', range_array,[]))
+            .datum(exampleData())
             .transition().duration(1000)
             .call(chart);
 
@@ -65,3 +65,4 @@ function getBulletChartData(value, report_title, range_array, range_label_array)
         "markers": []
     };
 }
+//getBulletChartData(factMap["T!T"].aggregates[0].value,'Goal', range_array,[])
