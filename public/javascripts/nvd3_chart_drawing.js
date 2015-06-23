@@ -3,15 +3,7 @@
  */
 
 
-function getBulletChartData(value, report_title, range_array, range_label_array) {
-    return {
-        "title": report_title,
-        "subtitle": "Total (Millions)",
-        "ranges": range_array,
-        "measures": [value / 1000000],
-        "markers": []
-    };
-}
+
 
 function drawBullet(dashboard, report_id, column) {
     // grabbing report to make code easier to read
@@ -62,5 +54,14 @@ function exampleData() {
         "ranges": [150, 225, 300],	 //Minimum, mean and maximum values.
         "measures": [220],		 //Value representing current measurement (the thick blue line in the example)
         "markers": [250]			 //Place a marker on the chart (the white triangle marker)
+    };
+}
+function getBulletChartData(value, report_title, range_array, range_label_array) {
+    return {
+        "title": report_title,
+        "subtitle": "Total (Millions)",
+        "ranges": range_array,
+        "measures": [value / 1000000],
+        "markers": []
     };
 }
