@@ -35,7 +35,7 @@ function drawBullet(dashboard, report_id, column) {
     var fs = document.createElement('fieldset');
     // create and append legend
     var legend = document.createElement('legend');
-    legend.innerHTML = getReportTitleByIndex(report_index);
+    legend.innerHTML = getReportTitleByIndex(dashboard,report_index);
     fs.appendChild(legend);
     var div = document.createElement('div');
     div.classList.add('chart');
