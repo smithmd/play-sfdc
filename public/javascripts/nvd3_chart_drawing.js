@@ -36,11 +36,13 @@ function drawBullet(dashboard, report_id, column) {
     fs.appendChild(div);
     document.getElementById('col' + column).appendChild(fs);
 
+    var graphData = getBulletChartData(factMap["T!T"].aggregates[0].value / 1000000,'Goal', range_array,[]);
+
     nv.addGraph(function () {
         var chart = nv.models.bulletChart();
 
         d3.select(svg)
-            .datum(exampleData())
+            .datum(graphData)
             .transition().duration(1000)
             .call(chart);
 
