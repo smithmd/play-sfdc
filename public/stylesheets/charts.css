@@ -29,5 +29,8 @@ div.gauge {
 
 svg {
     height:80px;
-    width:100%;
+}
+#chart {
+    width:400px;
+    clear:left;
 }
