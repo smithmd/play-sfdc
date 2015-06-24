@@ -40,7 +40,7 @@ function drawBullet(dashboard, report_id, column) {
     var value = [factMap["T!T"].aggregates[0].value / 1000000];
     console.log('value = ' + value);
     console.log('ranges: ' + range_array);
-    var graphData = bulletChartData();
+    var graphData = bulletChartData([220.0],"Revenue",[150.0,225.0,300.0]);
     //var graphData = exampleData();
 
     console.log('graphData: ');
@@ -66,7 +66,7 @@ function exampleData() {
         "markers": [250.0]			 //Place a marker on the chart (the white triangle marker)
     };
 }
-function bulletChartData() {
+function bulletChartData(measure, report_title, range_array) {
     return {
         "title": "Revenue",		//Label the bullet chart
         "subtitle": "US$, in thousands",		//sub-label for bullet chart
