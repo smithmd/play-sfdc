@@ -40,7 +40,7 @@ function drawBullet(dashboard, report_id, column) {
     var value = [factMap["T!T"].aggregates[0].value / 1000000];
     console.log('value = ' + value);
     console.log('ranges: ' + range_array);
-    var graphData = bulletChartData([value],"Revenue",range_array,[null]);
+    var graphData = bulletChartData([value],"Goal",range_array,[null]);
     //var graphData = exampleData();
 
     console.log('graphData: ');
@@ -60,7 +60,7 @@ function drawBullet(dashboard, report_id, column) {
 function bulletChartData(measure, report_title, range_array, markers) {
     return {
         "title": report_title,		//Label the bullet chart
-        "subtitle": "US$, in millions",		//sub-label for bullet chart
+        "subtitle": "Millions of US$",		//sub-label for bullet chart
         "ranges": range_array,	 //Minimum, mean and maximum values.
         "measures": measure,		 //Value representing current measurement (the thick blue line in the example)
         "markers": markers			 //Place a marker on the chart (the white triangle marker)
