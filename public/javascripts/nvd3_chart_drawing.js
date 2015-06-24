@@ -38,14 +38,7 @@ function drawBullet(dashboard, report_id, column) {
 
 
     var value = [factMap["T!T"].aggregates[0].value / 1000000];
-    console.log('value = ' + value);
-    console.log('ranges: ' + range_array);
-    var graphData = bulletChartData([value],"Goal",range_array,[null]);
-    //var graphData = exampleData();
-
-    console.log('graphData: ');
-    console.log(graphData);
-
+    var graphData = bulletChartData(value,"Goal",range_array,[null]);
     nv.addGraph(function () {
         var chart = nv.models.bulletChart();
 
