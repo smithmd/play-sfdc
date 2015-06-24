@@ -81,6 +81,7 @@ public class Application extends Controller {
             System.out.println("Token: " + accessToken);
         } catch (JSONException je) {
             dashboardList = "Error parsing JSON.";
+            je.printStackTrace();
         }
 
 
@@ -140,7 +141,7 @@ public class Application extends Controller {
 
             in.close();
 
-//            System.out.println(response);
+            System.out.println(response);
 
             return response.toString();
         } catch (MalformedURLException e) {
