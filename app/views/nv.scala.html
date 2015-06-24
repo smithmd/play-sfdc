@@ -17,12 +17,7 @@
         <script type="application/javascript" src="https://www.google.com/jsapi"></script>
         <script type="application/javascript">
             var fullDBList = @Html(fullList);
-            console.log('full dashboard list');
-            console.log(fullDBList);
             var dashboard = @Html(data);
-            console.log('single dashboard:');
-            console.log(dashboard);
-
 
             // Load the Visualization API and the required packages
             google.load('visualization', '1.0', {'packages':['table']});
@@ -50,9 +45,6 @@
         <div class="column" id="col2">
         </div>
         <div class="column" id="col3">
-        </div>
-        <div id="chart">
-            <svg></svg>
         </div>
     </body>
 </html>
