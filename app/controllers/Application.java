@@ -134,7 +134,7 @@ public class Application extends Controller {
 
             in.close();
 
-            System.out.println(response);
+//            System.out.println(response);
 
             return response.toString();
         } catch (MalformedURLException e) {
@@ -169,7 +169,7 @@ public class Application extends Controller {
             final MessageFormat claims = new MessageFormat(claimTemplate);
             final String payload = claims.format(claimArray);
 
-            System.out.println("Payload:\n" + payload);
+//            System.out.println("Payload:\n" + payload);
 
             // Add the encoded claims object
             token.append(Base64.encodeBase64URLSafeString(payload.getBytes(StandardCharsets.UTF_8)));
@@ -199,7 +199,7 @@ public class Application extends Controller {
 //            System.out.println("Token:");
 //            System.out.println(token);
 
-            System.out.println("Token: \n" + token);
+//            System.out.println("Token: \n" + token);
             return token.toString();
 
         } catch (Exception e) {
