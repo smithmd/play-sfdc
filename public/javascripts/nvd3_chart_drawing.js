@@ -40,7 +40,7 @@ function drawBullet(dashboard, report_id, column) {
     var value = [factMap["T!T"].aggregates[0].value / 1000000];
     console.log('value = ' + value);
     console.log('ranges: ' + range_array);
-    var graphData = bulletChartData([220.0],"Revenue",[150.0,225.0,300.0]);
+    var graphData = bulletChartData([value],"Revenue",range_array);
     //var graphData = exampleData();
 
     console.log('graphData: ');
