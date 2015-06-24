@@ -63,7 +63,7 @@ function bulletChartData(measure, report_title, range_array) {
         "subtitle": "US$, in thousands",		//sub-label for bullet chart
         "ranges": range_array,	 //Minimum, mean and maximum values.
         "measures": measure,		 //Value representing current measurement (the thick blue line in the example)
-        "markers": [250.0]			 //Place a marker on the chart (the white triangle marker)
+        "markers": [null]			 //Place a marker on the chart (the white triangle marker)
     };
 }
 //getBulletChartData(factMap["T!T"].aggregates[0].value,'Goal', range_array,[])
