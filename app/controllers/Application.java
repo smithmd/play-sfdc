@@ -216,10 +216,11 @@ public class Application extends Controller {
         HttpClient client = HttpClientBuilder.create().build();
 
         String sfURI = System.getenv().get("SF_URI_" + ENVIRONMENT);
+        System.out.println(sfURI);
         String dashboardPath = "/services/data/v31.0/analytics/dashboards/";
 
         String fullURI = sfURI + dashboardPath + dashboardId;
-        System.out.println("Full URI: " + fullURI);
+//        System.out.println("Full URI: " + fullURI);
         HttpGet get = new HttpGet(fullURI);
         get.addHeader("Authorization", "Bearer " + accessToken);
         get.addHeader("Content-Type", "application/x-www-form-urlencoded");
