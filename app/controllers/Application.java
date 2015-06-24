@@ -215,7 +215,7 @@ public class Application extends Controller {
 
         HttpClient client = HttpClientBuilder.create().build();
 
-        String sfURI = "https://interlochen--UAT.cs10.my.salesforce.com";
+        String sfURI = System.getenv().get("SF_URI_" + ENVIRONMENT);
         String dashboardPath = "/services/data/v31.0/analytics/dashboards/";
 
         String fullURI = sfURI + dashboardPath + dashboardId;
