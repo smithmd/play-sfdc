@@ -68,7 +68,7 @@ function exampleData() {
 }
 function bulletChartData(measure, report_title, range_array) {
     return {
-        "title": "Revenue",		//Label the bullet chart
+        "title": report_title,		//Label the bullet chart
         "subtitle": "US$, in thousands",		//sub-label for bullet chart
         "ranges": [150.0, 225.0, 300.0],	 //Minimum, mean and maximum values.
         "measures": [220.0],		 //Value representing current measurement (the thick blue line in the example)
