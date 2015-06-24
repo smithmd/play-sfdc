@@ -40,7 +40,7 @@ function drawBullet(dashboard, report_id, column) {
     var value = [factMap["T!T"].aggregates[0].value / 1000000];
     console.log('value = ' + value);
     console.log('ranges: ' + range_array);
-    var graphData = bulletChartData([value],"Revenue",range_array);
+    var graphData = bulletChartData([value],"Revenue",range_array,[null]);
     //var graphData = exampleData();
 
     console.log('graphData: ');
@@ -57,13 +57,13 @@ function drawBullet(dashboard, report_id, column) {
         return chart;
     });
 }
-function bulletChartData(measure, report_title, range_array) {
+function bulletChartData(measure, report_title, range_array, markers) {
     return {
         "title": report_title,		//Label the bullet chart
-        "subtitle": "US$, in thousands",		//sub-label for bullet chart
+        "subtitle": "US$, in millions",		//sub-label for bullet chart
         "ranges": range_array,	 //Minimum, mean and maximum values.
         "measures": measure,		 //Value representing current measurement (the thick blue line in the example)
-        "markers": [null]			 //Place a marker on the chart (the white triangle marker)
+        "markers": markers			 //Place a marker on the chart (the white triangle marker)
     };
 }
 //getBulletChartData(factMap["T!T"].aggregates[0].value,'Goal', range_array,[])
