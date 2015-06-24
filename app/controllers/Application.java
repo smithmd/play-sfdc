@@ -73,19 +73,25 @@ public class Application extends Controller {
 
         String token = requestAccessToken();
 
+        System.out.println("Getting token");
         JSONTokener jt = new JSONTokener(token);
         try {
             JSONObject jo = new JSONObject(jt);
             accessToken = (String)jo.get("access_token");
+            System.out.println("Token: " + accessToken);
         } catch (JSONException je) {
             dashboardList = "Error parsing JSON.";
         }
 
+
         if (accessToken != null) {
+            System.out.println("Getting dashboard list");
             dashboardList = getDashboard("", accessToken);
+            System.out.println("Getting dashboard: " + dashboardId);
             dashboard = getDashboard(dashboardId, accessToken);
         }
 
+        System.out.println("Rendering");
         return ok(nv.render(dashboardId, dashboard, dashboardList));
     }
 
@@ -216,7 +222,6 @@ public class Application extends Controller {
         HttpClient client = HttpClientBuilder.create().build();
 
         String sfURI = System.getenv().get("SF_URI" + ENVIRONMENT);
-//        System.out.println(sfURI);
         String dashboardPath = "/services/data/v31.0/analytics/dashboards/";
 
         String fullURI = sfURI + dashboardPath + dashboardId;
