@@ -215,8 +215,8 @@ public class Application extends Controller {
 
         HttpClient client = HttpClientBuilder.create().build();
 
-        String sfURI = System.getenv().get("SF_URI_" + ENVIRONMENT);
-        System.out.println(sfURI);
+        String sfURI = System.getenv().get("SF_URI" + ENVIRONMENT);
+//        System.out.println(sfURI);
         String dashboardPath = "/services/data/v31.0/analytics/dashboards/";
 
         String fullURI = sfURI + dashboardPath + dashboardId;
