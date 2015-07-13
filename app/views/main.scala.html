@@ -3,41 +3,41 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <link rel="stylesheet" media="all" href="@routes.Assets.at("stylesheets/charts.css")">
-        <script type="application/javascript" src="@routes.Assets.at("javascripts/chart_helpers.js")"></script>
-        <script type="application/javascript" src="@routes.Assets.at("javascripts/google_chart_drawing.js")"></script>
-        <script type="application/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="application/javascript">
-            var fullDBList = @Html(fullList);
-            var dashboard = @Html(data);
+  <head>
+    <title>@title</title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    <link rel="stylesheet" media="all" href="@routes.Assets.at("stylesheets/charts.css")">
+    <script type="application/javascript" src="@routes.Assets.at("javascripts/chart_helpers.js")"></script>
+    <script type="application/javascript" src="@routes.Assets.at("javascripts/google_chart_drawing.js")"></script>
+    <script type="application/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="application/javascript">
+        var fullDBList = @Html(fullList);
+        var dashboard = @Html(data);
 
-            // Load the Visualization API and the required packages
-            google.load('visualization', '1.0', {'packages':['table', 'corechart', 'gauge']});
+        // Load the Visualization API and the required packages
+        google.load('visualization', '1.0', {'packages':['table', 'corechart', 'gauge']});
 
-            // Set a callback to run when the Google Visualization API is loaded.
-            google.setOnLoadCallback(drawCharts);
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.setOnLoadCallback(drawCharts);
 
-            function drawCharts() {
-                drawTable('01aG0000001j7IbIAI', 'Opportunity.Gift_Committed_Date__c', 1, dashboard);
-                drawTable('01aG0000001j7IfIAI', 'FK_cv__Designation__c.Fund_Category_for_THE_Campaign__c', 1, dashboard);
-                drawTable('01aG0000001j7IeIAI', 'CLOSE_DATE', 2, dashboard);
-                drawGauge('01aG0000001j7IcIAI', dashboard, 1);
-                drawGauge('01aG0000001j7IdIAI', dashboard, 2);
-                drawGauge('01aG0000001j7IsIAI', dashboard, 3);
-                drawGauge('01aG0000001j7dPIAQ', dashboard, 3);
-            }
-        </script>
-    </head>
-    <body>
-        <div class="column" id="col1">
-        </div>
-        <div class="column" id="col2">
-        </div>
-        <div class="column" id="col3">
-        </div>
-    </body>
+        function drawCharts() {
+            drawTable('01aG0000001j7IbIAI', 'Opportunity.Gift_Committed_Date__c', 1, dashboard);
+            drawTable('01aG0000001j7IfIAI', 'FK_cv__Designation__c.Fund_Category_for_THE_Campaign__c', 1, dashboard);
+            drawTable('01aG0000001j7IeIAI', 'CLOSE_DATE', 2, dashboard);
+            drawGauge('01aG0000001j7IcIAI', dashboard, 1);
+            drawGauge('01aG0000001j7IdIAI', dashboard, 2);
+            drawGauge('01aG0000001j7IsIAI', dashboard, 3);
+            drawGauge('01aG0000001j7dPIAQ', dashboard, 3);
+        }
+    </script>
+  </head>
+  <body>
+    <div class="column" id="col1">
+    </div>
+    <div class="column" id="col2">
+    </div>
+    <div class="column" id="col3">
+    </div>
+  </body>
 </html>
