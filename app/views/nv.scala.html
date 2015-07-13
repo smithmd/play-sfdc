@@ -32,10 +32,10 @@
           for (var i = 0; i < dashboard.componentData.length; i++) {
             switch(getChartType(dashboard, i)) {
               case "Gauge":
-                drawBullet(dashboard, getReportByIndex(i).componentId, getChartColumn(dashboard,i));
+                drawBullet(dashboard, getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
                 break;
               case "Table":
-                drawTable(getReportByIndex(i).componentId, getGroupingName(getReportByIndex(i)), getChartColumn(dashboard,i), dashboard);
+                drawTable(getReportByIndex(dashboard,i).componentId, getGroupingName(getReportByIndex(dashboard,i)), getChartColumn(dashboard,i), dashboard);
                 break;
             }
           }
