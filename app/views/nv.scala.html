@@ -35,7 +35,8 @@
                 drawBullet(dashboard, getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
                 break;
               case "Table":
-                drawTable(getReportByIndex(dashboard,i).componentId, getGroupingName(getReportByIndex(dashboard,i)), getChartColumn(dashboard,i), dashboard);
+                var groupingName = getGroupingName(getReportByIndex(dashboard,i)).name;
+                drawTable(getReportByIndex(dashboard,i).componentId, groupingName, getChartColumn(dashboard,i), dashboard);
                 break;
             }
           }
