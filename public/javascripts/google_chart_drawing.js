@@ -59,7 +59,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
     for (i = 0; i < groupings.length; i++) {
         var row = [groupings[i]];
         for (var j = 0; j < colCount; j++) {
-            var index = getAggregateByIndex(j, report);
+            //var index = getAggregateByIndex(j, report);
             var value = factMap[i + "!T"].aggregates[j].value;
             if (value > 1000) {
                 colsOverOneMil[j] = 1;
@@ -73,8 +73,8 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
     // add aggregate data row
     var row = ['Total'];
     for (i = 0; i < colCount; i++) {
-        var index = getAggregateByIndex(i, report);
-        var value = factMap["T!T"].aggregates[index].value;
+        //var index = getAggregateByIndex(i, report);
+        var value = factMap["T!T"].aggregates[i].value;
         if (value > 1000) {
             colsOverOneMil[i] = 1;
             value = value / 1000000;
