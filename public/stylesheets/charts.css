@@ -34,3 +34,8 @@ div.gauge {
     width:400px;
     clear:left;
 }
+
+div.donut {
+    height:500px;
+
+}

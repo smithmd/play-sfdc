@@ -80,7 +80,7 @@ function drawDonut(dashboard, report_id, column) {
   fs.appendChild(legend);
   var div = document.createElement('div');
   div.classList.add('chart');
-  div.classList.add('bullet');
+  div.classList.add('donut');
   var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
