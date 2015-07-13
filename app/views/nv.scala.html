@@ -36,7 +36,7 @@
                 break;
               case "Table":
                 var groupingName = getGroupingName(getReportByIndex(dashboard,i)).name;
-                drawTable(getReportByIndex(dashboard,i).componentId, groupingName, getChartColumn(dashboard,i) + 1, dashboard);
+                drawTable(getReportByIndex(dashboard,i).componentId, groupingName, getChartColumn(dashboard,i), dashboard);
                 break;
             }
           }
@@ -54,11 +54,11 @@
     </script>
   </head>
   <body>
+    <div class="column" id="col0">
+    </div>
     <div class="column" id="col1">
     </div>
     <div class="column" id="col2">
-    </div>
-    <div class="column" id="col3">
     </div>
   </body>
 </html>
