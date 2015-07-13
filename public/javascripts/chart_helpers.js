@@ -37,10 +37,10 @@ function getReportTitleByIndex(dashboard, report_index) {
 
 function getColumnLabels(obj) {
   var columnLabels = [];
+  var index = 0;
   for (var columnInfo in obj) {
     if (obj.hasOwnProperty(columnInfo)) {
-      var index = columnInfo.replace(/FORMULA/, '');
-      columnLabels[index - 1] = obj[columnInfo].label;
+      columnLabels[index++] = obj[columnInfo].label;
     }
   }
 
