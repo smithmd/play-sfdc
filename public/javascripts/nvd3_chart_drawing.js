@@ -67,7 +67,7 @@ function drawDonut(dashboard, report_id, column) {
   for (var i = 0; i < report.reportResult.groupingsDown.groupings.length; i++) {
     data_obj = {
       "label": report.reportResult.groupingsDown.groupings[i].label,
-      "value": factMap[i + "!T"].aggregates[0]
+      "value": factMap[i + "!T"].aggregates[0].value
     };
     data_array.push(data_obj);
   }
