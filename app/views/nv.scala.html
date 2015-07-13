@@ -29,7 +29,7 @@
 
         function drawCharts() {
 
-          for (let i = 0; i < dashboard.componentData.length; i++) {
+          for (var i = 0; i < dashboard.componentData.length; i++) {
             switch(getChartType(dashboard, i)) {
               case "Gauge":
                 drawBullet(dashboard, getReportByIndex(i).componentId, getChartColumn(dashboard,i));

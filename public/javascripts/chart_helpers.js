@@ -58,8 +58,8 @@ function getChartType(dashboard, report_index) {
 function getChartColumn(dashboard,report_index) {
   var col = null;
 
-  column:for (let i = 0; i < dashboard.dashboardMetadata.layout.columns.length; i++) {
-    component:for (let j = 0; j < dashboard.dashboardMetadata.layout.columns[i].components.length; j++) {
+  column:for (var i = 0; i < dashboard.dashboardMetadata.layout.columns.length; i++) {
+    component:for (var j = 0; j < dashboard.dashboardMetadata.layout.columns[i].components.length; j++) {
       if (report_index == dashboard.dashboardMetadata.layout.columns[i].components[j]) {
         col = i;
         break column;
