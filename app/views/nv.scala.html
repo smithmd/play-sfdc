@@ -38,6 +38,9 @@
                 var groupingName = getGroupingName(getReportByIndex(dashboard,i)).name;
                 drawTable(getReportByIndex(dashboard,i).componentId, groupingName, getChartColumn(dashboard,i), dashboard);
                 break;
+              case "Donut":
+                drawDonut(dashboard,getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
+                break;
             }
           }
         }
