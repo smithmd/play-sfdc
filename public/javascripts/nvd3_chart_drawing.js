@@ -45,6 +45,12 @@ function drawBullet(dashboard, report_id, column) {
 
     return chart;
   });
+
+  d3.select(svg)
+      .append("text")
+      .attr("dy","0em")
+      .style("text-anchor","middle")
+      .text(function(d) { return "test"; });
 }
 function bulletChartData(measure, report_title, range_array, markers) {
   return {
