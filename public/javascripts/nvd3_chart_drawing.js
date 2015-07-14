@@ -107,3 +107,63 @@ function drawDonut(dashboard, report_id, column) {
     return chart;
   });
 }
+
+function drawColumn(dashboard, report_id, column) {
+  // grabbing report to make code easier to read
+  var report_index = getReportIndex(dashboard, report_id);
+  var report = getReportByIndex(dashboard, report_index);
+  var factMap = report.reportResult.factMap;
+
+
+
+  var values_array = [];
+
+  for (var i = 0; i < report.reportResult.groupingsDown.groupings.length; i++) {
+    data_obj = {
+      "label": report.reportResult.groupingsDown.groupings[i].label,
+      "value": factMap[i + "!T"].aggregates[0].value
+    };
+    values_array.push(data_obj);
+  }
+
+  var data = [
+    {
+      key: dashboard.dashboardMetadata.components[report_index].title,
+      values: values_array
+  }];
+
+  // create and append fieldset
+  var fs = document.createElement('fieldset');
+  // create and append legend
+  var legend = document.createElement('legend');
+  legend.innerHTML = getReportTitleByIndex(dashboard, report_index);
+  fs.appendChild(legend);
+  var div = document.createElement('div');
+  div.classList.add('chart');
+  div.classList.add('column');
+  var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
+
+  div.appendChild(svg);
+  fs.appendChild(div);
+  document.getElementById('col' + column).appendChild(fs);
+
+  nv.addGraph(function() {
+  var chart = nv.models.discreteBarChart()
+      .x(function(d) { return d.label })    //Specify the data accessors.
+      .y(function(d) { return d.value })
+      .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
+      .tooltips(false)        //Don't show tooltips
+      .showValues(true)       //...instead, show the bar value right on top of each bar.
+      .transitionDuration(350)
+      ;
+
+  d3.select(svg)
+      .datum(data)
+      .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  return chart;
+});
+}

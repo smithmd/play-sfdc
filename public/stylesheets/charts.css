@@ -35,7 +35,6 @@ div.gauge {
     clear:left;
 }
 
-div.donut svg {
+div.donut svg, div.column svg {
     height:400px;
-
 }

@@ -41,6 +41,9 @@
               case "Donut":
                 drawDonut(dashboard,getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
                 break;
+              case "Column":
+                drawColumn(dashboard, getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
+                break;
             }
           }
         }
