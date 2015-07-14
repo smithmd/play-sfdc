@@ -106,7 +106,7 @@ function drawDonut(dashboard, report_id, column) {
     var addText = function (selection) {
       selection.append("text")
           .attr("y", "220px")
-          .attr("x", "150px")
+          .attr("x", "200px")
           .style("text-anchor", "middle")
           .text(function (d) {return factMap["T!T"].aggregates[0].label;});
     };
