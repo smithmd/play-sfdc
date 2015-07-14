@@ -87,4 +87,8 @@ Some options for the chart are stored in a JSON object and passed into the draw 
 
 #### NVD3 functions
 
-`drawBullet()` is the only function to use NVD3. It pulls it's points into an array and sets those as bounds on a [Bullet Chart](http://nvd3.org/examples/bullet.html). The graph is then printed in an empty `<svg>` element.
+`drawBullet()` pulls its points into an array and sets those as bounds on a [Bullet Chart](http://nvd3.org/examples/bullet.html). The graph is then printed in an empty `<svg>` element.
+
+`drawDonut()` pulls its data into an array of objects consisting of labels and values and sets those as bounds on a [Donut Chart](http://nvd3.org/examples/pie.html). The graph is then printed in an empty `<svg>` element.
+
+`drawColumn()` pulls its data into an array of objects consisting of labels and values and sets those as bars on a [Discrete Bar Chart](http://nvd3.org/examples/discreteBar.html). The graph is then printed in an empty `<svg>` element.
