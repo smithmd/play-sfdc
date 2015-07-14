@@ -108,10 +108,13 @@ function drawDonut(dashboard, report_id, column) {
           .attr("y", "200px")
           .attr("x", "200px")
           .style("text-anchor", "middle")
-          .text(function (d) {return "Total:"})
+          .text(function (d) {return "Total:"});
+    };
+
+    var addTotalValue = function (selection) {
+      selection
           .append("text")
-          .attr("y", "220px")
-          .attr("x", "200px")
+          .attr("dy", "20px")
           .style("text-anchor", "middle")
           .text(function (d) {return factMap["T!T"].aggregates[0].label;});
     };
@@ -119,6 +122,7 @@ function drawDonut(dashboard, report_id, column) {
     d3.select(svg)
         .datum(data_array)
         .call(addText)
+        .call(addTotalValue)
         .transition().duration(350)
         .call(chart);
 
