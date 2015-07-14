@@ -90,12 +90,8 @@ function drawDonut(dashboard, report_id, column) {
 
   nv.addGraph(function () {
     var chart = nv.models.pieChart()
-            .x(function (d) {
-              return d.label
-            })
-            .y(function (d) {
-              return d.value
-            })
+            .x(function (d) {return d.label})
+            .y(function (d) {return d.value})
             .showLabels(true)     //Display pie labels
             .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
             .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
@@ -142,7 +138,7 @@ function drawColumn(dashboard, report_id, column) {
   fs.appendChild(legend);
   var div = document.createElement('div');
   div.classList.add('chart');
-  div.classList.add('column');
+  div.classList.add('barChart');
   var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
@@ -152,12 +148,8 @@ function drawColumn(dashboard, report_id, column) {
 
   nv.addGraph(function () {
     var chart = nv.models.discreteBarChart()
-            .x(function (d) {
-              return d.label
-            })    //Specify the data accessors.
-            .y(function (d) {
-              return d.value
-            })
+            .x(function (d) {return d.label})    //Specify the data accessors.
+            .y(function (d) {return d.value})
             .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
             .tooltips(false)        //Don't show tooltips
             .showValues(true)       //...instead, show the bar value right on top of each bar.

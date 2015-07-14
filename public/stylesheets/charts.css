@@ -35,6 +35,6 @@ div.gauge {
     clear:left;
 }
 
-div.donut svg, div.column svg {
+div.donut svg, div.barChart svg {
     height:400px;
 }
