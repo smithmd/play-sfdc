@@ -112,9 +112,9 @@ function drawDonut(dashboard, report_id, column) {
 
     d3.select(svg)
         .datum(data_array)
+        .call(addText)
         .transition().duration(350)
-        .call(chart)
-        .call(addText);
+        .call(chart);
 
     return chart;
   });
