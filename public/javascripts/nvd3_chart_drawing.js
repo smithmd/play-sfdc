@@ -116,7 +116,7 @@ function drawColumn(dashboard, report_id, column) {
 
   var values_array = [];
 
-  for (var i = 0; i < factMap["T!T"].aggregates[i].length; i++) {
+  for (var i = 0; i < factMap["T!T"].aggregates.length; i++) {
     data_obj = {
       "label": report.reportResult.groupingsDown.groupings[i].label,
       "value": factMap["T!T"].aggregates[i].value
