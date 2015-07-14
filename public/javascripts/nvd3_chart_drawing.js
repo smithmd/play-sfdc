@@ -108,7 +108,7 @@ function drawDonut(dashboard, report_id, column) {
           .attr("y", "200px")
           .attr("x", "200px")
           .style("text-anchor", "middle")
-          .text(function (d) {return "Total:\n" + factMap["T!T"].aggregates[0].label;});
+          .text(function (d) {return "Total:";});
     };
 
     var addTotalValue = function (selection) {
@@ -123,7 +123,7 @@ function drawDonut(dashboard, report_id, column) {
     d3.select(svg)
         .datum(data_array)
         .call(addText)
-        //.call(addTotalValue)
+        .call(addTotalValue)
         .transition().duration(350)
         .call(chart);
 
