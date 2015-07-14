@@ -65,7 +65,7 @@ Basically, the controller passes data over to the view by calling the render fun
 
 To actually draw the charts, main.scala.html uses [Google Charts](https://developers.google.com/chart/) and nv.scala.html uses [NVD3](http://nvd3.org/) in addition to Google charts.
 
-Each chart needs to be handled slightly differently, so each gets its own function. I'm sure there's a way to make it more generic than this but I never had time to think about it.
+Each type of chart needs to be handled slightly differently, so each gets its own function.
 
 Each function sifts through the json for the specific report in the dashboard that it needs to display. There are several helper functions to take away some of the tedium.
 
@@ -73,7 +73,7 @@ Then the functions grab column labels and groupings. Each grouping represents a 
 
 For Google Charts, you create a data object for the visualization. In most cases this is a DataTable.
 
-The NVD3 library is used to replace Google's Gauge chart with a Bullet chart. These are fairly simple so can be made generic. One function is called to print the data to a bullet chart.
+The NVD3 library is used to to print some of the more interesting charts, such as Bullet or Donut charts. These are fairly simple so can be made generic. One function is called to print the data to a bullet chart.
 
 #### Google Chart functions
 
