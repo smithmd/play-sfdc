@@ -90,8 +90,12 @@ function drawDonut(dashboard, report_id, column) {
 
   nv.addGraph(function () {
     var chart = nv.models.pieChart()
-            .x(function (d) {return d.label})
-            .y(function (d) {return d.value})
+            .x(function (d) {
+              return d.label
+            })
+            .y(function (d) {
+              return d.value
+            })
             .showLabels(true)     //Display pie labels
             .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
             .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
@@ -114,8 +118,6 @@ function drawColumn(dashboard, report_id, column) {
   var report = getReportByIndex(dashboard, report_index);
   var factMap = report.reportResult.factMap;
 
-
-
   var values_array = [];
 
   for (var i = 0; i < factMap["T!T"].aggregates[i].length; i++) {
@@ -130,7 +132,7 @@ function drawColumn(dashboard, report_id, column) {
     {
       key: dashboard.dashboardMetadata.components[report_index].title,
       values: values_array
-  }];
+    }];
 
   // create and append fieldset
   var fs = document.createElement('fieldset');
@@ -148,21 +150,25 @@ function drawColumn(dashboard, report_id, column) {
   fs.appendChild(div);
   document.getElementById('col' + column).appendChild(fs);
 
-  nv.addGraph(function() {
-  var chart = nv.models.discreteBarChart()
-      .x(function(d) { return d.label })    //Specify the data accessors.
-      .y(function(d) { return d.value })
-      .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
-      .tooltips(false)        //Don't show tooltips
-      .showValues(true)       //...instead, show the bar value right on top of each bar.
-      ;
+  nv.addGraph(function () {
+    var chart = nv.models.discreteBarChart()
+            .x(function (d) {
+              return d.label
+            })    //Specify the data accessors.
+            .y(function (d) {
+              return d.value
+            })
+            .staggerLabels(true)    //Too many bars and not enough room? Try staggering labels.
+            .tooltips(false)        //Don't show tooltips
+            .showValues(true)       //...instead, show the bar value right on top of each bar.
+        ;
 
-  d3.select(svg)
-      .datum(data)
-      .call(chart);
+    d3.select(svg)
+        .datum(data)
+        .call(chart);
 
-  nv.utils.windowResize(chart.update);
+    nv.utils.windowResize(chart.update);
 
-  return chart;
-});
+    return chart;
+  });
 }
