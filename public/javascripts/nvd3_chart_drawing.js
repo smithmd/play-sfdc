@@ -105,6 +105,11 @@ function drawDonut(dashboard, report_id, column) {
 
     var addText = function (selection) {
       selection.append("text")
+          .attr("y", "200px")
+          .attr("x", "200px")
+          .style("text-anchor", "middle")
+          .text(function (d) {return "Total:"})
+          .append("text")
           .attr("y", "220px")
           .attr("x", "200px")
           .style("text-anchor", "middle")
