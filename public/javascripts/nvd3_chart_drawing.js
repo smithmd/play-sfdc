@@ -103,14 +103,18 @@ function drawDonut(dashboard, report_id, column) {
             .donutRatio(0.35)     //Configure how big you want the donut hole size to be.
         ;
 
+    var addText = function(selection) {
+      selection.append("text")
+        .attr("dy", "0em")
+        .style("text-anchor", "middle")
+        .text(function (d) {return "test";});
+    };
+
     d3.select(svg)
         .datum(data_array)
         .transition().duration(350)
         .call(chart)
-        .append("text")
-        .attr("dy", "1em")
-        .style("text-anchor", "middle")
-        .text(function (d) {return "test";});
+        .call(addText);
 
     return chart;
   });
