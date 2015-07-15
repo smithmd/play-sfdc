@@ -87,9 +87,14 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
   var millions_formatter = new google.visualization.NumberFormat(
       {prefix: '$', suffix: 'M', pattern: '#,###.#'}
   );
+  var percent_formatter = new google.visualization.NumberFormat(
+      {prefix: '', suffix: '%', pattern: '###.##'}
+  );
   for (i = 0; i < colsOverOneMil.length; i++) {
     if (colsOverOneMil[i] == 1) {
       millions_formatter.format(data, i + 1);
+    } else {
+      percent_formatter.format(data, i+1);
     }
   }
 
