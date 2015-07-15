@@ -57,6 +57,16 @@ function getColumnLabelsFromMetadata(report) {
   return labels;
 }
 
+function getColumnDataTypes(report) {
+  var types = [];
+
+  for (var i = 0; i < report.reportResult.reportMetadata.aggregates.length; i++) {
+    types[i] = report.reportResult.reportExtendedMetadata.aggregateColumnInfo[report.reportResult.reportMetadata.aggregates[i]].dataType;
+  }
+
+  return types;
+}
+
 function getReportMetadataByIndex(dashboard, report_index) {
   return dashboard.dashboardMetadata.components[report_index];
 }

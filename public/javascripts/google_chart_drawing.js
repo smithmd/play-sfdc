@@ -41,6 +41,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
   var data = new google.visualization.DataTable();
 
   var columnLabels = getColumnLabelsFromMetadata(report);
+  var dataTypes = getColumnDataTypes(report);
 
   var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
   var colCount = columnLabels.length;
@@ -91,9 +92,11 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
       {prefix: '', suffix: '%', pattern: '###.##'}
   );
   for (i = 0; i < colsOverOneMil.length; i++) {
-    if (colsOverOneMil[i] == 1) {
+    if (dataTypes[i] == 'int') {
+      // do nothing
+    } else if (colsOverOneMil[i] == 1 && (dataTypes[i] == 'double' || dataTypes[i] == 'currency')) {
       millions_formatter.format(data, i + 1);
-    } else {
+    } else if (dataTypes[i] == 'double') {
       percent_formatter.format(data, i+1);
     }
   }
