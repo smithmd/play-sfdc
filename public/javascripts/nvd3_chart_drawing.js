@@ -26,25 +26,41 @@ function drawBullet(dashboard, report_id, column) {
   var div = document.createElement('div');
   div.classList.add('chart');
   div.classList.add('bullet');
-  var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
-  div.appendChild(svg);
-  fs.appendChild(div);
-  document.getElementById('col' + column).appendChild(fs);
+  if (report.status.dataStatus == "DATA") {
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
-  var value = [(factMap["T!T"].aggregates[0].value / 1000000).toFixed(2)];
-  var graphData = bulletChartData(value, "Goal", range_array, [null]);
-  nv.addGraph(function () {
-    var chart = nv.models.bulletChart();
+    div.appendChild(svg);
+    fs.appendChild(div);
+    document.getElementById('col' + column).appendChild(fs);
 
-    d3.select(svg)
-        .datum(graphData)
-        .transition().duration(1000)
-        .call(chart);
+    var value = [(factMap["T!T"].aggregates[0].value / 1000000).toFixed(2)];
+    var graphData = bulletChartData(value, "Goal", range_array, [null]);
+    nv.addGraph(function () {
+      var chart = nv.models.bulletChart();
 
-    return chart;
-  });
+      d3.select(svg)
+          .datum(graphData)
+          .transition().duration(1000)
+          .call(chart);
+
+      return chart;
+    });
+
+  } else {
+    if (!window.reloadTime) {
+      window.reloadTime = 10000;
+    }
+    div.innerHTML = "This report is currently running. This page will refresh automatically in " + (window.reloadTime / 1000).toFixed(0) + " seconds.";
+    window.setTimeout(function () {
+      location.reload(true);
+    }, 10000);
+    window.setInterval(function () {
+      div.innerHTML = "This report is currently running. This page will refresh automatically in " + (window.reloadTime / 1000).toFixed(0) + " seconds.";
+    }, 1000);
+    fs.appendChild(div);
+  }
 }
 function bulletChartData(measure, report_title, range_array, markers) {
   return {
@@ -81,54 +97,73 @@ function drawDonut(dashboard, report_id, column) {
   var div = document.createElement('div');
   div.classList.add('chart');
   div.classList.add('donut');
-  var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
-  div.appendChild(svg);
-  fs.appendChild(div);
-  document.getElementById('col' + column).appendChild(fs);
+  if (report.status.dataStatus == "DATA") {
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
-  nv.addGraph(function () {
-    var chart = nv.models.pieChart()
-            .x(function (d) {
-              return d.label
-            })
-            .y(function (d) {
-              return d.value
-            })
-            .showLabels(true)     //Display pie labels
-            .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
-            .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
-            .donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
-            .donutRatio(0.4)     //Configure how big you want the donut hole size to be.
-        ;
+    div.appendChild(svg);
+    fs.appendChild(div);
+    document.getElementById('col' + column).appendChild(fs);
 
-    var addText = function (selection) {
-      selection.append("text")
-          .attr("y", "200px")
-          .attr("x", "200px")
-          .style("text-anchor", "middle")
-          .text(function (d) {return "Total:";});
-    };
+    nv.addGraph(function () {
+      var chart = nv.models.pieChart()
+              .x(function (d) {
+                return d.label
+              })
+              .y(function (d) {
+                return d.value
+              })
+              .showLabels(true)     //Display pie labels
+              .labelThreshold(.05)  //Configure the minimum slice size for labels to show up
+              .labelType("percent") //Configure what type of data to show in the label. Can be "key", "value" or "percent"
+              .donut(true)          //Turn on Donut mode. Makes pie chart look tasty!
+              .donutRatio(0.4)     //Configure how big you want the donut hole size to be.
+          ;
 
-    var addTotalValue = function (selection) {
-      selection
-          .append("text")
-          .attr("y", "220px")
-          .attr("x", "200px")
-          .style("text-anchor", "middle")
-          .text(function (d) {return factMap["T!T"].aggregates[0].label;});
-    };
+      var addText = function (selection) {
+        selection.append("text")
+            .attr("y", "200px")
+            .attr("x", "200px")
+            .style("text-anchor", "middle")
+            .text(function (d) {
+              return "Total:";
+            });
+      };
 
-    d3.select(svg)
-        .datum(data_array)
-        .call(addText)
-        .call(addTotalValue)
-        .transition().duration(350)
-        .call(chart);
+      var addTotalValue = function (selection) {
+        selection
+            .append("text")
+            .attr("y", "220px")
+            .attr("x", "200px")
+            .style("text-anchor", "middle")
+            .text(function (d) {
+              return factMap["T!T"].aggregates[0].label;
+            });
+      };
 
-    return chart;
-  });
+      d3.select(svg)
+          .datum(data_array)
+          .call(addText)
+          .call(addTotalValue)
+          .transition().duration(350)
+          .call(chart);
+
+      return chart;
+    });
+  } else {
+    if (!window.reloadTime) {
+      window.reloadTime = 10000;
+    }
+    div.innerHTML = "This report is currently running. This page will refresh automatically in " + (window.reloadTime / 1000).toFixed(0) + " seconds.";
+    window.setTimeout(function () {
+      location.reload(true);
+    }, 10000);
+    window.setInterval(function () {
+      div.innerHTML = "This report is currently running. This page will refresh automatically in " + (window.reloadTime / 1000).toFixed(0) + " seconds.";
+    }, 1000);
+    fs.appendChild(div);
+  }
 }
 
 function drawColumn(dashboard, report_id, column) {
@@ -162,32 +197,47 @@ function drawColumn(dashboard, report_id, column) {
   var div = document.createElement('div');
   div.classList.add('chart');
   div.classList.add('barChart');
-  var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
-  div.appendChild(svg);
-  fs.appendChild(div);
-  document.getElementById('col' + column).appendChild(fs);
+  if (report.status.dataStatus == "DATA") {
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 
-  nv.addGraph(function () {
-    var chart = nv.models.discreteBarChart()
-            .x(function (d) {
-              return d.label
-            })    //Specify the data accessors.
-            .y(function (d) {
-              return d.value
-            })
-            .staggerLabels(false)   //Too many bars and not enough room? Try staggering labels.
-            .tooltips(false)        //Don't show tooltips
-            .showValues(true)       //...instead, show the bar value right on top of each bar.
-        ;
+    div.appendChild(svg);
+    fs.appendChild(div);
+    document.getElementById('col' + column).appendChild(fs);
 
-    d3.select(svg)
-        .datum(data)
-        .call(chart);
+    nv.addGraph(function () {
+      var chart = nv.models.discreteBarChart()
+              .x(function (d) {
+                return d.label
+              })    //Specify the data accessors.
+              .y(function (d) {
+                return d.value
+              })
+              .staggerLabels(false)   //Too many bars and not enough room? Try staggering labels.
+              .tooltips(false)        //Don't show tooltips
+              .showValues(true)       //...instead, show the bar value right on top of each bar.
+          ;
 
-    nv.utils.windowResize(chart.update);
+      d3.select(svg)
+          .datum(data)
+          .call(chart);
 
-    return chart;
-  });
+      nv.utils.windowResize(chart.update);
+
+      return chart;
+    });
+  } else {
+    if (!window.reloadTime) {
+      window.reloadTime = 10000;
+    }
+    div.innerHTML = "This report is currently running. This page will refresh automatically in " + (window.reloadTime / 1000).toFixed(0) + " seconds.";
+    window.setTimeout(function () {
+      location.reload(true);
+    }, 10000);
+    window.setInterval(function () {
+      div.innerHTML = "This report is currently running. This page will refresh automatically in " + (window.reloadTime / 1000).toFixed(0) + " seconds.";
+    }, 1000);
+    fs.appendChild(div);
+  }
 }
