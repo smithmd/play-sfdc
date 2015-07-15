@@ -55,6 +55,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
   var factMap = report.reportResult.factMap;
 
   var colsOverOneMil = Array.apply(null, Array(colCount)).map(Number.prototype.valueOf, 0);
+  var colIsInteger = Array.apply(null, Array(colCount)).map(Number.prototype.valueOf, 0);
 
   // add data rows
   for (i = 0; i < groupings.length; i++) {
@@ -65,6 +66,9 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
       if (value > 1000) {
         colsOverOneMil[j] = 1;
         value = value / 1000000;
+      }
+      if (value.indexOf('.') === -1) {
+        colIsInteger[j] = 1;
       }
       row.push(value);
     }
@@ -96,7 +100,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
       // do nothing
     } else if (colsOverOneMil[i] == 1 && (dataTypes[i] == 'double' || dataTypes[i] == 'currency')) {
       millions_formatter.format(data, i + 1);
-    } else if (dataTypes[i] == 'double') {
+    } else if (dataTypes[i] == 'double' && colIsInteger[i] !== 1) {
       percent_formatter.format(data, i+1);
     }
   }
