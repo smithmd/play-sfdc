@@ -32,7 +32,7 @@ function getReportByIndex(dashboard, report_index) {
 }
 
 function getReportTitleByIndex(dashboard, report_index) {
-  return dashboard.dashboardMetadata.components[report_index].header;
+  return dashboard.dashboardMetadata.components[report_index].title;
 }
 
 function getColumnLabels(obj) {

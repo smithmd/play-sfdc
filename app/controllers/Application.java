@@ -34,8 +34,8 @@ public class Application extends Controller {
     private static String ENVIRONMENT = "_TEST";
 
     public static Result index() {
-        String output = "";
-        String output2 = "";
+        String dashboardList = "";
+        String dashboard = "";
         String accessToken = null;
 
         // 01ZJ00000000MNBMA2 - working
@@ -50,15 +50,15 @@ public class Application extends Controller {
             JSONObject jo = new JSONObject(jt);
             accessToken = (String)jo.get("access_token");
         } catch (JSONException je) {
-            output = "Error parsing JSON.";
+            dashboardList = "Error parsing JSON.";
         }
 
         if (accessToken != null) {
-            output = getDashboard("", accessToken);
-            output2 = getDashboard(dashboardId, accessToken);
+            dashboardList = getDashboard("", accessToken);
+            dashboard = getDashboard(dashboardId, accessToken);
         }
 
-        return ok(index.render(output,output2, dashboardId));
+        return ok(index.render(dashboardList,dashboard, getDashboardTitle(dashboard)));
     }
 
     public static Result nvindex() {
@@ -93,7 +93,7 @@ public class Application extends Controller {
         }
 
         System.out.println("Rendering");
-        return ok(nv.render(dashboardId, dashboard, dashboardList));
+        return ok(nv.render(getDashboardTitle(dashboard), dashboard, dashboardList));
     }
 
     // Methods to handle initial connection to salesforce
@@ -255,7 +255,21 @@ public class Application extends Controller {
             result = "IOException Error";
         }
 
-
         return result;
+    }
+
+    private static String getDashboardTitle(String dashboard) {
+        String title = "";
+        String output;
+
+        JSONTokener jt = new JSONTokener(dashboard);
+        try {
+            JSONObject jo = new JSONObject(jt);
+            title = (String)jo.getJSONObject("dashboardMetadata").get("name");
+        } catch (JSONException je) {
+            output = "Error parsing JSON.";
+        }
+
+        return title;
     }
 }
