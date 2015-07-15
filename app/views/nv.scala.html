@@ -34,7 +34,9 @@
                 drawBullet(dashboard, getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
                 break;
               case "Table":
-                var groupingName = getGroupingName(getReportByIndex(dashboard,i)).name;
+                var report = getReportByIndex(dashboard,i);
+                console.log(report);
+                var groupingName = getGroupingName(report).name;
                 drawTable(getReportByIndex(dashboard,i).componentId, groupingName, getChartColumn(dashboard,i), dashboard);
                 break;
               case "Donut":
