@@ -241,3 +241,4 @@ function drawColumn(dashboard, report_id, column) {
     fs.appendChild(div);
   }
 }
+

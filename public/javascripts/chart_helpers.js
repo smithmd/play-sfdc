@@ -47,6 +47,16 @@ function getColumnLabels(obj) {
   return columnLabels;
 }
 
+function getColumnLabelsFromMetadata(report) {
+  var labels = [];
+
+  for (var i = 0; i < report.reportMetadata.aggregates.length; i++) {
+    labels[i] = report.reportExtendedMetadata.aggregateColumnInfo[report.reportMetadata.aggregates[i]].label;
+  }
+
+  return labels;
+}
+
 function getReportMetadataByIndex(dashboard, report_index) {
   return dashboard.dashboardMetadata.components[report_index];
 }
