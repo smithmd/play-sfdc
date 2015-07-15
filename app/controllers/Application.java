@@ -49,7 +49,7 @@ public class Application extends Controller {
         JSONTokener jt = new JSONTokener(token);
         try {
             JSONObject jo = new JSONObject(jt);
-            accessToken = (String)jo.get("access_token");
+            accessToken = (String) jo.get("access_token");
         } catch (JSONException je) {
             dashboardList = "Error parsing JSON.";
         }
@@ -59,7 +59,7 @@ public class Application extends Controller {
             dashboard = getDashboard(dashboardId, accessToken);
         }
 
-        return ok(index.render(dashboardList,dashboard, getDashboardTitle(dashboard)));
+        return ok(index.render(dashboardList, dashboard, getDashboardTitle(dashboard)));
     }
 
     public static Result nvindex() {
@@ -78,7 +78,7 @@ public class Application extends Controller {
         JSONTokener jt = new JSONTokener(token);
         try {
             JSONObject jo = new JSONObject(jt);
-            accessToken = (String)jo.get("access_token");
+            accessToken = (String) jo.get("access_token");
             System.out.println("Token: " + accessToken);
         } catch (JSONException je) {
             dashboardList = "Error parsing JSON.";
@@ -112,7 +112,7 @@ public class Application extends Controller {
         JSONTokener jt = new JSONTokener(token);
         try {
             JSONObject jo = new JSONObject(jt);
-            accessToken = (String)jo.get("access_token");
+            accessToken = (String) jo.get("access_token");
             System.out.println("Token: " + accessToken);
         } catch (JSONException je) {
             je.printStackTrace();
@@ -125,7 +125,7 @@ public class Application extends Controller {
         }
 
         System.out.println("Rendering");
-        return ok(refresh.render(result);
+        return ok(refresh.render(result));
 
     }
 
@@ -145,7 +145,7 @@ public class Application extends Controller {
             HttpPost post = new HttpPost(tokenURL);//+params);
 
             // Add Headers
-            post.addHeader("Content-Type","application/x-www-form-urlencoded");
+            post.addHeader("Content-Type", "application/x-www-form-urlencoded");
             post.addHeader("User-Agent", "Mozilla/5.0");
             post.addHeader("Accept-Language", "en-US,en;q=0.5");
 
@@ -168,7 +168,7 @@ public class Application extends Controller {
 
             String inputLine;
 
-            while((inputLine = in.readLine()) != null) {
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
 
@@ -202,7 +202,7 @@ public class Application extends Controller {
             claimArray[0] = System.getenv().get("SECRET_KEY" + ENVIRONMENT);
             claimArray[1] = System.getenv().get("USER_NAME" + ENVIRONMENT);
             claimArray[2] = System.getenv().get("LOGIN_PATH" + ENVIRONMENT);
-            claimArray[3] = Long.toString( (System.currentTimeMillis()/1000) + 300);
+            claimArray[3] = Long.toString((System.currentTimeMillis() / 1000) + 300);
 
 
             // use the claimTemplate to format the payload properly
@@ -219,7 +219,7 @@ public class Application extends Controller {
 
             // decode the private key which is stored in base64
             Base64 b64PK = new Base64();
-            byte [] decoded = b64PK.decode(privateKeyString);
+            byte[] decoded = b64PK.decode(privateKeyString);
 
             PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
 
@@ -291,7 +291,7 @@ public class Application extends Controller {
         return result;
     }
 
-    private static String refreshDashboard(String dashboardId,String accessToken) {
+    private static String refreshDashboard(String dashboardId, String accessToken) {
         // PUT here: /services/data/v31.0/analytics/dashboards/dashboardId
         String result;
         StringBuilder response = new StringBuilder();
@@ -341,7 +341,7 @@ public class Application extends Controller {
         JSONTokener jt = new JSONTokener(dashboard);
         try {
             JSONObject jo = new JSONObject(jt);
-            title = (String)jo.getJSONObject("dashboardMetadata").get("name");
+            title = (String) jo.getJSONObject("dashboardMetadata").get("name");
         } catch (JSONException je) {
             output = "Error parsing JSON.";
         }
