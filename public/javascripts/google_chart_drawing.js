@@ -63,11 +63,11 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
     for (var j = 0; j < colCount; j++) {
       //var index = getAggregateByIndex(j, report);
       var value = factMap[i + "!T"].aggregates[j].value;
-      if (value > 1000) {
+      if (dataTypes[i].toLowerCase() != 'int' && value > 1000) {
         colsOverOneMil[j] = 1;
         value = value / 1000000;
       }
-      if (value.indexOf('.') === -1) {
+      if (String.valueOf(value).indexOf('.') === -1) {
         colIsInteger[j] = 1;
       }
       row.push(value);
@@ -80,9 +80,12 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
   for (i = 0; i < colCount; i++) {
     //var index = getAggregateByIndex(i, report);
     var value = factMap["T!T"].aggregates[i].value;
-    if (value > 1000 && dataTypes[i].toLowerCase() != 'int') {
+    if (dataTypes[i].toLowerCase() != 'int' && value > 1000) {
       colsOverOneMil[i] = 1;
       value = value / 1000000;
+    }
+    if (String.valueOf(value).indexOf('.') === -1) {
+      colIsInteger[j] = 1;
     }
     row.push(value);
   }
@@ -101,7 +104,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
     } else if (colsOverOneMil[i] == 1 && (dataTypes[i] == 'double' || dataTypes[i] == 'currency')) {
       millions_formatter.format(data, i + 1);
     } else if (dataTypes[i] == 'double' && colIsInteger[i] !== 1) {
-      percent_formatter.format(data, i+1);
+      percent_formatter.format(data, i + 1);
     }
   }
 
