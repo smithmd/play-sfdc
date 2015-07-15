@@ -50,8 +50,8 @@ function getColumnLabels(obj) {
 function getColumnLabelsFromMetadata(report) {
   var labels = [];
 
-  for (var i = 0; i < report.reportMetadata.aggregates.length; i++) {
-    labels[i] = report.reportExtendedMetadata.aggregateColumnInfo[report.reportMetadata.aggregates[i]].label;
+  for (var i = 0; i < report.reportResult.reportMetadata.aggregates.length; i++) {
+    labels[i] = report.reportResult.reportExtendedMetadata.aggregateColumnInfo[report.reportResult.reportMetadata.aggregates[i]].label;
   }
 
   return labels;
