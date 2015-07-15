@@ -63,7 +63,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
     for (var j = 0; j < colCount; j++) {
       //var index = getAggregateByIndex(j, report);
       var value = factMap[i + "!T"].aggregates[j].value;
-      if (dataTypes[i].toLowerCase() != 'int' && value > 1000) {
+      if (dataTypes[j].toLowerCase() != 'int' && value > 1000) {
         colsOverOneMil[j] = 1;
         value = value / 1000000;
       }
