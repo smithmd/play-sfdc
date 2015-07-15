@@ -66,6 +66,9 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
       if (dataTypes[j].toLowerCase() != 'int' && value > 1000) {
         colsOverOneMil[j] = 1;
         value = value / 1000000;
+      } else {
+        // assuming percent?
+        value = value * 100;
       }
       if (value.toString().indexOf('.') !== -1) {
         colIsNotInteger[j] = 1;
@@ -104,7 +107,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
     } else if (colsOverOneMil[i] == 1 && (dataTypes[i] == 'double' || dataTypes[i] == 'currency')) {
       millions_formatter.format(data, i + 1);
     } else if (dataTypes[i] == 'double' && colIsNotInteger[i] === 1) {
-      percent_formatter.format(data*100, i + 1);
+      percent_formatter.format(data, i + 1);
     }
   }
 
