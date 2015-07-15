@@ -129,6 +129,38 @@ public class Application extends Controller {
 
     }
 
+    public static Result status() {
+        String result = "";
+        String accessToken = null;
+
+        // 01ZJ00000000MNBMA2 - working
+        // 01ZJ00000000MbXMAU - not working
+        String dashboardId = System.getenv().get("DASHBOARD_ID");
+        ENVIRONMENT = (System.getenv().get("IS_LIVE").equals("1") ? "_LIVE" : "_TEST");
+
+        String token = requestAccessToken();
+
+        System.out.println("Getting token");
+        JSONTokener jt = new JSONTokener(token);
+        try {
+            JSONObject jo = new JSONObject(jt);
+            accessToken = (String) jo.get("access_token");
+            System.out.println("Token: " + accessToken);
+        } catch (JSONException je) {
+            je.printStackTrace();
+        }
+
+
+        if (accessToken != null) {
+            System.out.println("Refreshing dashboard: " + dashboardId);
+            result = statusOfDashboard(dashboardId, accessToken);
+        }
+
+        System.out.println("Rendering");
+        return ok(status.render(result));
+
+    }
+
     // Methods to handle initial connection to salesforce
     private static String requestAccessToken() {
         StringBuilder response = new StringBuilder();
@@ -311,6 +343,49 @@ public class Application extends Controller {
 
         try {
             HttpResponse resp = client.execute(put);
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(resp.getEntity().getContent())
+            );
+
+            String inputLine;
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+
+            in.close();
+
+            result = response.toString();
+            System.out.println(result);
+        } catch (ClientProtocolException cpe) {
+            result = "ClientProtocolException Error";
+        } catch (IOException ioe) {
+            result = "IOException Error";
+        }
+
+        return result;
+    }
+
+    private static String statusOfDashboard(String dashboardId, String accessToken) {
+        // PUT here: /services/data/v31.0/analytics/dashboards/dashboardId
+        String result;
+        StringBuilder response = new StringBuilder();
+
+        HttpClient client = HttpClientBuilder.create().build();
+
+        String sfURI = System.getenv().get("SF_URI" + ENVIRONMENT);
+        String dashboardPath = "/services/data/v31.0/analytics/dashboards/";
+
+        String fullURI = sfURI + dashboardPath + dashboardId + "/status";
+        System.out.println("Full URI: " + fullURI);
+        HttpGet get = new HttpGet(fullURI);
+        get.addHeader("Authorization", "Bearer " + accessToken);
+        get.addHeader("Content-Type", "application/x-www-form-urlencoded");
+        get.addHeader("User-Agent", "Mozilla/5.0");
+        get.addHeader("Accept-Language", "en-US,en;q=0.5");
+
+        try {
+            HttpResponse resp = client.execute(get);
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(resp.getEntity().getContent())
             );
