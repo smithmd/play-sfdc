@@ -67,7 +67,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
         colsOverOneMil[j] = 1;
         value = value / 1000000;
       }
-      if (String.valueOf(value).indexOf('.') === -1) {
+      if (value.toString().indexOf('.') === -1) {
         colIsInteger[j] = 1;
       }
       row.push(value);
@@ -84,7 +84,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
       colsOverOneMil[i] = 1;
       value = value / 1000000;
     }
-    if (String.valueOf(value).indexOf('.') === -1) {
+    if (value.toString().indexOf('.') === -1) {
       colIsInteger[j] = 1;
     }
     row.push(value);
