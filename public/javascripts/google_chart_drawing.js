@@ -40,7 +40,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
   // init google chart
   var data = new google.visualization.DataTable();
 
-  var columnLabels = getColumnLabelsFromMetadata(report.reportResult.reportExtendedMetadata.aggregateColumnInfo);
+  var columnLabels = getColumnLabelsFromMetadata(report);
 
   var groupings = getGroupings(report.reportResult.groupingsDown.groupings);
   var colCount = columnLabels.length;
