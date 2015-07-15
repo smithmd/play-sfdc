@@ -14,6 +14,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import play.api.libs.json.Json;
 import play.mvc.*;
 
 import views.html.*;
@@ -125,7 +126,7 @@ public class Application extends Controller {
         }
 
         System.out.println("Rendering");
-        return ok(refresh.render(result));
+        return ok(refresh.render(Json.prettyPrint(Json.parse(result))));
 
     }
 
@@ -157,7 +158,7 @@ public class Application extends Controller {
         }
 
         System.out.println("Rendering");
-        return ok(status.render(result));
+        return ok(status.render(Json.prettyPrint(Json.parse(result))));
 
     }
 
