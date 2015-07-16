@@ -55,7 +55,7 @@
           url:"/refresh",
           json:true
         }).then(function(result) {
-          setTimeout(function() { // make the execution wait until the refresh starts
+//          setTimeout(function() { // make the execution wait until the refresh starts
             window.intervalId = setInterval(function() {
               marmottajax({
                 url:"/status",
@@ -77,7 +77,7 @@
                 link.innerHTML = "Something has gone wrong... Please try again later.";
               });
             },2000);
-          },2000);
+//          },2000);
         });
       }
     </script>
