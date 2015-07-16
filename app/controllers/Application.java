@@ -105,6 +105,7 @@ public class Application extends Controller {
         return ok(nv.render(getDashboardTitle(dashboard), dashboard, dashboardList));
     }
 
+    @BodyParser.Of(play.mvc.BodyParser.Json.class)
     public static Result refresh() {
         String result = "";
         String accessToken = null;
@@ -133,7 +134,7 @@ public class Application extends Controller {
         }
 
         System.out.println("Rendering");
-        return ok(refresh.render(play.api.libs.json.Json.prettyPrint(play.api.libs.json.Json.parse(result))));
+        return ok(play.libs.Json.parse(result));
 
     }
 
