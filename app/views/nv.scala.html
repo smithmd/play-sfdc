@@ -57,7 +57,7 @@
         }).then(function(result) {
 
           setTimeout(function() { // make the execution wait until the refresh starts
-            setInterval(function() {
+            window.intervalId = setInterval(function() {
               marmottajax({
                 url:"/status",
                 json:true
@@ -70,6 +70,7 @@
                 }
                 link.innerHTML = 'Refreshing Dashboard. ' + idleCount + ' of ' + result.componentStatus.length + ' reports updated.';
                 if (idleCount == result.componentStatus.length) {
+                  clearInterval(window.intervalId);
                   location.reload(true);
                 }
               }).error(function() {
