@@ -98,7 +98,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
   var percent_formatter = new google.visualization.NumberFormat(
       {prefix: '', suffix: '%', pattern: '#,###.##'}
   );
-  var decimal_formatter = new google.vizualization.NumberFormat(
+  var decimal_formatter = new google.visualization.NumberFormat(
       {prefix: '', suffix: '', pattern: '#.##'}
   );
   for (i = 0; i < colsOverOneMil.length; i++) {
