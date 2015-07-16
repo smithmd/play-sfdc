@@ -50,7 +50,27 @@
       function refreshDashboard() {
         // make ajax call to /refresh
         marmottajax("/refresh").then(function() {
-          document.getElementById("dashboard_controls").innerHTML = 'Refreshing Dashboard. Please wait.';
+          var linkText = document.getElementById("dashboard_controls").innerHTML;
+          linkText = 'Refreshing Dashboard. Please wait.';
+          setInterval(function() {
+            marmottajax({
+              url:"/status",
+              json:true
+            }).then(function(result) {
+              var idleCount = 0;
+              for (var i = 0; i < result.componentStatus.length; i++) {
+                if (result.componentStatus[i].refreshStatus == "IDLE") {
+                  idleCount++;
+                }
+              }
+              linkText = 'Refreshing Dashboard. ' + idleCount + ' of ' + result.componentStatus.length + ' reports updated.';
+              if (idleCount == result.componentStatus.length) {
+                location.reload(true);
+              }
+            }).error(function() {
+              linkText = "Something has gone wrong... Please try again later.";
+            });
+          },2000);
           // wait a few seconds, then call /status
           // loop call to /status until X/X reports say 'IDLE' in refreshStatus
           // reload page to grab latest data
