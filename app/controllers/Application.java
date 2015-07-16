@@ -157,7 +157,7 @@ public class Application extends Controller {
         }
 
         System.out.println("Rendering");
-        return ok(status.render(Json.prettyPrint(Json.parse(result))));
+        return ok(status.render(result));
     }
 
     // Methods to handle initial connection to salesforce
