@@ -98,15 +98,18 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
   var percent_formatter = new google.visualization.NumberFormat(
       {prefix: '', suffix: '%', pattern: '#,###.##'}
   );
+  var decimal_formatter = new google.vizualization.NumberFormat(
+      {prefix: '', suffix: '', pattern: '#.##'}
+  );
   for (i = 0; i < colsOverOneMil.length; i++) {
     if (dataTypes[i] == 'int') {
       // do nothing
     } else if (colsOverOneMil[i] == 1 && (dataTypes[i] == 'double' || dataTypes[i] == 'currency')) {
       millions_formatter.format(data, i + 1);
+    } else if (dataTypes[i] == 'double' && colIsNotInteger[i] === 1) {
+      //percent_formatter.format(data, i + 1);
+      decimal_formatter.format(data,i+1);
     }
-    //else if (dataTypes[i] == 'double' && colIsNotInteger[i] === 1) {
-    //  percent_formatter.format(data, i + 1);
-    //}
   }
 
   var options = {
