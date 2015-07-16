@@ -80,13 +80,18 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
   for (i = 0; i < colCount; i++) {
     //var index = getAggregateByIndex(i, report);
     var value = factMap["T!T"].aggregates[i].value;
+    var tmp_val = null;
     if (dataTypes[i].toLowerCase() != 'int' && value > 1000) {
       colsOverOneMil[i] = 1;
-      value = value / 1000000;
+      tmp_val = value / 1000000;
     }
     if (value.toString().indexOf('.') !== -1) {
       colIsNotInteger[j] = 1;
     }
+    if (colIsNotInteger[j] == 1 && value < 100) {
+      tmp_val = value * 100;
+    }
+    value = tmp_val;
     row.push(value);
   }
   data.addRows([row]);
@@ -107,8 +112,8 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
     } else if (colsOverOneMil[i] == 1 && (dataTypes[i] == 'double' || dataTypes[i] == 'currency')) {
       millions_formatter.format(data, i + 1);
     } else if (dataTypes[i] == 'double' && colIsNotInteger[i] === 1) {
-      //percent_formatter.format(data, i + 1);
-      decimal_formatter.format(data,i+1);
+      percent_formatter.format(data, i + 1);
+      //decimal_formatter.format(data,i+1);
     }
   }
 
