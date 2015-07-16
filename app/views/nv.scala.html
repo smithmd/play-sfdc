@@ -51,7 +51,10 @@
         // make ajax call to /refresh
         var link = document.getElementById("dashboard_controls");
         link.innerHTML = 'Refreshing Dashboard. Please wait.';
-        marmottajax("/refresh").then(function(result) {
+        marmottajax({
+          url:"/refresh",
+          json:true
+        }).then(function(result) {
 
           setTimeout(function() { // make the execution wait until the refresh starts
             setInterval(function() {
