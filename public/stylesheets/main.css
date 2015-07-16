@@ -4,4 +4,7 @@ html, body {
 #dashboard_controls {
     width:100%;
     clear: both;
+    margin:0 0 1em;
+    line-height: 2;
+
 }
