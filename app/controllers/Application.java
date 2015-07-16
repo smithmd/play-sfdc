@@ -151,7 +151,6 @@ public class Application extends Controller {
             je.printStackTrace();
         }
 
-
         if (accessToken != null) {
             System.out.println("Refreshing dashboard: " + dashboardId);
             result = statusOfDashboard(dashboardId, accessToken);
@@ -159,7 +158,6 @@ public class Application extends Controller {
 
         System.out.println("Rendering");
         return ok(status.render(Json.prettyPrint(Json.parse(result))));
-
     }
 
     // Methods to handle initial connection to salesforce
