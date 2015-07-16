@@ -49,8 +49,8 @@
 
       function refreshDashboard() {
         // make ajax call to /refresh
-        var linkText = document.getElementById("dashboard_controls").innerHTML;
-        linkText = 'Refreshing Dashboard. Please wait.';
+        var link = document.getElementById("dashboard_controls");
+        link.innerHTML = 'Refreshing Dashboard. Please wait.';
         marmottajax("/refresh").then(function() {
           setTimeout(function() { // make the execution wait until the refresh starts
             setInterval(function() {
@@ -64,12 +64,12 @@
                     idleCount++;
                   }
                 }
-                linkText = 'Refreshing Dashboard. ' + idleCount + ' of ' + result.componentStatus.length + ' reports updated.';
+                link.innerHTML = 'Refreshing Dashboard. ' + idleCount + ' of ' + result.componentStatus.length + ' reports updated.';
                 if (idleCount == result.componentStatus.length) {
                   location.reload(true);
                 }
               }).error(function() {
-                linkText = "Something has gone wrong... Please try again later.";
+                link.innerHTML = "Something has gone wrong... Please try again later.";
               });
             },2000);
           },2000);
