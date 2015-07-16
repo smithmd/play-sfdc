@@ -106,7 +106,7 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
       {prefix: '$', suffix: 'M', pattern: '#,###.#'}
   );
   var percent_formatter = new google.visualization.NumberFormat(
-      {prefix: '', suffix: '%', pattern: '#,###.##'}
+      {prefix: '', suffix: '%', pattern: '#,###'}
   );
   var decimal_formatter = new google.visualization.NumberFormat(
       {prefix: '', suffix: '', pattern: '#.##'}
