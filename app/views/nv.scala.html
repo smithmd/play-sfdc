@@ -17,35 +17,35 @@
     <script src="@routes.Assets.at("javascripts/marmottajax.min.js")"></script>
     <script type="application/javascript" src="https://www.google.com/jsapi"></script>
     <script>
-        @*var fullDBList = @Html(fullList);*@
-        var dashboard = @Html(data);
-        console.log(dashboard);
+      @*var fullDBList = @Html(fullList);*@
+      var dashboard = @Html(data);
+      console.log(dashboard);
 
-        // Load the Visualization API and the required packages
-        google.load('visualization', '1.0', {'packages':['table']});
+      // Load the Visualization API and the required packages
+      google.load('visualization', '1.0', {'packages':['table']});
 
-        // Set a callback to run when the Google Visualization API is loaded.
-        google.setOnLoadCallback(drawCharts);
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawCharts);
 
-        function drawCharts() {
+      function drawCharts() {
 
-          for (var i = 0; i < dashboard.componentData.length; i++) {
-            switch(getChartType(dashboard, i)) {
-              case "Gauge":
-                drawBullet(dashboard, getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
-                break;
-              case "Table":
-                drawTable(getReportByIndex(dashboard,i).componentId, getGroupingName(getReportByIndex(dashboard,i)).name, getChartColumn(dashboard,i), dashboard);
-                break;
-              case "Donut":
-                drawDonut(dashboard,getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
-                break;
-              case "Column":
-                drawColumn(dashboard, getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
-                break;
-            }
+        for (var i = 0; i < dashboard.componentData.length; i++) {
+          switch(getChartType(dashboard, i)) {
+            case "Gauge":
+              drawBullet(dashboard, getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
+              break;
+            case "Table":
+              drawTable(getReportByIndex(dashboard,i).componentId, getGroupingName(getReportByIndex(dashboard,i)).name, getChartColumn(dashboard,i), dashboard);
+              break;
+            case "Donut":
+              drawDonut(dashboard,getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
+              break;
+            case "Column":
+              drawColumn(dashboard, getReportByIndex(dashboard,i).componentId, getChartColumn(dashboard,i));
+              break;
           }
         }
+      }
     </script>
   </head>
   <body>
