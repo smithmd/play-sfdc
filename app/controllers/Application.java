@@ -32,6 +32,13 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.BodyParser;
+import play.libs.Json.*;
+
+import static play.libs.Json.toJson;
+
 public class Application extends Controller {
     private static String ENVIRONMENT = "_TEST";
 
@@ -126,10 +133,11 @@ public class Application extends Controller {
         }
 
         System.out.println("Rendering");
-        return ok(refresh.render(Json.prettyPrint(Json.parse(result))));
+        return ok(refresh.render(play.api.libs.json.Json.prettyPrint(play.api.libs.json.Json.parse(result))));
 
     }
 
+    @BodyParser.Of(play.mvc.BodyParser.Json.class)
     public static Result status() {
         String result = "";
         String accessToken = null;
@@ -157,7 +165,7 @@ public class Application extends Controller {
         }
 
         System.out.println("Rendering");
-        return ok(status.render(result));
+        return ok(play.libs.Json.parse(result));
     }
 
     // Methods to handle initial connection to salesforce
