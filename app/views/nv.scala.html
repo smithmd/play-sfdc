@@ -55,29 +55,27 @@
           url:"/refresh",
           json:true
         }).then(function(result) {
-//          setTimeout(function() { // make the execution wait until the refresh starts
-            window.intervalId = setInterval(function() {
-              marmottajax({
-                url:"/status",
-                json:true
-              }).then(function(result) {
-                var idleCount = 0;
-                for (var i = 0; i < result.componentStatus.length; i++) {
-                  if (result.componentStatus[i].refreshStatus == "IDLE") {
-                    idleCount++;
-                  }
+          window.intervalId = setInterval(function() {
+            marmottajax({
+              url:"/status",
+              json:true
+            }).then(function(result) {
+              var idleCount = 0;
+              for (var i = 0; i < result.componentStatus.length; i++) {
+                if (result.componentStatus[i].refreshStatus == "IDLE") {
+                  idleCount++;
                 }
-                link.innerHTML = 'Refreshing dashboard. ' + idleCount + ' of ' + result.componentStatus.length + ' reports updated.';
-                if (idleCount == result.componentStatus.length) {
-                  clearInterval(window.intervalId);
-                  link.innerHTML += ' Reloading page.';
-                  location.reload(true);
-                }
-              }).error(function() {
-                link.innerHTML = "Something has gone wrong... Please try again later.";
-              });
-            },2000);
-//          },2000);
+              }
+              link.innerHTML = 'Refreshing dashboard. ' + idleCount + ' of ' + result.componentStatus.length + ' reports updated.';
+              if (idleCount == result.componentStatus.length) {
+                clearInterval(window.intervalId);
+                link.innerHTML += ' Reloading page.';
+                location.reload(true);
+              }
+            }).error(function() {
+              link.innerHTML = "Something has gone wrong... Please try again later.";
+            });
+          },2000);
         });
       }
     </script>
