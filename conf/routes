@@ -3,9 +3,13 @@
 # ~~~~
 
 # Home page
-GET        /gchart              controllers.Application.index()
 GET        /                    controllers.Application.nvindex()
+# Google chart only page. Currently not used.
+#GET        /gchart              controllers.Application.index()
+
+# Route to refresh the dashboard; returns JSON
 GET        /refresh             controllers.Application.refresh()
+# Route to get status of the dashboard; returns JSON
 GET        /status              controllers.Application.status()
 
 # Map static resources from the /public folder to the /assets URL path

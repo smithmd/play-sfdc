@@ -77,7 +77,7 @@ To actually draw the charts, `main.scala.html` uses [Google Charts](https://deve
 `nv.scala.html` uses [NVD3](http://nvd3.org/) in addition to Google charts.
 
 Each type of chart needs to be handled slightly differently, so each gets its own function. The type of chart to be
-drawn is pulled from the metadata passed in from salesforce.
+drawn is determined by the metadata passed in from salesforce.
 
 Each function sifts through the json for the specific report in the dashboard that it needs to display. There are
 several helper functions to take away some of the tedium.
