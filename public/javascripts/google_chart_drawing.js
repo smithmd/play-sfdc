@@ -64,13 +64,16 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
       //var index = getAggregateByIndex(j, report);
       var value = factMap[i + "!T"].aggregates[j].value;
       var tmp_val = value;
+      // assume the value is millions of dollars
       if (dataTypes[j].toLowerCase() != 'int' && value > 1000) {
         colsOverOneMil[j] = 1;
         tmp_val = value / 1000000;
       }
+      // determine if the column isn't an integer
       if (value.toString().indexOf('.') !== -1) {
         colIsNotInteger[j] = 1;
       }
+      // if it's not an integer and it's not over 1000, assume the value is a percentage
       if (colIsNotInteger[j] === 1 && value < 100) {
         tmp_val = value * 100;
       }

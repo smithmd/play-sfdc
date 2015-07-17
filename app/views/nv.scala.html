@@ -55,6 +55,7 @@
           url:"/refresh",
           json:true
         }).then(function(result) {
+          // set interval to poll for changes in the dashboard until all reports are refreshed
           window.intervalId = setInterval(function() {
             marmottajax({
               url:"/status",
