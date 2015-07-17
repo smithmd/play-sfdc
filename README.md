@@ -93,11 +93,6 @@ fairly simple so can be made generic. One function is called to print the data t
 
 This is the more complex form of chart on the pages.
 
-Each google chart draw function is named draw<Id> where <Id> is the full Id of the report in the dashboard. I realize
-now that's a bad way to do it because the Ids will be different in different environments. As a result, this code
-doesn't work anymore. This should be updated to be data driven somehow. As a short term, the functions can be updated
-with new values for report IDs.
-
 Data is loaded into a DataTable object. Columns are added first with `addColumn(string Type, string Label)`. Data is
 added to the table with `addRows()`.
 
