@@ -123,7 +123,7 @@ function drawDonut(dashboard, report_id, column) {
 
       var addText = function (selection) {
         selection.append("text")
-            .attr("y", "200px")
+            .attr("y", "160px")
             .attr("x", "200px")
             .style("text-anchor", "middle")
             .text(function (d) {
@@ -134,7 +134,7 @@ function drawDonut(dashboard, report_id, column) {
       var addTotalValue = function (selection) {
         selection
             .append("text")
-            .attr("y", "220px")
+            .attr("y", "180px")
             .attr("x", "200px")
             .style("text-anchor", "middle")
             .text(function (d) {
