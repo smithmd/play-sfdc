@@ -1,7 +1,7 @@
 html, body {
     font-family: Optima,Helvetica,sans-serif;
 }
-#dashboard_controls {
+#dashboard_controls,#dashboard_description {
     width:100%;
     clear: both;
     margin:0 0 1em;

@@ -28,6 +28,7 @@
       google.setOnLoadCallback(drawCharts);
 
       function drawCharts() {
+        document.getElementById('dashboard_description').innerHTML = dashboard.dashboardMetadata.description;
 
         for (var i = 0; i < dashboard.componentData.length; i++) {
           switch(getChartType(dashboard, i)) {
@@ -83,6 +84,7 @@
   </head>
   <body>
     <div id="dashboard_controls"><a href="javascript:void(0);" onclick="refreshDashboard()">Refresh dashboard</a></div>
+    <div id="dashboard_description"></div>
     <div class="column" id="col0">
     </div>
     <div class="column" id="col1">
