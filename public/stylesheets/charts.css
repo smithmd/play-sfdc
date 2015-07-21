@@ -36,5 +36,5 @@ div.gauge {
 }
 
 div.donut svg, div.barChart svg {
-    height:400px;
+    height:300px;
 }
