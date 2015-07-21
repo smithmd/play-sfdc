@@ -83,27 +83,29 @@ function drawTable(report_id, groupingInfo, column, dashboard) {
     data.addRows([row]);
   }
 
-  // add aggregate data row
-  var row = ['Total'];
-  for (i = 0; i < colCount; i++) {
-    //var index = getAggregateByIndex(i, report);
-    var value = factMap["T!T"].aggregates[i].value;
-    var tmp_val = value;
-    if (dataTypes[i].toLowerCase() != 'int' && value > 1000) {
-      colsOverOneMil[i] = 1;
-      tmp_val = value / 1000000;
+  // check to make sure total exists on chart before trying to print it.
+  if (factMap["T!T"] && factMap["T!T"].aggregates) {
+    // add aggregate data row
+    var row = ['Total'];
+    for (i = 0; i < colCount; i++) {
+      //var index = getAggregateByIndex(i, report);
+      var value = factMap["T!T"].aggregates[i].value;
+      var tmp_val = value;
+      if (dataTypes[i].toLowerCase() != 'int' && value > 1000) {
+        colsOverOneMil[i] = 1;
+        tmp_val = value / 1000000;
+      }
+      if (value.toString().indexOf('.') !== -1) {
+        colIsNotInteger[j] = 1;
+      }
+      if (colIsNotInteger[j] === 1 && value < 100) {
+        tmp_val = value * 100;
+      }
+      value = tmp_val;
+      row.push(value);
     }
-    if (value.toString().indexOf('.') !== -1) {
-      colIsNotInteger[j] = 1;
-    }
-    if (colIsNotInteger[j] === 1 && value < 100) {
-      tmp_val = value * 100;
-    }
-    value = tmp_val;
-    row.push(value);
+    data.addRows([row]);
   }
-  data.addRows([row]);
-
   // format numbers to dollars
   var millions_formatter = new google.visualization.NumberFormat(
       {prefix: '$', suffix: 'M', pattern: '#,###.#'}
